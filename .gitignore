@@ -1,0 +1,10 @@
+# Angular
+**/node_modules/
+**/dist/
+**/.angular/
+
+# Spring Boot / Java
+**/target/
+**/.gradle/
+**/build/
+**.class
