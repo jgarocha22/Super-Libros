@@ -7,6 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +32,9 @@ public class CompradorService {
         if (emailExiste) {
             throw new RuntimeException("El correo electrónico ya se encuentra registrado por otro usuario.");
         }
+
+        // Ciframos la contraseña antes de guardarla
+        nuevoComprador.setPassword(hashPassword(nuevoComprador.getPassword()));
 
         long proximoId = compradores.stream()
                 .mapToLong(Comprador::getId)
@@ -57,7 +63,11 @@ public class CompradorService {
 
         Comprador comprador = usuarioEncontrado.get();
 
-        if (!comprador.getPassword().equals(password)) {
+        // En el login, aplicamos el hash a la contraseña recibida 
+        // y la comparamos con el hash guardado en el JSON
+        String hashedInput = hashPassword(password);
+
+        if (!comprador.getPassword().equals(hashedInput)) {
             System.err.println("❌ [ERROR LOGIN] Contraseña incorrecta para: '" + identificador + "'.");
             // Lanza un 401 Unauthorized automático hacia Angular
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Contraseña incorrecta.");
@@ -65,5 +75,26 @@ public class CompradorService {
 
         System.out.println("🎉 [ÉXITO LOGIN] El comprador con credencial '" + identificador + "' ha iniciado sesión correctamente.");
         return comprador;
+    }
+
+    /**
+     * Método utilitario para convertir una cadena de texto a un hash SHA-256.
+     */
+    private String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] encodedHash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+            
+            // Convertimos los bytes a representación hexadecimal
+            StringBuilder hexString = new StringBuilder(2 * encodedHash.length);
+            for (byte b : encodedHash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Error crítico: No se pudo encontrar el algoritmo SHA-256", e);
+        }
     }
 }

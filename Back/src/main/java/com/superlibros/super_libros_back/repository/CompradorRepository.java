@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public class CompradorRepository {
     // Ruta óptima en la raíz del Back para evitar borrados al recompilar
-    private final String FILE_PATH = "data/json/comprador.json";
+    private final String FILE_PATH = "src/main/resources/comprador.json"; // data/json/comprador.json
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     // Lee todos los compradores del archivo JSON
