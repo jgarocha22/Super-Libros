@@ -1,0 +1,63 @@
+<div class="background-container">
+  <div class="card-auth">
+    <h1 class="title">SuperLibros</h1>
+    <h2 class="subtitle">Regístrate</h2>
+    <hr class="divider">
+
+    <form [formGroup]="formRegistro" (ngSubmit)="onSubmit()">
+      
+      <div class="form-group">
+        <label>Nombre de Usuario</label>
+        <input type="text" formControlName="username" placeholder="Ingrese su nombre de usuario">
+        <small class="hint">No se permiten espacios.</small>
+        <span *ngIf="formRegistro.get('username')?.touched && formRegistro.get('username')?.invalid" class="error-msg">
+          El nombre de usuario es requerido y no debe contener espacios.
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label>Correo Electrónico</label>
+        <input type="email" formControlName="email" placeholder="Ingrese su correo electronico">
+        <span *ngIf="formRegistro.get('email')?.touched && formRegistro.get('email')?.invalid" class="error-msg">
+          Ingrese un correo electrónico válido.
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" formControlName="password" placeholder="Ingrese su contraseña">
+        <small class="hint">Debe contener: Una mayúscula, una minúscula, un número y un carácter especial.</small>
+        <span *ngIf="formRegistro.get('password')?.touched && formRegistro.get('password')?.invalid" class="error-msg">
+          La contraseña debe tener al menos 8 caracteres y cumplir las condiciones de seguridad.
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label>Confirmar Contraseña</label>
+        <input type="password" formControlName="confirmPassword" placeholder="Ingrese su contraseña una vez más">
+        <span *ngIf="formRegistro.get('confirmPassword')?.touched && formRegistro.hasError('passwordsNotMatching')" class="error-msg">
+          Las contraseñas no coinciden.
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label>Dirección de Habitación / Envío</label>
+        <textarea formControlName="direccion" placeholder="Ingrese su dirección completa (Calle, Av, Casa/Apto, Ciudad)"></textarea>
+        <span *ngIf="formRegistro.get('direccion')?.touched && formRegistro.get('direccion')?.invalid" class="error-msg">
+          La dirección es obligatoria y debe ser detallada (mínimo 10 caracteres).
+        </span>
+      </div>
+
+      <div style="margin-bottom: 15px; text-align: center;">
+          <p *ngIf="mensajeExito()" style="color: #2e7d32; font-weight: bold; background-color: #e8f5e9; padding: 10px; border-radius: 5px;">
+            {{ mensajeExito() }}
+          </p>
+          <p *ngIf="mensajeError()" style="color: #c62828; font-weight: bold; background-color: #ffebee; padding: 10px; border-radius: 5px;">
+            {{ mensajeError() }}
+          </p>
+      </div>
+
+      <button type="submit" class="btn-submit" [disabled]="formRegistro.invalid">Registrarse</button>
+    </form>
+  </div>
+</div>
