@@ -1,0 +1,152 @@
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 15px 40px;
+  border-bottom: 1px solid #f0f0f0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* LOGO */
+.navbar-logo {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #000000;
+  cursor: pointer;
+  letter-spacing: -1px;
+}
+
+/* BUSCADOR CENTRAL */
+.navbar-search-container {
+  position: relative;
+  width: 45%;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 20px;
+  padding-right: 45px;
+  border: none;
+  background-color: #f3eff6;
+  border-radius: 30px;
+  font-size: 0.95rem;
+  color: #555;
+  outline: none;
+}
+
+.search-icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #777;
+  cursor: pointer;
+}
+
+/* BLOQUE DE ACCIONES (DERECHA) */
+.navbar-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.auth-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* BOTONES AUTENTICACIÓN */
+.btn-login {
+  background-color: #e6e0fa;
+  color: #4a3b8c;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-login:hover {
+  background-color: #dcd4f7;
+}
+
+.btn-register, .btn-logout {
+  background: none;
+  border: none;
+  color: #555555;
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+}
+
+.btn-register:hover, .btn-logout:hover {
+  color: #000000;
+}
+
+/* COMPONENTE DE USUARIO LOGUEADO */
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.avatar-img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar-fallback {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #7c69a3;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.username-text {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #333;
+}
+
+/* SECCIÓN CARRITO */
+.cart-row {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-cart {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #69529e;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cart-text {
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
+.btn-cart:hover .cart-text {
+  text-decoration: underline;
+}
