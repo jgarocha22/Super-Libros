@@ -4,15 +4,20 @@
 
   <div class="navbar-search-container">
     <input type="text" placeholder="Busca por Título, Autor, o Categoría..." class="search-input">
-    <span class="search-icon">🔍</span>
+    <span class="search-icon">
+      <img src="assets/icons/search.svg" alt="Icono de Busqueda">
+    </span>
   </div>
 
   <div class="navbar-actions">
     <div class="auth-row">
       
       @if (!loginService.currentUser()) {
-        <button class="btn-login" routerLink="/login">👤 INICIAR SESIÓN</button>
-        <button class="btn-register" routerLink="/registro">✨ REGISTRARSE</button>
+        <button class="btn-login" routerLink="/login">
+          <img src="assets/icons/login.svg" alt="Login icon"> INICIAR SESIÓN
+        </button>
+
+        <button class="btn-register" routerLink="/registro">REGISTRARSE</button>
       }
       @else {
         <div class="user-profile" routerLink="/perfil">
@@ -26,14 +31,16 @@
           <span class="username-text">{{ loginService.currentUser().username | uppercase }}</span>
         </div>
         
-        <button class="btn-logout" (click)="cerrarSesion()">🚪 CERRAR SESIÓN</button>
+        <button class="btn-logout" (click)="cerrarSesion()">
+          <img src="assets/icons/logOut.svg" alt="logout icon"> CERRAR SESIÓN
+        </button>
       }
 
     </div>
 
     <div class="cart-row">
       <button class="btn-cart" (click)="manejarClickCarrito()">
-        🛒 <span class="cart-text">CARRITO</span>
+        <img src="assets/icons/shopping_cart.svg" alt="carrito icon"> <span class="cart-text">CARRITO</span>
       </button>
     </div>
   </div>

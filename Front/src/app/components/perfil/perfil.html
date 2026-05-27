@@ -1,0 +1,83 @@
+<div class="perfil-container" *ngIf="loginService.currentUser()">
+  
+  <div class="perfil-header">
+    <div class="linea-decorativa"></div>
+    <h1>PERFIL</h1>
+    <div class="linea-decorativa"></div>
+  </div>
+
+  <div class="perfil-grid">
+    
+    <div class="columna-izquierda">
+      
+      <div class="avatar-seccion">
+        <div class="avatar-wrapper">
+          <img *ngIf="loginService.currentUser().fotoPerfil; else soloInicial" 
+               [src]="loginService.currentUser().fotoPerfil" alt="Foto de perfil" class="perfil-img">
+          <ng-template #soloInicial>
+            <div class="perfil-avatar-fallback">{{ inicialUsuario }}</div>
+          </ng-template>
+
+          <!--
+          <label for="upload-pfp" class="btn-cambiar-foto">
+            ✏️
+          </label>
+          <input type="file" id="upload-pfp" accept="image/*" (change)="onFotoSelected($event)" style="display: none;">
+          -->
+
+        </div>
+        
+        <h2 class="perfil-username">{{ loginService.currentUser().username }}</h2>
+      </div>
+
+      <div class="info-card">
+        <h3>Información de Perfil</h3>
+        
+        <div class="info-group">
+          <label>Correo Electrónico</label>
+          <div class="info-value-box">{{ loginService.currentUser().email }}</div>
+        </div>
+
+        <div class="info-group">
+          <label>Contraseña</label>
+          <div class="info-value-box">************************</div>
+        </div>
+
+        <div class="info-group">
+          <label>Dirección de Registro</label>
+          <div class="info-value-box">
+            {{ loginService.currentUser().direccion || 'No se especificó dirección en el registro' }}
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="columna-derecha">
+      <div class="historial-card">
+        <h3>Historial de Libros Comprados</h3>
+        
+        <div class="libros-lista">
+          @for (libro of librosComprados(); track libro.titulo) {
+            <div class="libro-item-card">
+              <div class="libro-img-placeholder">
+                <img src="assets/icons/libro-placeholder.svg" alt="Libro Placeholder" class="libro-icon-img">
+              </div>
+              <div class="libro-detalles">
+                <h4>{{ libro.titulo }}</h4>
+                <p class="libro-autor">Por: {{ libro.autor }}</p>
+                <p class="libro-fecha">Comprado el: {{ libro.fechaCompra }}</p>
+              </div>
+              <div class="libro-status-badge">
+                Adquirido
+              </div>
+            </div>
+          } @empty {
+            <p class="no-compras">Aún no has realizado ninguna compra.</p>
+          }
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
