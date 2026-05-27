@@ -6,4 +6,12 @@
   "direccion" : "mi casa osi osi",
   "carrito" : [ ],
   "librosComprados" : [ ]
+}, {
+  "id" : 3,
+  "username" : "prueba2",
+  "email" : "test2@mail.com",
+  "password" : "a109e36947ad56de1dca1cc49f0ef8ac9ad9a7b1aa0df41fb3c4cb73c1ff01ea",
+  "direccion" : "Password123!",
+  "carrito" : [ ],
+  "librosComprados" : [ ]
 } ]
