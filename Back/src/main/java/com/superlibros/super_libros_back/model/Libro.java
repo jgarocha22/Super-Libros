@@ -10,11 +10,12 @@ public class Libro {
     private List<String> Tags;
     private int Stock;
     private double precio;
+    private List<Reseña> Reseñas;
 
     public Libro(){
     }
 
-    public Libro(String id, String nombre, String editorial, String sinopsis, String autor, String imagenurl, List<String> tags, int stock, double precio){
+    public Libro(String id, String nombre, String editorial, String sinopsis, String autor, String imagenurl, List<String> tags, int stock, double precio, List<Reseña> reseñas) {
         this.ID = id;
         this.Nombre = nombre;
         this.Editorial = editorial;
@@ -24,6 +25,7 @@ public class Libro {
         this.Tags = tags;
         this.Stock = stock;
         this.precio = precio;
+        this.Reseñas = reseñas;
     }
 
     public String getId() {return ID;}
@@ -52,5 +54,8 @@ public class Libro {
 
     public double getPrecio() {return precio;}
     public void setPrecio(double precio) {this.precio = precio;}
+
+    public List<Reseña> getreseñas() {return Reseñas;}
+    public void setReseñas(List<Reseña> reseñas) {this.Reseñas = reseñas;}
 
 }
