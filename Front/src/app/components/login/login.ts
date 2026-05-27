@@ -1,7 +1,8 @@
-import { Component, ChangeDetectorRef } from '@angular/core'; // <-- 1. IMPORTA 'ChangeDetectorRef'
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { LoginService } from '../../services/login.service'; 
+import { LoginService } from '../../services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,7 @@ import { LoginService } from '../../services/login.service';
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
+
 export class LoginComponent {
 
   errorMessage: string | null = null;
@@ -22,7 +24,8 @@ export class LoginComponent {
 
   constructor(
     private loginService: LoginService,
-    private cdr: ChangeDetectorRef 
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   onLogin() {
@@ -34,10 +37,15 @@ export class LoginComponent {
         next: (response: any) => {
           console.log('✅ [Back Response]: ¡Usuario encontrado con éxito!', response);
           
-          this.successMessage = '🎉 ¡Inicio de sesión exitoso! (Modo prueba: redirección desactivada)';
-          localStorage.setItem('usuarioLogueado', JSON.stringify(response));
+          this.successMessage = '🎉 ¡Inicio de sesión exitoso! Redirigiendo a la página principal...';
+          
+          this.loginService.setCurrentUser(response);
 
-          // 3. OBLIGA a Angular a actualizar el HTML justo ahora
+          setTimeout(() => {
+            this.router.navigate(['/']); // Redirige a la ruta raíz (catálogo)
+          }, 800);
+
+          // OBLIGA a Angular a actualizar el HTML para mostrar el successMessage
           this.cdr.detectChanges(); 
         },
         error: (err: any) => {
