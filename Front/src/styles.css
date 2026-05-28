@@ -1,1 +1,143 @@
-/* You can add global styles to this file, and also import other style files */
+/* Eliminar los márgenes y paddings por defecto del navegador */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #131419; /* Evita destellos blancos al recargar */
+  box-sizing: border-box;
+}
+
+/* Forzar a que todos los elementos respeten el tamaño de caja correcto */
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+/* --- Estilos compartidos para Autenticación --- */
+
+.background-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #131419;
+  background-image: url('/assets/images/backgrounds/Login_Regis_background.jpg');
+  background-size: cover;
+  background-position: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.card-auth {
+  background-color: #ffffff;
+  padding: 45px 40px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 800;
+  color: #000000;
+  margin: 0 0 5px 0;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  font-size: 22px;
+  font-weight: 600;
+  color: #111111;
+  margin: 0 0 20px 0;
+}
+
+.divider {
+  border: 0;
+  border-top: 1px solid #eaeaea;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.form-group {
+  text-align: left;
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 14px;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #111111;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #9b86ec;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+.hint {
+  display: block;
+  font-size: 11px;
+  color: #8c8c8c;
+  margin-top: 5px;
+  line-height: 1.4;
+}
+
+.error-msg {
+  display: block;
+  font-size: 12px;
+  color: #d93838;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+.btn-submit {
+  display: block;
+  background-color: #e4dafa;
+  color: #3c354e;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 14px 45px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin: 30px auto 0 auto;
+  transition: all 0.2s ease;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background-color: #d7c9f7;
+  transform: translateY(-1px);
+}
+
+.btn-submit:disabled {
+  background-color: #f2f0f5;
+  color: #b5b2bc;
+  cursor: not-allowed;
+}
