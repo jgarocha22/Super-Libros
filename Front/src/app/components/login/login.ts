@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
-
 export class LoginComponent {
 
   errorMessage: string | null = null;
@@ -37,15 +36,22 @@ export class LoginComponent {
         next: (response: any) => {
           console.log('✅ [Back Response]: ¡Usuario encontrado con éxito!', response);
           
-          this.successMessage = '🎉 ¡Inicio de sesión exitoso! Redirigiendo a la página principal...';
+          this.successMessage = '🎉 ¡Inicio de sesión exitoso! Redirigiendo...';
           
+          // Guardamos el objeto completo del usuario (incluyendo el .rol) en el Signal
           this.loginService.setCurrentUser(response);
 
           setTimeout(() => {
-            this.router.navigate(['/']); // Redirige a la ruta raíz (catálogo)
+            // Evaluamos el rol devuelto por tu Backend para decidir a dónde enviarlo
+            if (response.rol === 'ADMIN') {
+              // Redirige al Home/Dashboard administrativo
+              this.router.navigate(['/home']); 
+            } else {
+              // Redirige a la página principal de compradores (Catálogo)
+              this.router.navigate(['/']); 
+            }
           }, 800);
 
-          // OBLIGA a Angular a actualizar el HTML para mostrar el successMessage
           this.cdr.detectChanges(); 
         },
         error: (err: any) => {
