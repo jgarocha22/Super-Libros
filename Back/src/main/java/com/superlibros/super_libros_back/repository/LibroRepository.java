@@ -59,4 +59,13 @@ public class LibroRepository {
             return null;
         }
 
+        public void ActualizarLibro(){
+            try {
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), Listalibros);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
 }

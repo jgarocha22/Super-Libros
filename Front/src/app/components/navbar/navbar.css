@@ -40,16 +40,23 @@
   right: 20px;
   top: 50%;
   transform: translateY(-50%);
-  color: #777;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+/* Controlar tamaño del icono de búsqueda */
+.search-icon img {
+  width: 18px;
+  height: 18px;
+  display: block;
 }
 
 /* BLOQUE DE ACCIONES (DERECHA) */
 .navbar-actions {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 12px;
+  flex-direction: row; /* CAMBIO: Todo se alinea ahora en una sola fila horizontal */
+  align-items: center;
+  gap: 25px;           /* Separación limpia entre login/perfil y el carrito */
 }
 
 .auth-row {
@@ -59,7 +66,7 @@
 }
 
 /* BOTONES AUTENTICACIÓN */
-.btn-login {
+.btn-login, .btn-logout {
   background-color: #e6e0fa;
   color: #4a3b8c;
   border: none;
@@ -69,13 +76,25 @@
   font-size: 0.8rem;
   cursor: pointer;
   transition: background 0.2s;
+  
+  /* CAMBIO: Flexbox interno para centrar verticalmente el icono al lado del texto */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* CAMBIO: Selector corregido de 'svg' a 'img' para que escale correctamente su tamaño */
+.btn-login img, .btn-logout img {
+  width: 18px;         
+  height: 18px;
+  display: block;      
 }
 
 .btn-login:hover {
   background-color: #dcd4f7;
 }
 
-.btn-register, .btn-logout {
+.btn-register {
   background: none;
   border: none;
   color: #555555;
@@ -125,25 +144,30 @@
 
 /* SECCIÓN CARRITO */
 .cart-row {
-  width: 100%;
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
 }
 
 .btn-cart {
   background: none;
   border: none;
-  font-size: 1.2rem;
   color: #69529e;
-  font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 8px;            /* Espacio perfecto entre el icono del carrito y el texto */
+}
+
+/* CAMBIO: Selector corregido de 'svg' a 'img' para el icono del carrito */
+.btn-cart img {
+  width: 22px;         /* Un pelín más grande para que mantenga buena proporción visual */
+  height: 22px;
+  display: block;
 }
 
 .cart-text {
-  font-size: 1.1rem;
+  font-size: 0.85rem;  /* Ajustado para homogeneizar la tipografía con los botones de auth */
+  font-weight: 700;
   letter-spacing: 0.5px;
 }
 

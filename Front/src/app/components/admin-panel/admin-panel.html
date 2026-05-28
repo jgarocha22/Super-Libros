@@ -1,0 +1,25 @@
+<div class="admin-panel-layout">
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <h3>Panel de Control</h3>
+    </div>
+    <nav class="sidebar-menu">
+      <a routerLink="perfiles" routerLinkActive="active-tab" class="menu-item">
+        <img src="assets/icons/account_circle.svg" alt="Usuarios" class="menu-icon">
+        Gestión de Perfiles
+      </a>
+      <a routerLink="libros" routerLinkActive="active-tab" class="menu-item">
+        <img src="assets/icons/libro-placeholder.svg" alt="Libros" class="menu-icon">
+        Gestión de Libros
+      </a>
+      <a routerLink="resenas" routerLinkActive="active-tab" class="menu-item">
+        <img src="assets/icons/rate_review.svg" alt="Reseñas" class="menu-icon">
+        Gestión de Reseñas
+      </a>
+    </nav>
+  </aside>
+
+  <main class="admin-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

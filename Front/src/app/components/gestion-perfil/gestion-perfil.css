@@ -1,0 +1,121 @@
+.gestion-container {
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.panel-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 30px;
+  color: #000000;
+}
+
+/* Buscador */
+.search-box-container {
+  background-color: #f3eff6;
+  border-radius: 8px;
+  padding: 12px 20px;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+}
+
+.search-input-wrapper {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  outline: none;
+  color: #333;
+}
+
+.search-icon-wrapper img {
+  width: 18px;
+  height: 18px;
+  opacity: 0.6;
+}
+
+/* Tabla Estilo Card */
+.table-responsive {
+  background: #ffffff;
+  border: 1px solid #e2dbec;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  overflow: hidden;
+}
+
+.usuarios-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.usuarios-table th {
+  padding: 18px 24px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #000000;
+  border-bottom: 2px solid #f0edf5;
+}
+
+.usuarios-table td {
+  padding: 16px 24px;
+  font-size: 0.95rem;
+  color: #4a4a4a;
+  border-bottom: 1px solid #f5f2f9;
+  vertical-align: middle;
+}
+
+.username-cell {
+  font-weight: 500;
+}
+
+.address-cell {
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Botón Eliminar Perfil */
+.btn-action-delete {
+  background-color: #b71c1c;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-action-delete:hover {
+  background-color: #d32f2f;
+}
+
+.btn-icon {
+  width: 14px;
+  height: 14px;
+  filter: invert(1); /* Cambia el icono de basurero SVG a blanco si es oscuro */
+}
+
+.empty-table-message {
+  text-align: center;
+  padding: 40px !important;
+  color: #777;
+  font-style: italic;
+}
