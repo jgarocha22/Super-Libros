@@ -22,19 +22,19 @@ public class LibroService {
             return false;
         }
 
-        if (libro.getnom() == null || libro.getnom().trim().isEmpty()) {
+        if (libro.getnombre() == null || libro.getnombre().trim().isEmpty()) {
             return false;
         }
-        if (libro.getedit() == null || libro.getedit().trim().isEmpty()) {
+        if (libro.geteditorial() == null || libro.geteditorial().trim().isEmpty()) {
             return false;
         }
-        if (libro.getsinop() == null || libro.getsinop().trim().isEmpty()) {
+        if (libro.getsinopsis() == null || libro.getsinopsis().trim().isEmpty()) {
             return false;
         }
         if (libro.getautor() == null || libro.getautor().trim().isEmpty()) {
             return false;
         }
-        if (libro.getimagen() == null || libro.getimagen().trim().isEmpty()) {
+        if (libro.getimagenUrl() == null || libro.getimagenUrl().trim().isEmpty()) {
             return false;
         }
         if (libro.gettags() == null || libro.gettags().isEmpty()) {
@@ -42,21 +42,21 @@ public class LibroService {
         }
 
         // Validar precio 
-        if (libro.getPrecio() < 1) {
+        if (libro.getprecio() < 1) {
             return false;
         }
 
         //validar repetido
         List<Libro> existentes = librosRepository.ObtenerLibros();
-        String nombreNuevo = libro.getnom().trim();
+        String nombreNuevo = libro.getnombre().trim();
         for (Libro l : existentes) {
-            if (l.getnom() != null && l.getnom().trim().equalsIgnoreCase(nombreNuevo)) {
+            if (l.getnombre() != null && l.getnombre().trim().equalsIgnoreCase(nombreNuevo)) {
                 return false;
             }
         }
         // Generar ID aleatorio único
         String id = UUID.randomUUID().toString();
-        libro.setId(id); 
+        libro.setid(id); 
 
         librosRepository.AgregarLibro(libro);
         return true;

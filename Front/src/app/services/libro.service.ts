@@ -7,11 +7,11 @@ import { Libro } from "../model/libro.model";
     providedIn: 'root'
 })
 export class LibroService {
-    private apiUrl = 'http://localhost:8080/libros';
+    private apiUrl = 'http://localhost:8080/api/libros';
 
     constructor(private http: HttpClient) {}
 
-    obtenerLibros(): Observable<Libro[]> {
-        return this.http.get<Libro[]>(this.apiUrl);
+    obtenerLibros(): Observable<any[]> {
+        return this.http.get<any[]>(this.apiUrl);
     }
 }

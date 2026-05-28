@@ -1,7 +1,7 @@
 <div class="tarjeta-container">
   <div class="imagen-zona">
-    @if (libro.imagen) {
-      <img [src]="libro.imagen" [alt]="libro.nom" class="libro-img" />
+    @if (libro.imagenurl) {
+      <img [src]="libro.imagenurl" [alt]="libro.nombre" class="libro-img" />
     } @else {
       <div class="placeholder-figuras">
         <div class="figura triangulo"></div>
@@ -12,9 +12,9 @@
   </div>
   
   <div class="detalles-zona">
-    <h3 class="libro-titulo">{{ libro.nom }}</h3>
+    <h3 class="libro-titulo">{{ libro.nombre }}</h3>
     <h4 class="libro-autor">{{ libro.autor }}</h4>
-    <p class="libro-sinopsis">{{ libro.sinop }}</p>
+    <p class="libro-sinopsis">{{ libro.sinopsis }}</p>
     <span class="libro-precio">${{ libro.precio }}</span>
   </div>
 </div>

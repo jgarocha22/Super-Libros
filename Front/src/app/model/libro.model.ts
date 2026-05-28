@@ -1,9 +1,10 @@
 export interface Libro {
     id: string;
-    nom: string;
-    sinop: string;
+    nombre: string;
+    sinopsis: string;
+    editorial: string;
     autor: string;
-    imagen: string;
+    imagenurl: string;
     tags: string[];
     stock: number;
     precio: number;
