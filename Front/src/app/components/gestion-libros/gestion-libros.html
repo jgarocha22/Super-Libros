@@ -2,7 +2,7 @@
   <div class="header-seccion">
     <h1 class="panel-title">GESTIÓN DE LIBROS</h1>
     <button class="btn-agregar-principal" (click)="abrirFormularioAgregar()">
-      <img src="assets/icons/search.svg" alt="Añadir" class="btn-icon-white">
+      <img src="assets/icons/add.svg" alt="Añadir" class="btn-icon-white">
       Agregar Libro
     </button>
   </div>
@@ -60,6 +60,7 @@
                   Editar
                 </button>
                 <button class="btn-action-delete" (click)="eliminarLibro(libro.id)" disabled>
+                  <img src="assets/icons/delete.svg" alt="Eliminar" class="btn-icon">
                   Eliminar
                 </button>
               </div>
