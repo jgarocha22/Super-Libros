@@ -17,49 +17,29 @@ public class LibroService {
         return librosRepository.ObtenerLibros();
     }
 
-    public boolean RegistrarLibro(Libro libro){
+    public Libro registrarLibro(Libro libro) {
         if (libro == null) {
-            return false;
+            throw new IllegalArgumentException("El objeto libro no puede ser nulo");
         }
 
-        if (libro.getnombre() == null || libro.getnombre().trim().isEmpty()) {
-            return false;
-        }
-        if (libro.geteditorial() == null || libro.geteditorial().trim().isEmpty()) {
-            return false;
-        }
-        if (libro.getsinopsis() == null || libro.getsinopsis().trim().isEmpty()) {
-            return false;
-        }
-        if (libro.getautor() == null || libro.getautor().trim().isEmpty()) {
-            return false;
-        }
-        if (libro.getimagenUrl() == null || libro.getimagenUrl().trim().isEmpty()) {
-            return false;
-        }
-        if (libro.gettags() == null || libro.gettags().isEmpty()) {
-            return false;
-        }
-
-        // Validar precio 
-        if (libro.getprecio() < 1) {
-            return false;
-        }
-
-        //validar repetido
         List<Libro> existentes = librosRepository.ObtenerLibros();
         String nombreNuevo = libro.getnombre().trim();
+
         for (Libro l : existentes) {
             if (l.getnombre() != null && l.getnombre().trim().equalsIgnoreCase(nombreNuevo)) {
-                return false;
-            }
+                throw new IllegalArgumentException("Ya existe un libro registrado con el nombre: " + nombreNuevo);
         }
-        // Generar ID aleatorio único
+        }
+
+        //generar id aleatorio para el nuevo libro
         String id = UUID.randomUUID().toString();
-        libro.setid(id); 
+        libro.setid(id);
+
+        libro.setnombre(nombreNuevo); 
 
         librosRepository.AgregarLibro(libro);
-        return true;
+    
+        return libro; 
     }
 
     public Libro BuscarLibroPorID(String id){

@@ -14,4 +14,7 @@ export class LibroService {
     obtenerLibros(): Observable<any[]> {
         return this.http.get<any[]>(this.apiUrl);
     }
+    crearLibro(libro: Libro): Observable<Libro> {
+    return this.http.post<Libro>(this.apiUrl, libro);
+  }
 }

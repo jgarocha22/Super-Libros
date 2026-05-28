@@ -1,39 +1,48 @@
 package com.superlibros.super_libros_back.model;
+import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import jakarta.validation.constraints.*;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Libro {
     @JsonProperty("id")
     private String id;
 
-    @JsonProperty("nombre") // 🚀 Fuerza a buscar "nombre" completo en el JSON
+    @NotBlank(message = "El nombre es obligatorio")
+    @JsonProperty("nombre") 
     private String nombre;
 
+    @NotBlank(message = "La editorial es obligatoria")
     @JsonProperty("editorial")
     private String editorial;
 
+    @NotBlank(message = "La sinopsis es obligatoria")
     @JsonProperty("sinopsis")
     private String sinopsis;
 
+    @NotBlank(message = "El autor es obligatorio")
     @JsonProperty("autor")
     private String autor;
 
+    @NotBlank(message = "La URL de la imagen es obligatoria")
     @JsonProperty("imagenurl")
     private String imagenurl;
 
+    @NotEmpty(message = "Al menos un tag es obligatorio")
     @JsonProperty("tags")
     private List<String> tags;
 
+    @Min(value = 1, message = "El stock debe ser al menos 1")   
     @JsonProperty("stock")
     private int stock;
 
+    @Min(value = 0, message = "El precio debe ser al menos 0 ")
     @JsonProperty("precio")
     private double precio;
 
     @JsonProperty("reseñas")
-    private List<Reseña> reseñas;
+    private List<Reseña> reseñas = new ArrayList<>();
 
     public Libro(){
     }
