@@ -1,61 +1,93 @@
 package com.superlibros.super_libros_back.model;
+import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.*;
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Libro {
-    private String ID;
-    private String Nombre;
-    private String Editorial;
-    private String Sinopsis;
-    private String Autor;
-    private String imagenUrl;
-    private List<String> Tags;
-    private int Stock;
+    @JsonProperty("id")
+    private String id;
+
+    @NotBlank(message = "El nombre es obligatorio")
+    @JsonProperty("nombre") 
+    private String nombre;
+
+    @NotBlank(message = "La editorial es obligatoria")
+    @JsonProperty("editorial")
+    private String editorial;
+
+    @NotBlank(message = "La sinopsis es obligatoria")
+    @JsonProperty("sinopsis")
+    private String sinopsis;
+
+    @NotBlank(message = "El autor es obligatorio")
+    @JsonProperty("autor")
+    private String autor;
+
+    @NotBlank(message = "La URL de la imagen es obligatoria")
+    @JsonProperty("imagenurl")
+    private String imagenurl;
+
+    @NotEmpty(message = "Al menos un tag es obligatorio")
+    @JsonProperty("tags")
+    private List<String> tags;
+
+    @Min(value = 1, message = "El stock debe ser al menos 1")   
+    @JsonProperty("stock")
+    private int stock;
+
+    @Min(value = 0, message = "El precio debe ser al menos 0 ")
+    @JsonProperty("precio")
     private double precio;
-    private List<Reseña> Reseñas;
+
+    @JsonProperty("reseñas")
+    private List<Reseña> reseñas = new ArrayList<>();
 
     public Libro(){
     }
 
     public Libro(String id, String nombre, String editorial, String sinopsis, String autor, String imagenurl, List<String> tags, int stock, double precio, List<Reseña> reseñas) {
-        this.ID = id;
-        this.Nombre = nombre;
-        this.Editorial = editorial;
-        this.Sinopsis = sinopsis;
-        this.Autor = autor;
-        this.imagenUrl = imagenurl;
-        this.Tags = tags;
-        this.Stock = stock;
+        this.id = id;
+        this.nombre = nombre;
+        this.editorial = editorial;
+        this.sinopsis = sinopsis;
+        this.autor = autor;
+        this.imagenurl = imagenurl;
+        this.tags = tags;
+        this.stock = stock;
         this.precio = precio;
-        this.Reseñas = reseñas;
+        this.reseñas = reseñas;
     }
 
-    public String getId() {return ID;}
-    public void setId(String id) {this.ID = id;}
+    public String getid() {return id;}  
+    public void setid(String id) {this.id = id;}
 
-    public String getnom() {return Nombre;}
-    public void setnom(String nombre) {this.Nombre = nombre;}
+    public String getnombre() {return nombre;}
+    public void setnombre(String nombre) {this.nombre = nombre;}
 
-    public String getedit() {return Editorial;}
-    public void setedit(String editorial) {this.Editorial = editorial;}
+    public String geteditorial() {return editorial;}
+    public void seteditorial(String editorial) {this.editorial = editorial;}
 
-    public String getsinop() {return Sinopsis;}
-    public void setsinop(String sinopsis) {this.Sinopsis = sinopsis;}
+    public String getsinopsis() {return sinopsis;}
+    public void setsinopsis(String sinopsis) {this.sinopsis = sinopsis;}
 
-    public String getautor() {return Autor;}
-    public void setautor(String autor) {this.Autor = autor;}
+    public String getautor() {return autor;}
+    public void setautor(String autor) {this.autor = autor;}
 
-    public String getimagen() {return imagenUrl;}
-    public void setimagen(String imagenurl) {this.imagenUrl = imagenurl;}
+    public String getimagenUrl() {return imagenurl;}
+    public void setimagenUrl(String imagenUrl) {this.imagenurl = imagenUrl;}
 
-    public List<String> gettags() {return Tags;}
-    public void settags(List<String> tags) {this.Tags = tags;}
+    public List<String> gettags() {return tags;}
+    public void settags(List<String> tags) {this.tags = tags;}
 
-    public int getstock() {return Stock;}
-    public void setstock(int stock) {this.Stock = stock;}
+    public int getstock() {return stock;}
+    public void setstock(int stock) {this.stock = stock;}
 
-    public double getPrecio() {return precio;}
-    public void setPrecio(double precio) {this.precio = precio;}
+    public double getprecio() {return precio;}
+    public void setprecio(double precio) {this.precio = precio;}
 
-    public List<Reseña> getreseñas() {return Reseñas;}
-    public void setReseñas(List<Reseña> reseñas) {this.Reseñas = reseñas;}
+    public List<Reseña> getreseñas() {return reseñas;}
+    public void setReseñas(List<Reseña> reseñas) {this.reseñas = reseñas;}
 
 }

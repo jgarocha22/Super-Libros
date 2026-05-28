@@ -1,0 +1,16 @@
+<div class="gestion-container">
+  <h1>Gestión de Libro</h1>
+  
+  <button class="btn-primary-admin" (click)="abrirModalRegistro()">
+    + Registrar Libro
+  </button>
+
+  <app-lista-productos-admin></app-lista-productos-admin>
+</div>
+
+@if (mostrarModalRegistro) {
+  <app-libro-form 
+    (cerrar)="cerrarModalRegistro()" 
+    (libroGuardado)="actualizarLista()">
+  </app-libro-form>
+}
