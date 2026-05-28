@@ -1,1 +1,9 @@
-<p>catalogo works!</p>
+<main class="catalog-container">
+  <h1 class="category-title">CATALOGO</h1>
+  
+  <div class="catalog-grid">
+    @for (currentBook of libros; track currentBook.id) {
+      <app-tarjeta-libro [libro]="currentBook"></app-tarjeta-libro>
+    }
+  </div>
+</main>

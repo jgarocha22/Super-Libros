@@ -1,0 +1,90 @@
+[
+  {
+    "id": "e2908f5d-7681-4b72-bdf4-d62fcebb4101",
+    "nom": "El Laberinto de los Recuerdos",
+    "edit": "Editorial Alfa",
+    "sinop": "Una fascinante novela de misterio y realismo mágico donde un detective debe descifrar los secretos ocultos en una biblioteca abandonada antes de que sus propios recuerdos desaparezcan por completo de su mente.",
+    "autor": "Gabriel Martínez",
+    "imagen": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=400&auto=format&fit=crop",
+    "tags": ["Misterio", "Fantasía"],
+    "stock": 14,
+    "precio": 24.99
+  },
+  {
+    "id": "a4019b7c-1294-4c83-adf5-e73fdffa5202",
+    "nom": "Crónicas del Mañana",
+    "edit": "Nova Libros",
+    "sinop": "En un futuro donde los viajes interestelares son comunes, una tripulación descubre un planeta que parece replicar la Tierra del siglo XXI de manera idéntica.",
+    "autor": "Elena Rostova",
+    "imagen": "https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=400&auto=format&fit=crop",
+    "tags": ["Sci-Fi", "Aventura"],
+    "stock": 8,
+    "precio": 19.50
+  },
+  {
+    "id": "f5120c8d-3402-4d91-bdf6-f84feccb6303",
+    "nom": "La Sombra del Viento",
+    "edit": "Planeta Global",
+    "sinop": "Un joven es conducido por su padre a un misterioso lugar oculto en el corazón de la ciudad vieja: el Cementerio de los Libros Olvidados, cambiando su destino para siempre.",
+    "autor": "Carlos Ruiz",
+    "imagen": "",
+    "tags": ["Ficción", "Drama"],
+    "stock": 5,
+    "precio": 29.99
+  },
+  {
+    "id": "b6231d9e-5613-4e02-cdf7-a95feddc7404",
+    "nom": "Ecos de un Susurro",
+    "edit": "Sudamericana",
+    "sinop": "Una historia íntima sobre tres generaciones de mujeres en un pequeño pueblo costero, unidas por un secreto familiar enterrado bajo la arena del mar.",
+    "autor": "Isabel Allende",
+    "imagen": "https://images.unsplash.com/photo-1495640388908-05fa85288e61?q=80&w=400&auto=format&fit=crop",
+    "tags": ["Romance", "Drama"],
+    "stock": 22,
+    "precio": 18.00
+  },
+  {
+    "id": "c7342e0f-6724-4f13-ddf8-b06fede88505",
+    "nom": "El Último Enigma",
+    "edit": "Minotauro",
+    "sinop": "Un thriller matemático de ritmo frenético. Cuando un profesor de Oxford es asesinado, la clave para atrapar al culpable reside en resolver una serie de patrones lógicos secuenciales.",
+    "autor": "Jorge Luis Borges",
+    "imagen": "https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=400&auto=format&fit=crop",
+    "tags": ["Thriller", "Lógica"],
+    "stock": 3,
+    "precio": 32.50
+  },
+  {
+    "id": "d8453f1a-7835-4g24-edf9-c17fefe99606",
+    "nom": "Bajo las Estrellas de Invierno",
+    "edit": "Anaya",
+    "sinop": "Dos extraños se quedan atrapados en una remota estación de tren durante la peor tormenta de nieve de la década. Lo que comienza como una noche de supervivencia se convierte en una profunda conexión.",
+    "autor": "Laura Gallego",
+    "imagen": "",
+    "tags": ["Romance", "Invierno"],
+    "stock": 11,
+    "precio": 15.95
+  },
+  {
+    "id": "e9564f2b-8946-4h35-fdf0-d28f0ff00707",
+    "nom": "La Rebelión de las Bestias",
+    "edit": "Siglo XXI",
+    "sinop": "Fábula política satírica que explora los peligros de la ambición desmedida y la corrupción en los sistemas de poder cuando un grupo de animales de granja decide tomar el control.",
+    "autor": "George Orwell",
+    "imagen": "https://images.unsplash.com/photo-1476275466078-4007374efbbe?q=80&w=400&auto=format&fit=crop",
+    "tags": ["Sátira", "Política"],
+    "stock": 40,
+    "precio": 12.00
+  },
+  {
+    "id": "f0675g3c-9057-4i46-aea1-e39f1aa11808",
+    "nom": "Océanos de Arena",
+    "edit": "Planeta Global",
+    "sinop": "Una épica aventura fantástica ambientada en un mundo desértico devorado por tormentas eternas. Un joven nómada descubre que posee la habilidad prohibida de moldear el agua cristalizada.",
+    "autor": "Brandon Sanderson",
+    "imagen": "https://images.unsplash.com/photo-1516979187457-637abb4f9353?q=80&w=400&auto=format&fit=crop",
+    "tags": ["Fantasía", "Épico"],
+    "stock": 19,
+    "precio": 27.80
+  }
+]
