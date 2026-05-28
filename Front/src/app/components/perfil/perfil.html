@@ -61,7 +61,9 @@
           @for (libro of librosComprados(); track libro.titulo) {
             <div class="libro-item-card">
               <div class="libro-img-placeholder">
-                <img src="assets/icons/libro-placeholder.svg" alt="Libro Placeholder" class="libro-icon-img">
+                <img [src]="libro.imagen || 'assets/icons/libro-placeholder.svg'" 
+                     alt="Portada del Libro" 
+                     class="libro-icon-img">
               </div>
               <div class="libro-detalles">
                 <h4>{{ libro.titulo }}</h4>

@@ -7,8 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class LoginService {
   private apiUrl = 'http://localhost:8080/api/compradores/login';
+  // Ruta base para las acciones generales de los perfiles
+  private baseUsersUrl = 'http://localhost:8080/api/compradores';
 
-  // 2. Creamos el Signal reactivo inicializado con lo que haya en el localStorage
   public currentUser = signal<any>(this.getUserFromStorage());
 
   constructor(private http: HttpClient) { }
@@ -17,16 +18,19 @@ export class LoginService {
     return this.http.post<any>(this.apiUrl, credentials);
   }
 
-  // 3. Método para guardar la sesión y avisar de inmediato a toda la app
   setCurrentUser(user: any) {
     localStorage.setItem('usuarioLogueado', JSON.stringify(user));
-    this.currentUser.set(user); // Actualiza el signal
+    this.currentUser.set(user); 
   }
 
-  // 4. Método para limpiar la sesión reactivamente
   logout() {
     localStorage.removeItem('usuarioLogueado');
-    this.currentUser.set(null); // Al pasar a null, el Navbar cambiará solo
+    this.currentUser.set(null); 
+  }
+
+  // 🚀 NUEVO: Consumir la lista completa de compradores desde el Back para el Admin
+  obtenerTodosLosUsuarios(): Observable<any[]> {
+    return this.http.get<any[]>(this.baseUsersUrl);
   }
 
   private getUserFromStorage(): any {

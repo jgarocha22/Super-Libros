@@ -20,7 +20,7 @@
         <button class="btn-register" routerLink="/registro">REGISTRARSE</button>
       }
       @else {
-        <div class="user-profile" routerLink="/perfil">
+        <div class="user-profile" [routerLink]="loginService.currentUser().rol === 'ADMIN' ? '/home' : '/perfil'">
           <img *ngIf="loginService.currentUser().fotoPerfil; else soloInicial" 
                [src]="loginService.currentUser().fotoPerfil" alt="Perfil" class="avatar-img">
           
@@ -28,7 +28,12 @@
             <div class="avatar-fallback">{{ inicialUsuario }}</div>
           </ng-template>
           
-          <span class="username-text">{{ loginService.currentUser().username | uppercase }}</span>
+          <span class="username-text">
+            {{ loginService.currentUser().username | uppercase }}
+            @if (loginService.currentUser().rol === 'ADMIN') {
+              <small style="color: #ffcc00; font-size: 0.6em; block: inline-block; margin-left: 4px;">[ADMIN]</small>
+            }
+          </span>
         </div>
         
         <button class="btn-logout" (click)="cerrarSesion()">
@@ -38,10 +43,13 @@
 
     </div>
 
-    <div class="cart-row">
-      <button class="btn-cart" (click)="manejarClickCarrito()">
-        <img src="assets/icons/shopping_cart.svg" alt="carrito icon"> <span class="cart-text">CARRITO</span>
-      </button>
-    </div>
+    @if (!loginService.currentUser() || loginService.currentUser().rol === 'COMPRADOR') {
+      <div class="cart-row">
+        <button class="btn-cart" (click)="manejarClickCarrito()">
+          <img src="assets/icons/shopping_cart.svg" alt="carrito icon"> <span class="cart-text">CARRITO</span>
+        </button>
+      </div>
+    }
+    
   </div>
 </nav>

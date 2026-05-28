@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
-
 export class LoginComponent {
 
   errorMessage: string | null = null;
@@ -35,21 +34,29 @@ export class LoginComponent {
 
       this.loginService.login(this.formLogin.value).subscribe({
         next: (response: any) => {
+          // 1. Este log es vital. Abre la consola (F12) y mira qué sale aquí.
           console.log('✅ [Back Response]: ¡Usuario encontrado con éxito!', response);
           
-          this.successMessage = '🎉 ¡Inicio de sesión exitoso! Redirigiendo a la página principal...';
+          this.successMessage = '🎉 ¡Inicio de sesión exitoso! Redirigiendo...';
           
           this.loginService.setCurrentUser(response);
 
           setTimeout(() => {
-            this.router.navigate(['/']); // Redirige a la ruta raíz (catálogo)
+            // 2. Evaluamos el rol de forma estricta
+            if (response && response.rol === 'ADMIN') {
+              console.log('👑 Detectado como ADMIN. Redirigiendo a admin-panel...');
+              this.router.navigate(['/admin-panel/perfiles']);
+            } else {
+              console.log('🛒 Detectado como COMPRADOR/Invitado. Redirigiendo al catálogo...');
+              this.router.navigate(['/']); // Redirige a la ruta raíz
+            }
           }, 800);
 
-          // OBLIGA a Angular a actualizar el HTML para mostrar el successMessage
+          // OBLIGA a Angular a actualizar el HTML
           this.cdr.detectChanges(); 
         },
         error: (err: any) => {
-          console.error('❌ [Back Response]: Error en la autenticación.');
+          console.error('❌ [Back Response]: Error en la autenticación.', err);
         
           if (err.status === 401) {
             this.errorMessage = '🔑 El usuario o la contraseña son incorrectos.';
