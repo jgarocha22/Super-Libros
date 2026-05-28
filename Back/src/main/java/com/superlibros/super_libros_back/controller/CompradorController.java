@@ -1,6 +1,7 @@
 package com.superlibros.super_libros_back.controller;
 
 import com.superlibros.super_libros_back.model.Comprador;
+import com.superlibros.super_libros_back.model.LibroCompradoDTO; // 👈 NUEVO IMPORT
 import com.superlibros.super_libros_back.model.LoginRequest;
 import com.superlibros.super_libros_back.services.CompradorService;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,7 @@ public class CompradorController {
         this.service = service;
     }
 
-    // Endpoint de Registro (POST)
+    // Endpoint de Registro (POST /api/compradores/registrar)
     @PostMapping("/registrar")
     public ResponseEntity<?> registrarComprador(@RequestBody Comprador comprador) {
         try {
@@ -31,7 +32,7 @@ public class CompradorController {
         }
     }
 
-    // Endpoint de Login (POST)
+    // Endpoint de Login (POST /api/compradores/login)
     @PostMapping("/login")
     public ResponseEntity<?> loginComprador(@RequestBody LoginRequest loginRequest) {
         try {
@@ -42,17 +43,23 @@ public class CompradorController {
         }
     }
 
-    // 🚀 NUEVO: Endpoint para listar todos los usuarios (GET /api/compradores)
+    // 🚀 NUEVO: Endpoint para el Perfil del Usuario (GET /api/compradores/{username}/compras)
+    @GetMapping("/{username}/compras")
+    public ResponseEntity<List<LibroCompradoDTO>> obtenerHistorialCompras(@PathVariable String username) {
+        List<LibroCompradoDTO> historial = service.obtenerHistorialCompras(username);
+        return new ResponseEntity<>(historial, HttpStatus.OK);
+    }
+
+    // Endpoint para listar todos los usuarios (GET /api/compradores)
     @GetMapping
     public ResponseEntity<List<Comprador>> obtenerTodosLosCompradores() {
         List<Comprador> lista = service.listarCompradores();
         return new ResponseEntity<>(lista, HttpStatus.OK);
     }
 
-    // 🚀 OPCIONAL: Placeholder para cuando actives la eliminación física (DELETE /api/compradores/{id})
+    // Endpoint para eliminación física (DELETE /api/compradores/{id})
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminarComprador(@PathVariable Long id) {
-        // De momento no altera el JSON, queda preparado estructuralmente
         return new ResponseEntity<>("Acción de eliminación recibida en backend para ID: " + id, HttpStatus.OK);
     }
 }

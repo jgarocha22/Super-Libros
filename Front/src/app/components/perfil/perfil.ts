@@ -1,7 +1,8 @@
-import { Component, inject, signal, ChangeDetectorRef } from '@angular/core';
+import { Component, inject, signal, ChangeDetectorRef, OnInit } from '@angular/core'; // 👈 Importamos OnInit
 import { CommonModule } from '@angular/common';
 import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http'; // 👈 Importamos HttpClient
 
 @Component({
   selector: 'app-perfil',
@@ -10,37 +11,37 @@ import { Router } from '@angular/router';
   templateUrl: './perfil.html',
   styleUrl: './perfil.css'
 })
-export class PerfilComponent {
+export class PerfilComponent implements OnInit { // 👈 Implementamos OnInit
   public loginService = inject(LoginService);
   private router = inject(Router);
   private cdr = inject(ChangeDetectorRef);
+  private http = inject(HttpClient); // 👈 Inyectamos el cliente HTTP
 
-  // Lista simulada de libros comprados (Historial de libros)
-  public librosComprados = signal([
-    {
-      titulo: 'El Gran Gatsby',
-      autor: 'F. Scott Fitzgerald',
-      imagen: 'assets/images/gatsby.jpg', // Cambia por rutas reales de tus imágenes
-      fechaCompra: '12/04/2026'
-    },
-    {
-      titulo: 'Sobre Cavas y Refrigeración',
-      autor: 'Autor Técnico',
-      imagen: 'assets/images/cavas.jpg',
-      fechaCompra: '02/05/2026'
-    },
-    {
-      titulo: 'Titanic, El Videojuego: El Libro',
-      autor: 'James Cameron',
-      imagen: 'assets/images/titanic.jpg',
-      fechaCompra: '20/05/2026'
-    }
-  ]);
+  // 👈 Inicializamos el signal vacío (ya no está hardcodeado)
+  public librosComprados = signal<any[]>([]);
 
   constructor() {
-    // Protección de ruta manual por si acaso: si no está logueado, al login
+    // Protección de ruta manual
     if (!this.loginService.currentUser()) {
       this.router.navigate(['/login']);
+    }
+  }
+
+  // 🚀 NUEVO: Se ejecuta al cargar el componente y trae la data real del Back
+  ngOnInit(): void {
+    const usuarioActual = this.loginService.currentUser();
+    
+    if (usuarioActual && usuarioActual.username) {
+      this.http.get<any[]>(`http://localhost:8080/api/compradores/${usuarioActual.username}/compras`)
+        .subscribe({
+          next: (comprasRealizadas) => {
+            this.librosComprados.set(comprasRealizadas); // Guardamos la respuesta en el signal
+            this.cdr.detectChanges();
+          },
+          error: (err) => {
+            console.error('❌ Error cargando el historial de compras desde el servidor:', err);
+          }
+        });
     }
   }
 
@@ -49,29 +50,19 @@ export class PerfilComponent {
     return user && user.username ? user.username.charAt(0).toUpperCase() : '?';
   }
 
-  // Método para capturar la nueva foto de perfil, convertirla a Base64 y actualizar la app
   onFotoSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
         const base64String = reader.result as string;
-        
-        // Obtenemos el usuario actual del signal
         const usuarioActual = this.loginService.currentUser();
         
         if (usuarioActual) {
-          // Modificamos solo la foto de perfil en el objeto local
           const usuarioActualizado = { ...usuarioActual, fotoPerfil: base64String };
-          
-          // Actualizamos el Signal global y el localStorage a través de tu servicio
           this.loginService.setCurrentUser(usuarioActualizado);
-          
           this.cdr.detectChanges();
           console.log('📷 Nueva foto de perfil cargada localmente en Base64');
-          
-          // NOTA PARA SPRINT 2: Aquí va el service.updateFoto(base64String).subscribe(...) hacia el Back
-          // Para modificar la foto de perfil
         }
       };
       reader.readAsDataURL(file);

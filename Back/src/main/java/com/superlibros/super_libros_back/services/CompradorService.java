@@ -1,7 +1,11 @@
 package com.superlibros.super_libros_back.services;
 
 import com.superlibros.super_libros_back.model.Comprador;
+import com.superlibros.super_libros_back.model.HistorialCompra; // 👈 Nuevo Import
+import com.superlibros.super_libros_back.model.Libro;           // 👈 Nuevo Import
+import com.superlibros.super_libros_back.model.LibroCompradoDTO; // 👈 Nuevo Import
 import com.superlibros.super_libros_back.repository.CompradorRepository;
+import com.superlibros.super_libros_back.repository.LibroRepository; // 👈 Nuevo Import
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -11,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList; // 👈 Nuevo Import
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +23,7 @@ import java.util.Optional;
 public class CompradorService {
 
     private final CompradorRepository repository;
+    private final LibroRepository libroRepository; // 👈 Inyectamos el repositorio de libros
 
     @Value("${admin.identifier}")
     private String adminIdentifier;
@@ -25,8 +31,47 @@ public class CompradorService {
     @Value("${admin.password}")
     private String adminPassword;
 
-    public CompradorService(CompradorRepository repository) {
+    // 👈 Actualizamos el constructor para recibir ambos repositorios
+    public CompradorService(CompradorRepository repository, LibroRepository libroRepository) {
         this.repository = repository;
+        this.libroRepository = libroRepository;
+    }
+
+    /**
+     * Busca los IDs del historial del comprador y arma el DTO completo para Angular.
+     */
+    public List<LibroCompradoDTO> obtenerHistorialCompras(String username) {
+        List<LibroCompradoDTO> resultadoFront = new ArrayList<>();
+
+        // 1. Buscamos al comprador usando streams igual que en tu método verificarLogin
+        Optional<Comprador> usuarioEncontrado = repository.findAll().stream()
+                .filter(c -> c.getUsername().equalsIgnoreCase(username))
+                .findFirst();
+
+        if (usuarioEncontrado.isPresent()) {
+            Comprador comprador = usuarioEncontrado.get();
+
+            // 2. Si tiene libros comprados, empezamos el mapeo de IDs a objetos reales
+            if (comprador.getLibrosComprados() != null) {
+                for (HistorialCompra hc : comprador.getLibrosComprados()) {
+                    
+                    // 3. Buscamos los detalles del libro por su ID en el archivo JSON de libros
+                    // NOTA: Si tu LibroRepository no tiene 'BuscarIDJSON', puedes usar .findAll().stream() igual que arriba
+                    Libro libroDetalle = libroRepository.BuscarIDJSON(hc.getIdLibro());
+
+                    if (libroDetalle != null) {
+                        // 4. Agregamos el DTO combinado a la lista final
+                        resultadoFront.add(new LibroCompradoDTO(
+                            libroDetalle.getnom(),    
+                            libroDetalle.getautor(),  // 👈 Modificado: 'a' minúscula
+                            libroDetalle.getimagen(), // 👈 Modificado: 'i' minúscula
+                            hc.getFechaCompra()
+                        ));
+                    }
+                }
+            }
+        }
+        return resultadoFront;
     }
 
     public Comprador registrarComprador(Comprador nuevoComprador) {
@@ -109,12 +154,8 @@ public class CompradorService {
         return comprador;
     }
 
-    /**
-     * Retorna la lista de todos los usuarios registrados (Mapeo para el Panel de Admin).
-     */
     public List<Comprador> listarCompradores() {
         List<Comprador> compradores = repository.findAll();
-        // Por estricta seguridad, removemos los hashes de contraseñas antes de responder por HTTP
         compradores.forEach(comprador -> comprador.setPassword(""));
         return compradores;
     }

@@ -12,12 +12,12 @@ public class Comprador {
     private String fotoPerfil;
     private String rol; // "COMPRADOR" o "ADMIN"
     
-    // Listas requeridas por el negocio (se guardarán como arreglos vacíos [] en el JSON)
+    // Listas requeridas por el negocio
     private List<Object> carrito = new ArrayList<>();
-    private List<Object> librosComprados = new ArrayList<>();
+    // 👈 Cambiamos Object por HistorialCompra para guardar la estructura normalizada
+    private List<HistorialCompra> librosComprados = new ArrayList<>();
 
     // Constructores
-
     public Comprador() {}
 
     public Comprador(Long id, String username, String password, String email, String direccion, String fotoPerfil, String rol) {
@@ -55,6 +55,7 @@ public class Comprador {
     public List<Object> getCarrito() { return carrito; }
     public void setCarrito(List<Object> carrito) { this.carrito = carrito; }
 
-    public List<Object> getLibrosComprados() { return librosComprados; }
-    public void setLibrosComprados(List<Object> librosComprados) { this.librosComprados = librosComprados; }
+    // 👈 Getters y Setters actualizados con el nuevo tipo
+    public List<HistorialCompra> getLibrosComprados() { return librosComprados; }
+    public void setLibrosComprados(List<HistorialCompra> librosComprados) { this.librosComprados = librosComprados; }
 }
