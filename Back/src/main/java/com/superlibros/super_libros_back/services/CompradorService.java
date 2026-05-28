@@ -19,20 +19,17 @@ public class CompradorService {
 
     private final CompradorRepository repository;
 
-    // Inyección de credenciales desde application.properties (Como en tu código de referencia)
     @Value("${admin.identifier}")
     private String adminIdentifier;
 
     @Value("${admin.password}")
     private String adminPassword;
 
-    // Inyección por constructor
     public CompradorService(CompradorRepository repository) {
         this.repository = repository;
     }
 
     public Comprador registrarComprador(Comprador nuevoComprador) {
-        // VALIDACIÓN: Evitar que se registren usuarios normales con el identificador del admin
         if (adminIdentifier.equalsIgnoreCase(nuevoComprador.getUsername()) 
                 || adminIdentifier.equalsIgnoreCase(nuevoComprador.getEmail())) {
             throw new RuntimeException("No se puede registrar un usuario con credenciales reservadas del sistema.");
@@ -47,10 +44,7 @@ public class CompradorService {
             throw new RuntimeException("El correo electrónico ya se encuentra registrado por otro usuario.");
         }
 
-        // Ciframos la contraseña del comprador normal antes de guardarla
         nuevoComprador.setPassword(hashPassword(nuevoComprador.getPassword()));
-        
-        // Asignamos explícitamente el rol predeterminado
         nuevoComprador.setRol("COMPRADOR");
 
         long proximoId = compradores.stream()
@@ -67,22 +61,17 @@ public class CompradorService {
     }
 
     public Comprador verificarLogin(String identificador, String password) {
-        
-        // 1. INTERCEPCIÓN DE ADMINISTRADOR
-        // Evaluamos si el texto ingresado coincide con el identificador máster (ej: "admin")
         if (adminIdentifier.equalsIgnoreCase(identificador)) {
-            // Comparamos la contraseña en texto plano tal como viene en el application.properties
             if (adminPassword.equals(password)) {
                 System.out.println("👑 [ÉXITO LOGIN] El Administrador Supremo ha iniciado sesión correctamente.");
                 
                 Comprador admin = new Comprador();
-                admin.setId(0L); // ID 0 reservado para el administrador
+                admin.setId(0L); 
                 admin.setUsername(adminIdentifier);
                 admin.setEmail("admin@superlibros.com");
                 admin.setDireccion("Oficina Central SuperLibros");
-                //admin.setFotoPerfil("assets/icons/admin-avatar.png");
-                admin.setRol("ADMIN"); // <-- Rol clave que leerá Angular
-                admin.setPassword(""); // Por seguridad, no mandamos credenciales al Front
+                admin.setRol("ADMIN"); 
+                admin.setPassword(""); 
                 
                 return admin;
             } else {
@@ -91,7 +80,6 @@ public class CompradorService {
             }
         }
 
-        // 2. LOGICÁ PARA COMPRADORES NORMALES
         List<Comprador> compradores = repository.findAll();
 
         Optional<Comprador> usuarioEncontrado = compradores.stream()
@@ -104,8 +92,6 @@ public class CompradorService {
         }
 
         Comprador comprador = usuarioEncontrado.get();
-
-        // Aplicamos el hash SHA-256 a la contraseña recibida para compararla con el JSON
         String hashedInput = hashPassword(password);
 
         if (!comprador.getPassword().equals(hashedInput)) {
@@ -113,22 +99,26 @@ public class CompradorService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Contraseña incorrecta.");
         }
 
-        // Si por alguna razón el usuario viejo del JSON no tiene rol asignado, se lo aseguramos aquí
         if (comprador.getRol() == null || comprador.getRol().isEmpty()) {
             comprador.setRol("COMPRADOR");
         }
 
         System.out.println("🎉 [ÉXITO LOGIN] El comprador con credencial '" + identificador + "' ha iniciado sesión correctamente.");
-        
-        // Opcional por seguridad: limpiar la contraseña antes de responder a Angular
         comprador.setPassword(""); 
         
         return comprador;
     }
 
     /**
-     * Método utilitario para convertir una cadena de texto a un hash SHA-256.
+     * Retorna la lista de todos los usuarios registrados (Mapeo para el Panel de Admin).
      */
+    public List<Comprador> listarCompradores() {
+        List<Comprador> compradores = repository.findAll();
+        // Por estricta seguridad, removemos los hashes de contraseñas antes de responder por HTTP
+        compradores.forEach(comprador -> comprador.setPassword(""));
+        return compradores;
+    }
+
     private String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");

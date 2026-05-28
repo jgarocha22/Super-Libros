@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.superlibros.super_libros_back.model.Libro;
 import com.superlibros.super_libros_back.model.Reseña;
+import com.superlibros.super_libros_back.model.ReseñaAdminDTO;
 import com.superlibros.super_libros_back.repository.LibroRepository;
 @Service
 public class ReseñaService {
@@ -51,4 +52,24 @@ public class ReseñaService {
         return reseñas;
 
     }
+
+    public List<ReseñaAdminDTO> ObtenerTodasLasReseñasParaAdmin() {
+    List<Libro> todosLosLibros = librorepository.ObtenerLibros();
+    List<ReseñaAdminDTO> listaAplanada = new ArrayList<>();
+
+    for (Libro libro : todosLosLibros) {
+        if (libro.getreseñas() != null) {
+            for (Reseña res : libro.getreseñas()) {
+                listaAplanada.add(new ReseñaAdminDTO(
+                    libro.getId(),
+                    libro.getnom(),       // Usamos tu getter getnom() del modelo Libro
+                    res.getIDUsuario(),   // Usamos tu getter getIDUsuario()
+                    res.getReseña(),      // Usamos tu getter getReseña()
+                    res.isCalificacion()
+                ));
+            }
+        }
+    }
+    return listaAplanada;
+}
 }

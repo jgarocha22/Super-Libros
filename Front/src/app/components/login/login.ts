@@ -34,28 +34,29 @@ export class LoginComponent {
 
       this.loginService.login(this.formLogin.value).subscribe({
         next: (response: any) => {
+          // 1. Este log es vital. Abre la consola (F12) y mira qué sale aquí.
           console.log('✅ [Back Response]: ¡Usuario encontrado con éxito!', response);
           
           this.successMessage = '🎉 ¡Inicio de sesión exitoso! Redirigiendo...';
           
-          // Guardamos el objeto completo del usuario (incluyendo el .rol) en el Signal
           this.loginService.setCurrentUser(response);
 
           setTimeout(() => {
-            // Evaluamos el rol devuelto por tu Backend para decidir a dónde enviarlo
-            if (response.rol === 'ADMIN') {
-              // Redirige al Home/Dashboard administrativo
-              this.router.navigate(['/home']); 
+            // 2. Evaluamos el rol de forma estricta
+            if (response && response.rol === 'ADMIN') {
+              console.log('👑 Detectado como ADMIN. Redirigiendo a admin-panel...');
+              this.router.navigate(['/admin-panel/perfiles']);
             } else {
-              // Redirige a la página principal de compradores (Catálogo)
-              this.router.navigate(['/']); 
+              console.log('🛒 Detectado como COMPRADOR/Invitado. Redirigiendo al catálogo...');
+              this.router.navigate(['/']); // Redirige a la ruta raíz
             }
           }, 800);
 
+          // OBLIGA a Angular a actualizar el HTML
           this.cdr.detectChanges(); 
         },
         error: (err: any) => {
-          console.error('❌ [Back Response]: Error en la autenticación.');
+          console.error('❌ [Back Response]: Error en la autenticación.', err);
         
           if (err.status === 401) {
             this.errorMessage = '🔑 El usuario o la contraseña son incorrectos.';

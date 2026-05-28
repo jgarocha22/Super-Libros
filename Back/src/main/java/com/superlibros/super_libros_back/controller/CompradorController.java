@@ -7,9 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/compradores")
-@CrossOrigin(origins = "http://localhost:4200") // Habilita la comunicación con tu Frontend en Angular
+@CrossOrigin(origins = "http://localhost:4200") 
 public class CompradorController {
 
     private final CompradorService service;
@@ -25,20 +27,32 @@ public class CompradorController {
             Comprador compradorRegistrado = service.registrarComprador(comprador);
             return new ResponseEntity<>(compradorRegistrado, HttpStatus.CREATED);
         } catch (RuntimeException e) {
-            // Retorna un error 400 con la notificación de la regla de negocio rota (correo repetido)
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
-    // Endpoint de Login (POST por seguridad de credenciales)
+    // Endpoint de Login (POST)
     @PostMapping("/login")
     public ResponseEntity<?> loginComprador(@RequestBody LoginRequest loginRequest) {
         try {
             Comprador compradorAutenticado = service.verificarLogin(loginRequest.getIdentifier(), loginRequest.getPassword());
             return new ResponseEntity<>(compradorAutenticado, HttpStatus.OK);
         } catch (RuntimeException e) {
-            // Retorna un error 401 si no coinciden los datos
             return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
         }
+    }
+
+    // 🚀 NUEVO: Endpoint para listar todos los usuarios (GET /api/compradores)
+    @GetMapping
+    public ResponseEntity<List<Comprador>> obtenerTodosLosCompradores() {
+        List<Comprador> lista = service.listarCompradores();
+        return new ResponseEntity<>(lista, HttpStatus.OK);
+    }
+
+    // 🚀 OPCIONAL: Placeholder para cuando actives la eliminación física (DELETE /api/compradores/{id})
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> eliminarComprador(@PathVariable Long id) {
+        // De momento no altera el JSON, queda preparado estructuralmente
+        return new ResponseEntity<>("Acción de eliminación recibida en backend para ID: " + id, HttpStatus.OK);
     }
 }
