@@ -124,11 +124,16 @@
 }
 
 .titulo-txt {
-  display: block;
-  font-weight: 600;
-  color: #000000;
+  text-decoration: none; /* Quita el subrayado */
+  color: inherit;        /* Hereda el color del texto original */
+  cursor: pointer;       /* Cambia el cursor a manito */
+  display: block;        /* Para que ocupe el espacio completo */
 }
 
+.titulo-txt:hover {
+  text-decoration: underline; /* Opcional: subrayar al pasar el mouse */
+  color: #555;                /* Opcional: un ligero cambio de color */
+}
 .autor-txt {
   color: #777777;
   font-size: 0.85rem;

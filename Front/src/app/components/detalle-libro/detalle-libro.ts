@@ -1,9 +1,28 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit, signal } from '@angular/core';
+import { ActivatedRoute } from '@angular/router'; 
+import { LibroService } from '../../services/libro.service';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-detalle-libro',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './detalle-libro.html',
-  styleUrl: './detalle-libro.css',
+  styleUrls: ['./detalle-libro.css']
 })
-export class DetalleLibro {}
+export class DetalleLibroComponent implements OnInit {
+  libro = signal<any | null>(null);
+
+  constructor(
+    private route: ActivatedRoute,
+    private libroService: LibroService
+  ) {}
+
+  ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.libroService.getLibroById(id).subscribe(data => {
+        this.libro.set(data);
+      });
+    }
+  }
+}

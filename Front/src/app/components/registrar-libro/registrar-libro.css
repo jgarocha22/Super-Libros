@@ -1,139 +1,43 @@
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(3px); /* Suave desenfoque de fondo */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000; /* Asegura que tape el navbar y el catálogo */
+  position: fixed; inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000;
 }
 
-/* La tarjeta blanca contenedora */
-.modal-card {
-  background: #ffffff;
-  padding: 32px;
-  border-radius: 16px;
-  width: 90%;
-  max-width: 580px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-  animation: fadeIn 0.25s ease-out;
+.modal-content {
+  background: #ffffff; padding: 25px;
+  border-radius: 12px; width: 100%; max-width: 500px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+
+/* Estilo para los inputs */
+.form-group { display: flex; flex-direction: column; margin-bottom: 15px; }
+.form-row { display: flex; gap: 15px; }
+.form-group > label { font-size: 0.85rem; font-weight: 600; color: #555; margin-bottom: 5px; }
+
+input, textarea {
+  padding: 10px; border: 1px solid #ddd;
+  border-radius: 6px; font-size: 0.95rem; outline: none;
+}
+input:focus, textarea:focus { border-color: #8e7cc3; } /* Tono coherente con tu UI */
+
+/* Botones */
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+.btn-save { background: #8e7cc3; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }
+.btn-save:disabled { background: #ccc; cursor: not-allowed; }
+.btn-cancel { background: #f0f0f0; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }
+
+.is-invalid {
+  border: 1px solid #e53e3e !important; /* Borde rojo */
+  background-color: #fff5f5; /* Fondo rojo muy suave */
 }
 
-.modal-header h2 {
-  margin: 0;
-  color: #2d3748;
-  font-size: 1.5rem;
-}
-
-.btn-close {
-  background: none;
-  border: none;
-  font-size: 1.8rem;
-  cursor: pointer;
-  color: #a0aec0;
-  transition: color 0.2s;
-}
-
-.btn-close:hover {
+.error-text {
   color: #e53e3e;
-}
-
-/* Caja de alerta roja para errores del Back-end */
-.alert-error {
-  background-color: #fff5f5;
-  color: #c53030;
-  border: 1px solid #fed7d7;
-  padding: 12px 16px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  font-size: 0.95rem;
-}
-
-/* Estructura del formulario */
-.form-row {
-  display: flex;
-  gap: 16px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 16px;
-  flex: 1;
-}
-
-.form-group label {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #4a5568;
-  margin-bottom: 6px;
-}
-
-.form-group input, 
-.form-group textarea {
-  padding: 10px 14px;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  background-color: #f8fafc;
-  outline: none;
-  transition: border-color 0.2s, background-color 0.2s;
-}
-
-.form-group input:focus, 
-.form-group textarea:focus {
-  border-color: #bfa1eb; /* Tu tono morado suave de la app */
-  background-color: #ffffff;
-}
-
-/* Botones de acción */
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 24px;
-}
-
-.btn-cancel {
-  background-color: #edf2f7;
-  color: #4a5568;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.btn-submit {
-  background-color: #e8def8; /* Púrpura suave del botón de tu mockup */
-  color: #4f378b;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: opacity 0.2s;
-}
-
-.btn-submit:disabled {
-  background-color: #e2e8f0;
-  color: #a0aec0;
-  cursor: not-allowed;
-}
-
-/* Animación de entrada suave */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
+  font-size: 0.8rem;
+  margin-top: 4px;
+  display: block;
 }

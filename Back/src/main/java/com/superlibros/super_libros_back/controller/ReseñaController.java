@@ -1,11 +1,15 @@
 package com.superlibros.super_libros_back.controller;
 
+import com.superlibros.super_libros_back.model.Reseña;
 import com.superlibros.super_libros_back.model.ReseñaAdminDTO;
 import com.superlibros.super_libros_back.services.ReseñaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
@@ -26,4 +30,17 @@ public class ReseñaController {
         List<ReseñaAdminDTO> lista = reseñaService.ObtenerTodasLasReseñasParaAdmin();
         return new ResponseEntity<>(lista, HttpStatus.OK);
     }
+
+    @GetMapping("/libro/{idLibro}")
+    public ResponseEntity<List<Reseña>> obtenerResenasPorLibro(@PathVariable String idLibro) {
+        List<Reseña> resenas = reseñaService.ObtenerReseñaLibro(idLibro);
+        return ResponseEntity.ok(resenas);
+    }
+
+    @PostMapping("/{idLibro}")
+    public ResponseEntity<Boolean> agregarResena(@PathVariable String idLibro, @RequestBody Reseña reseña) {
+        boolean guardado = reseñaService.AgregarReseña(idLibro, reseña);
+        return ResponseEntity.ok(guardado);
+    }
+
 }

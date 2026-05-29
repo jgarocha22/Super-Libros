@@ -1,0 +1,66 @@
+.detalle-container {
+  display: flex;
+  gap: 3rem; /* Espacio entre imagen y texto */
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.imagen-section {
+  flex: 1; /* Ocupa el espacio necesario */
+}
+
+.imagen-section img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.info-section {
+  flex: 1.5; /* El texto ocupa un poco más que la imagen */
+}
+
+.autor { color: #666; font-size: 1.2rem; margin-bottom: 1rem; }
+.sinopsis { line-height: 1.6; color: #333; margin-bottom: 1.5rem; }
+
+.tags-container { display: flex; gap: 0.5rem; margin-bottom: 2rem; }
+.tag { 
+  background: #f0f0f0; padding: 0.3rem 0.8rem; 
+  border-radius: 15px; font-size: 0.9rem; 
+}
+
+.precio { font-size: 2.5rem; font-weight: bold; margin: 0; }
+.stock { color: #888; margin-bottom: 1rem; }
+
+.btn-carrito {
+  background-color: #e0d0f5; /* Color similar al de tu imagen */
+  color: #333;
+  padding: 1rem 3rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-carrito:hover { background-color: #d1baf0; }
+
+:host {
+  display: block;
+  background-color: #ffffff; /* Fondo blanco puro */
+  min-height: 100vh;
+  padding-top: 20px;
+}
+
+.detalle-main-container {
+  background-color: #ffffff;
+  color: #000000; /* Texto negro para asegurar legibilidad */
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Ajuste específico para que coincida con tu diseño */
+h1, h2, p {
+  color: #333; /* O el color exacto de tu diseño */
+}

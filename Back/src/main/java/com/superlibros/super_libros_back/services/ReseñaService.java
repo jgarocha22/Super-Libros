@@ -61,8 +61,8 @@ public class ReseñaService {
         if (libro.getreseñas() != null) {
             for (Reseña res : libro.getreseñas()) {
                 listaAplanada.add(new ReseñaAdminDTO(
-                    libro.getId(),
-                    libro.getnom(),       // Usamos tu getter getnom() del modelo Libro
+                    libro.getid(),
+                    libro.getnombre(),       // Usamos tu getter getnombre() del modelo Libro
                     res.getIDUsuario(),   // Usamos tu getter getIDUsuario()
                     res.getReseña(),      // Usamos tu getter getReseña()
                     res.isCalificacion()

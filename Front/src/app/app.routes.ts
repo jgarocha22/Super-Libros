@@ -8,6 +8,7 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel';
 import { GestionPerfilComponent } from './components/gestion-perfil/gestion-perfil';
 import { GestionLibrosComponent } from './components/gestion-libros/gestion-libros';
 import { GestionResenasComponent } from './components/gestion-resenas/gestion-resenas';
+import { DetalleLibroComponent } from './components/detalle-libro/detalle-libro';
 
 export const routes: Routes = [
   // La raíz ahora muestra el catálogo directamente a los visitantes
@@ -17,6 +18,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'perfil', component: PerfilComponent },
+  { path: 'detalle-libro/:id', component: DetalleLibroComponent},
   
   {
     path: 'admin-panel',

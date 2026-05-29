@@ -1,4 +1,6 @@
+import { Resena } from "./resena.model";
 export interface Libro {
+
     id: string;
     nombre: string;
     sinopsis: string;
@@ -8,4 +10,5 @@ export interface Libro {
     tags: string[];
     stock: number;
     precio: number;
+    resenas: Resena[];
 }

@@ -21,7 +21,12 @@
       </span>
     </div>
   </div>
-
+  @if (mostrarRegistrar) {
+    <app-registrar-libro 
+      (cerrar)="mostrarRegistrar = false" 
+      (libroGuardadoExitoso)="cargarLibros()">
+    </app-registrar-libro>
+  }
   <div class="table-responsive">
     <table class="libros-table">
       <thead>
@@ -43,7 +48,8 @@
                   <img [src]="libro.imagen" alt="Portada" class="mini-portada">
                 }
                 <div>
-                  <span class="titulo-txt">{{ libro.nom }}</span>
+                  <a class="titulo-txt" [routerLink]="['/detalle-libro', libro.id]">
+                  {{ libro.nombre }}</a>
                   <small class="autor-txt">por {{ libro.autor }}</small>
                 </div>
               </div>

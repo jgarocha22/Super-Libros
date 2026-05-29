@@ -1,1 +1,39 @@
-<p>detalle-libro works!</p>
+<div class="detalle-container">
+  @if (libro()) {
+  <div class="imagen-section">
+    <img [src]="libro().imagenUrl" [alt]="libro().nombre">
+  </div>
+  
+  <div class="info-container">
+    <h1>{{ libro().nombre }}</h1>
+    </div>
+  } @else {
+    <p>Cargando información del libro...</p>
+  }
+  <div class="info-section">
+    <h1>{{ libro().nombre }}</h1>
+    <p class="autor">{{ libro().autor }}</p>
+    
+    <p class="sinopsis">{{ libro().sinopsis }}</p>
+    
+    <p class="editorial"><strong>Editorial:</strong> {{ libro().editorial }}</p>
+    
+    <div class="tags-container">
+      @for (tag of libro().tags; track tag) {
+        <span class="tag">{{ tag }}</span>
+      }
+    </div>
+
+    <div class="compra-section">
+      <p class="precio">${{ libro().precio }}</p>
+      <p class="stock">{{ libro().stock > 0 ? libro().stock + ' en Stock' : 'Sin stock' }}</p>
+      
+      <button class="btn-carrito" [disabled]="libro().stock === 0">
+        Añadir al Carrito
+      </button>
+      <div class="detalle-container">
+      </div>
+
+    </div>
+  </div>
+</div>

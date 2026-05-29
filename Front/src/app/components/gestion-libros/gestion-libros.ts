@@ -2,17 +2,19 @@ import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LibroService } from '../../services/libro.service';
+import { RegistrarLibro } from '../registrar-libro/registrar-libro';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-gestion-libros',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RegistrarLibro, RouterLink],
   templateUrl: './gestion-libros.html',
   styleUrl: './gestion-libros.css'
 })
 export class GestionLibrosComponent implements OnInit {
   private libroService = inject(LibroService);
-
+  mostrarRegistrar: boolean = false;
   // Estados Reactivos con Signals
   libros = signal<any[]>([]);
   terminoBusqueda = signal<string>('');
@@ -43,10 +45,14 @@ export class GestionLibrosComponent implements OnInit {
     });
   }
 
-  // Único botón operativo según tus indicaciones
   abrirFormularioAgregar(): void {
-    console.log('➕ Evento capturado: Abrir formulario para agregar nuevo libro (Por implementar a futuro).');
-    alert('¡Próximamente abriremos el formulario aquí!');
+    console.log('✨ Abriendo formulario de registro...');
+    this.mostrarRegistrar = true;
+  }
+
+  
+  cerrarModal(): void {
+    this.mostrarRegistrar = false;
   }
 
   // Botones deshabilitados por ahora

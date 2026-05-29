@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Output, EventEmitter } from '@angular/core';
 import { LibroService } from '../../services/libro.service';
-import { Libro } from '../../services/libro';
 
 @Component({
   selector: 'app-registrar-libro',
@@ -12,41 +13,66 @@ import { Libro } from '../../services/libro';
   styleUrl: './registrar-libro.css',
 })
 export class RegistrarLibro {
-  libroForm: FormGroup;
-  mensajeError: string | null = null;
-
+  @Output() libroGuardadoExitoso = new EventEmitter<void>();
   @Output() cerrar = new EventEmitter<void>();
-  @Output() libroGuardado = new EventEmitter<void>();
+  form: FormGroup;
 
   constructor(private fb: FormBuilder, private libroService: LibroService) {
-    this.libroForm = this.fb.group({
+    this.form = this.fb.group({
       nombre: ['', Validators.required],
       autor: ['', Validators.required],
       editorial: ['', Validators.required],
       sinopsis: ['', Validators.required],
       imagenUrl: ['', Validators.required],
-      precio: [1, [Validators.required, Validators.min(1)]],
-      tags: ['']
+      precio: [0, [Validators.required, Validators.min(0)]],
+      tags: ['', Validators.required],
+      stock: [1, [Validators.required, Validators.min(1)]],
     });
   }
 
-  onSubmit(): void {
-    if (this.libroForm.valid) {
-      const formValue = { ...this.libroForm.value };
-      // Transformación de tags a formato array
-      formValue.tags = formValue.tags ? formValue.tags.split(',').map((t: string) => t.trim()) : [];
-
-      this.libroService.crearLibro(formValue).subscribe({
-        next: () => {
-          this.libroGuardado.emit(); // Notifica al componente de gestión que debe actualizar la tabla
-          this.cerrar.emit();
-        },
-        error: (err) => {
-          this.mensajeError = err.error || 'Error al guardar el libro.';
-        }
-      });
-    }
+  mensaje: string = '';
+  esError: boolean = false;
+  limpiarFormulario() {
+    this.form.reset({
+      nombre: '',
+      autor: '',
+      editorial: '',
+      sinopsis: '',
+      imagenUrl: '',
+      tags: '',
+      precio: 0,
+      stock: 0
+    });
   }
+  enviar() {
+  if (this.form.valid) {
+    // 1. Clonamos el objeto del formulario
+    const libroData = { ...this.form.value };
 
+    // 2. Convertimos el string de tags a un array de strings
+    if (typeof libroData.tags === 'string') {
+      libroData.tags = libroData.tags.split(',').map((tag: string) => tag.trim());
+    }
 
+    // 3. Enviamos el objeto con el formato correcto
+    this.libroService.crearLibro(libroData).subscribe({
+      next: () => {
+        alert("¡Libro registrado correctamente!");
+        this.form.reset(); // Limpia los campos sin cerrar el modal
+        this.libroGuardadoExitoso.emit();
+      },
+      error: (err) => {
+        // Mostramos el mensaje claro que viene del backend
+        alert("Error: " + (err.error || "No se pudo registrar"));
+      }
+    });
+  }
+  else{
+    this.form.markAllAsTouched();
+    alert("Por favor, corrige los errores antes de guardar.");
+    return; // 3. Detenemos la ejecución aquí
+  }
+  }
 }
+
+
