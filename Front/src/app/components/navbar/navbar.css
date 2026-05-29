@@ -174,3 +174,24 @@
 .btn-cart:hover .cart-text {
   text-decoration: underline;
 }
+/* BOTÓN PANEL ADMIN */
+.btn-admin {
+  background-color: #1a1a2e;
+  color: #ffcc00;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.5px;
+}
+
+.btn-admin:hover {
+  background-color: #2d2d4e;
+  transform: translateY(-1px);
+}

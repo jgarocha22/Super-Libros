@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login';
 import { RegistroComponent } from './components/registro/registro';
 import { PerfilComponent } from './components/perfil/perfil';
+import { Catalogo } from './components/catalogo/catalogo';
 
 // 🚀 1. Importamos los componentes del panel de administración
 import { AdminPanelComponent } from './components/admin-panel/admin-panel';
@@ -14,6 +15,9 @@ export const routes: Routes = [
   // La raíz ahora muestra el catálogo directamente a los visitantes
   // { path: '', component: CatalogoComponent }, 
   
+  // Ruta por defecto al abrir la pagina
+  { path: '', component: Catalogo},
+
   // Rutas específicas para cuando decidan iniciar sesión o registrarse
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },

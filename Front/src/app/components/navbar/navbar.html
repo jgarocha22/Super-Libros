@@ -1,6 +1,6 @@
 <nav class="navbar-container">
   
-  <div class="navbar-logo" routerLink="/catalogo">SuperLibros</div>
+  <div class="navbar-logo" routerLink="/">SuperLibros</div>
 
   <div class="navbar-search-container">
     <input type="text" placeholder="Busca por Título, Autor, o Categoría..." class="search-input">
@@ -16,10 +16,16 @@
         <button class="btn-login" routerLink="/login">
           <img src="assets/icons/login.svg" alt="Login icon"> INICIAR SESIÓN
         </button>
-
         <button class="btn-register" routerLink="/registro">REGISTRARSE</button>
       }
       @else {
+        <!-- Botón Admin: solo visible si el rol es ADMIN -->
+        @if (loginService.currentUser().rol === 'ADMIN') {
+          <button class="btn-admin" routerLink="/admin-panel">
+            ⚙ PANEL ADMIN
+          </button>
+        }
+
         <div class="user-profile" [routerLink]="loginService.currentUser().rol === 'ADMIN' ? '/home' : '/perfil'">
           <img *ngIf="loginService.currentUser().fotoPerfil; else soloInicial" 
                [src]="loginService.currentUser().fotoPerfil" alt="Perfil" class="avatar-img">

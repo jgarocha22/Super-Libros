@@ -1,7 +1,10 @@
-<main class="catalog-container">
-  <h1 class="category-title">CATALOGO</h1>
-  
-  <div class="catalog-grid">
+<main class="catalogo-seccion">
+  <div class="catalogo-header">
+    <h1 class="categoria-titulo">CATÁLOGO</h1>
+    <hr class="divisor-linea" />
+  </div>
+
+  <div class="grid-contenedor">
     @for (currentBook of libros; track currentBook.id) {
       <app-tarjeta-libro [libro]="currentBook"></app-tarjeta-libro>
     }

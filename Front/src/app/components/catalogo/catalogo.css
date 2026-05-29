@@ -53,3 +53,9 @@
     grid-template-columns: 1fr;
   }
 }
+/* Background override for catalog page */
+:host {
+  display: block;
+  background-color: #ffffff;
+  min-height: 100vh;
+}
