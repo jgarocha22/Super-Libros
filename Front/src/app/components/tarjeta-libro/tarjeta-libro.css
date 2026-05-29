@@ -1,4 +1,7 @@
 .tarjeta-container {
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  text-decoration: none;
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
@@ -71,4 +74,27 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+/* TAGS */
+.tags-zona {
+  display: flex;
+  flex-wrap: wrap;  /* Si hay muchas tags, saltan a la siguiente línea */
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.tag-chip {
+  background-color: #ede9f8;
+  color: #5a3e9b;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.tarjeta-container:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
