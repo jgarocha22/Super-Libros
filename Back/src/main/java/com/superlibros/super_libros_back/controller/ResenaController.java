@@ -9,6 +9,7 @@ import com.superlibros.super_libros_back.services.ResenaService;
 
 @RestController
 @RequestMapping("/api/resenas")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ResenaController {
 
     @Autowired

@@ -1,5 +1,4 @@
 package com.superlibros.super_libros_back.model;
-import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -41,13 +40,10 @@ public class Libro {
     @JsonProperty("precio")
     private double precio;
 
-    @JsonProperty("reseñas")
-    private List<Resena> resenas = new ArrayList<>();
-
     public Libro(){
     }
 
-    public Libro(String id, String nombre, String editorial, String sinopsis, String autor, String imagenurl, List<String> tags, int stock, double precio, List<Resena> reseñas) {
+    public Libro(String id, String nombre, String editorial, String sinopsis, String autor, String imagenurl, List<String> tags, int stock, double precio) {
         this.id = id;
         this.nombre = nombre;
         this.editorial = editorial;
@@ -57,7 +53,6 @@ public class Libro {
         this.tags = tags;
         this.stock = stock;
         this.precio = precio;
-        this.resenas = reseñas;
     }
 
     public String getid() {return id;}  
@@ -86,8 +81,5 @@ public class Libro {
 
     public double getprecio() {return precio;}
     public void setprecio(double precio) {this.precio = precio;}
-
-    public List<Resena> getresenas() {return resenas;}
-    public void setResenas(List<Resena> resenas) {this.resenas = resenas;}
 
 }

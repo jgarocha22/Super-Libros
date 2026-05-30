@@ -1,0 +1,37 @@
+[
+  {
+    "idLibro": "lib009",
+    "idusuario": "lectora_rosa",
+    "resena": "Una trama intensa y bien construida; el final te deja con ganas de más.",
+    "fecha": "2025-10-21T11:15:00",
+    "calificacion": true
+  },
+  {
+    "idLibro": "lib010",
+    "idusuario": "corazon_azul",
+    "resena": "Muy emotiva y esperanzadora, perfecta para leer en un fin de semana tranquilo.",
+    "fecha": "2025-05-03T18:40:00",
+    "calificacion": true
+  },
+  {
+    "idLibro": "lib011",
+    "idusuario": "tecnofan",
+    "resena": "Acción constante y un buen mensaje sobre la tecnología; me enganchó desde la primera página.",
+    "fecha": "2024-12-15T09:25:00",
+    "calificacion": true
+  },
+  {
+    "idLibro": "lib012",
+    "idusuario": "chefnovato",
+    "resena": "La historia es cálida y la cocina aporta un sabor especial a la narrativa.",
+    "fecha": "2025-07-08T16:10:00",
+    "calificacion": true
+  },
+  {
+    "idLibro": "lib013",
+    "idusuario": "lector_viajero",
+    "resena": "Relatos muy bien escritos, cada capítulo es un pequeño viaje emocional.",
+    "fecha": "2025-02-28T20:55:00",
+    "calificacion": true
+  }
+]

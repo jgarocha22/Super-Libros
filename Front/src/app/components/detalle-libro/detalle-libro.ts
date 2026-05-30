@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { LibroService } from '../../services/libro.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Resena } from '../../model/resena.model';
+import { ResenaService } from '../../services/resena.service';
 @Component({
   selector: 'app-detalle-libro',
   standalone: true,
@@ -12,7 +14,8 @@ import { FormsModule } from '@angular/forms';
 })
 export class DetalleLibroComponent implements OnInit {
   libro = signal<any | null>(null);
-
+  resenas = signal<Resena[]>([]);
+  
   nuevaResena = {
     IDUsuario: 'UsuarioActual', 
     Reseña: '',
@@ -22,7 +25,8 @@ export class DetalleLibroComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private libroService: LibroService
+    private libroService: LibroService,
+    private resenaService: ResenaService
   ) {}
 
   ngOnInit(): void {
@@ -31,6 +35,9 @@ export class DetalleLibroComponent implements OnInit {
       this.libroService.getLibroById(id).subscribe(data => {
         this.libro.set(data);
       });
+
+      this.resenaService.getResenasPorLibro(id).subscribe(data => this.resenas.set(data));
+
     }
   }
    

@@ -1,1 +1,57 @@
-[ { "id": "lib006", "nombre": "Vientos del desierto", "editorial": "Horizonte Editorial", "sinopsis": "Saga familiar ambientada entre oasis y dunas, donde los secretos del pasado resurgen.", "autor": "Isabel Martín", "imagenurl": "https://example.com/images/vientos_desierto.jpg", "tags": ["ficción", "drama", "historia"], "stock": 14, "precio": 16.95, "resenas": [ { "idlibro": "lib006", "idusuario": "lector23", "resena": "Atmosférico y envolvente; personajes memorables.", "fecha": "2024-08-10T14:30:00", "calificacion": true } ] }, { "id": "lib007", "nombre": "Microhábitos: Cambios pequeños, resultados grandes", "editorial": "Bienestar Práctico", "sinopsis": "Guía práctica para incorporar hábitos diarios que transforman productividad y salud.", "autor": "Pedro Salazar", "imagenurl": "https://example.com/images/microhabitos.jpg", "tags": ["autoayuda", "productividad", "salud"], "stock": 25, "precio": 12.0, "resenas": [] }, { "id": "lib008", "nombre": "Ecos del futuro", "editorial": "Nova Ciencia", "sinopsis": "Antología de relatos cortos sobre futuros plausibles y dilemas éticos tecnológicos.", "autor": "Varios Autores", "imagenurl": "https://example.com/images/ecos_futuro.jpg", "tags": ["ciencia ficción", "relatos", "tecnología"], "stock": 9, "precio": 18.5, "resenas": [ { "idlibro": "lib008", "idusuario": "scifi_fan", "resena": "Ideas originales y finales sorprendentes.", "fecha": "2025-09-02T19:20:00", "calificacion": true } ] } ]
+[
+  {
+    "id": "lib009",
+    "nombre": "Sombras del amanecer",
+    "editorial": "Luna Roja",
+    "sinopsis": "Un thriller urbano donde una periodista descubre una red de secretos tras un incendio misterioso.",
+    "autor": "María Cortés",
+    "imagenurl": "https://example.com/images/sombras_amanecer.jpg",
+    "tags": ["thriller", "misterio", "periodismo"],
+    "stock": 12,
+    "precio": 19.90
+  },
+  {
+    "id": "lib010",
+    "nombre": "Jardines en el viento",
+    "editorial": "Senda Verde",
+    "sinopsis": "Novela romántica sobre la reconstrucción personal de una mujer tras perderlo todo.",
+    "autor": "Ana Beltrán",
+    "imagenurl": "https://example.com/images/jardines_viento.jpg",
+    "tags": ["romance", "drama", "superación"],
+    "stock": 18,
+    "precio": 15.50
+  },
+  {
+    "id": "lib011",
+    "nombre": "Código Argos",
+    "editorial": "Neón Digital",
+    "sinopsis": "Aventura de ciencia ficción en la que un grupo de jóvenes hacker intenta salvar a la humanidad de una IA descontrolada.",
+    "autor": "Raúl Medina",
+    "imagenurl": "https://example.com/images/codigo_argos.jpg",
+    "tags": ["ciencia ficción", "acción", "tecnología"],
+    "stock": 21,
+    "precio": 22.00
+  },
+  {
+    "id": "lib012",
+    "nombre": "La última receta",
+    "editorial": "Casa Gourmet",
+    "sinopsis": "Un chef en crisis viaja al sur para descubrir una antigua receta familiar y recuperar su pasión por la cocina.",
+    "autor": "Lucía Romero",
+    "imagenurl": "https://example.com/images/ultima_receta.jpg",
+    "tags": ["gastronomía", "viaje", "familia"],
+    "stock": 9,
+    "precio": 17.75
+  },
+  {
+    "id": "lib013",
+    "nombre": "Atlas de los recuerdos",
+    "editorial": "Horizonte Azul",
+    "sinopsis": "Colección de relatos breves que exploran memorias y paisajes de diferentes generaciones.",
+    "autor": "Diego Salinas",
+    "imagenurl": "https://example.com/images/atlas_recuerdos.jpg",
+    "tags": ["relatos", "memoria", "literatura contemporánea"],
+    "stock": 14,
+    "precio": 13.80
+  }
+]

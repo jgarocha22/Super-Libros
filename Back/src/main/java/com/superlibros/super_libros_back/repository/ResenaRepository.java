@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public class ResenaRepository {
-    private final String FILE_PATH = "src/main/resources/resenas.json";
+    private final String FILE_PATH = "src/main/resources/resena.json";
     private final ObjectMapper objectMapper;
 
     public ResenaRepository() {

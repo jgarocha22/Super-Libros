@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ResenaService } from '../../services/reseña.service'; // Mantén tu ruta de importación intacta
+import { ResenaService } from '../../services/resena.service';
 
 @Component({
   selector: 'app-gestion-reseñas',
@@ -29,11 +29,11 @@ export class GestionResenasComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.cargarResenas();
+ 
   }
 
-  cargarResenas(): void {
-    this.resenaService.obtenerTodasLasResenas().subscribe({
+  /*cargarResenas(): void {
+    this.resenaService.getResenasPorLibro().subscribe({
       next: (data) => {
         // Mapeamos los datos del backend para asegurar que la propiedad de texto no use 'ñ' en el Front
         const datosLimpios = data.map(r => ({
@@ -48,7 +48,7 @@ export class GestionResenasComponent implements OnInit {
         console.error('❌ Error al cargar reseñas en el sistema:', err);
       }
     });
-  }
+  }*/
 
   // 👈 Cambiado a eliminarResena (sin ñ)
   eliminarResena(idLibro: string, idUsuario: string): void {

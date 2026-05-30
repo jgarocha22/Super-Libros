@@ -25,5 +25,20 @@
       </div>
     </div>
   </div>
-
+  <section class="resenas-section">
+    <h3>Reseñas de usuarios</h3>
+    
+    <div class="lista-resenas">
+      @for (resena of resenas(); track resena) {
+        <div class="resena-card">
+          <p><strong>Usuario:</strong> {{ resena.idUsuario }}</p>
+          <p>{{ resena.resena }}</p>
+          <small>Fecha: {{ resena.fecha | date:'short' }}</small>
+        </div>
+      } @empty {
+        <p>Aún no hay reseñas para este libro. ¡Sé el primero!</p>
+      }
+    </div>
+  </section>
+}
 
