@@ -42,12 +42,12 @@ public class Libro {
     private double precio;
 
     @JsonProperty("reseñas")
-    private List<Reseña> reseñas = new ArrayList<>();
+    private List<Resena> resenas = new ArrayList<>();
 
     public Libro(){
     }
 
-    public Libro(String id, String nombre, String editorial, String sinopsis, String autor, String imagenurl, List<String> tags, int stock, double precio, List<Reseña> reseñas) {
+    public Libro(String id, String nombre, String editorial, String sinopsis, String autor, String imagenurl, List<String> tags, int stock, double precio, List<Resena> reseñas) {
         this.id = id;
         this.nombre = nombre;
         this.editorial = editorial;
@@ -57,7 +57,7 @@ public class Libro {
         this.tags = tags;
         this.stock = stock;
         this.precio = precio;
-        this.reseñas = reseñas;
+        this.resenas = reseñas;
     }
 
     public String getid() {return id;}  
@@ -87,7 +87,7 @@ public class Libro {
     public double getprecio() {return precio;}
     public void setprecio(double precio) {this.precio = precio;}
 
-    public List<Reseña> getreseñas() {return reseñas;}
-    public void setReseñas(List<Reseña> reseñas) {this.reseñas = reseñas;}
+    public List<Resena> getresenas() {return resenas;}
+    public void setResenas(List<Resena> resenas) {this.resenas = resenas;}
 
 }

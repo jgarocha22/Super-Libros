@@ -37,3 +37,29 @@
     </div>
   </div>
 </div>
+
+<div class="seccion-resenas">
+  <h3>RESEÑAS MÁS ÚTILES</h3>
+  
+  @for (resena of libro()?.resenas; track resena.idusuario) {
+    <div class="resena-card">
+      <div class="usuario-info">
+        <strong>{{ resena.idusuario }}</strong>
+      </div>
+      
+      <div class="contenido-resena">
+        <div class="calificacion-header">
+
+          <span class="badge">
+            {{ resena.calificacion ? '👍 Recomendado' : '👎 No Recomendado' }}
+          </span>
+          <small>Publicado: {{ resena.fecha | date:'d \'de\' MMMM' }}</small>
+        </div>
+        
+        <p class="texto-resena">{{ resena.resena }}</p>
+      </div>
+    </div>
+  } @empty {
+    <p>No hay reseñas para este libro aún.</p>
+  }
+</div>

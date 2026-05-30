@@ -38,9 +38,8 @@ export class GestionResenasComponent implements OnInit {
         // Mapeamos los datos del backend para asegurar que la propiedad de texto no use 'ñ' en el Front
         const datosLimpios = data.map(r => ({
           idLibro: r.idLibro,
-          nombreLibro: r.nombreLibro,
           idUsuario: r.idUsuario,
-          textoResena: r.textoReseña, // 👈 Pasamos el 'textoReseña' del back a 'textoResena' para el Front
+          textoResena: r.Resena, // 👈 Pasamos el 'textoReseña' del back a 'textoResena' para el Front
           calificacion: r.calificacion
         }));
         this.resenas.set(datosLimpios);

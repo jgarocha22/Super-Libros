@@ -64,3 +64,26 @@
 h1, h2, p {
   color: #333; /* O el color exacto de tu diseño */
 }
+
+.resena-card {
+  background-color: #1b2838;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  display: flex;
+  gap: 20px;
+}
+
+.usuario-info {
+  width: 150px;
+}
+
+.badge {
+  color: #66c0f4;
+  font-weight: bold;
+}
+
+.texto-resena {
+  margin-top: 10px;
+  color: #c7d5e0;
+}

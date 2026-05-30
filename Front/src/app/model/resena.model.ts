@@ -1,6 +1,6 @@
 export interface Resena {
-  idUsuario: string; 
+  idusuario: string; 
   resena: string;    
   fecha: string;    
-  recomendado: boolean; // true = Recomendado, false = No recomendado
+  calificacion: boolean; // true = Recomendado, false = No recomendado
 }
