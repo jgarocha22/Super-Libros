@@ -1,0 +1,46 @@
+[ {
+  "id" : 2,
+  "username" : "pepe123",
+  "email" : "test@mail.com",
+  "password" : "a109e36947ad56de1dca1cc49f0ef8ac9ad9a7b1aa0df41fb3c4cb73c1ff01ea",
+  "direccion" : "mi casa osi osi",
+  "fotoPerfil" : null,
+  "rol" : "COMPRADOR",
+  "carrito" : [ ],
+  "librosComprados" : [ {
+    "idLibro" : "9e017b07-957c-4b4b-a647-750e1417600d",
+    "fechaCompra" : "2026-05-30"
+  }, {
+    "idLibro" : "ebdb8bae-5158-4ac6-a4c0-25c29ee1a818",
+    "fechaCompra" : "2026-05-30"
+  }, {
+    "idLibro" : "lib008",
+    "fechaCompra" : "2026-05-30"
+  }, {
+    "idLibro" : "lib006",
+    "fechaCompra" : "2026-05-30"
+  } ]
+}, {
+  "id" : 3,
+  "username" : "prueba2",
+  "email" : "test2@mail.com",
+  "password" : "a109e36947ad56de1dca1cc49f0ef8ac9ad9a7b1aa0df41fb3c4cb73c1ff01ea",
+  "direccion" : "Password123!",
+  "fotoPerfil" : null,
+  "rol" : "COMPRADOR",
+  "carrito" : [ ],
+  "librosComprados" : [ {
+    "idLibro" : "lib008",
+    "fechaCompra" : "2026-05-30"
+  } ]
+}, {
+  "id" : 4,
+  "username" : "prueba3",
+  "email" : "test3@mail.com",
+  "password" : "a109e36947ad56de1dca1cc49f0ef8ac9ad9a7b1aa0df41fb3c4cb73c1ff01ea",
+  "direccion" : "Password123!",
+  "fotoPerfil" : null,
+  "rol" : "COMPRADOR",
+  "carrito" : [ ],
+  "librosComprados" : [ ]
+} ]

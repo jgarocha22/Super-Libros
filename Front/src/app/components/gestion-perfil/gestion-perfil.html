@@ -1,0 +1,52 @@
+<div class="gestion-container">
+  <h1 class="panel-title">GESTIÓN DE PERFIL</h1>
+
+  <div class="search-box-container">
+    <div class="search-input-wrapper">
+      <input 
+        type="text" 
+        placeholder="Buscar Usuarios..." 
+        class="search-input"
+        [ngModel]="terminoBusqueda()"
+        (ngModelChange)="terminoBusqueda.set($event)"
+      >
+      <span class="search-icon-wrapper">
+        <img src="assets/icons/search.svg" alt="Buscar">
+      </span>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="usuarios-table">
+      <thead>
+        <tr>
+          <th>Nombre de Usuario</th>
+          <th>Correo Electrónico</th>
+          <th>Dirección Física</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (usuario of usuariosFiltrados(); track usuario.id) {
+          <tr>
+            <td class="username-cell">{{ usuario.username }}</td>
+            <td>{{ usuario.email }}</td>
+            <td class="address-cell">{{ usuario.direccion || 'No registrada' }}</td>
+            <td>
+              <button class="btn-action-delete" (click)="eliminarPerfil(usuario.id, usuario.username)" disabled>
+                <img src="assets/icons/delete.svg" alt="Eliminar" class="btn-icon">
+                Eliminar Perfil
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5" class="empty-table-message">
+              <img src="assets/icons/search.svg" alt=""> No se encontraron usuarios que coincidan con la búsqueda.
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="gestion-container">
+  <h1 class="panel-title">GESTIÓN DE RESEÑAS</h1>
+
+  <div class="search-box-container">
+    <div class="search-input-wrapper">
+      <input 
+        type="text" 
+        placeholder="Buscar por usuario o libro..." 
+        class="search-input"
+        [ngModel]="terminoBusqueda()"
+        (ngModelChange)="terminoBusqueda.set($event)"
+      >
+      <span class="search-icon-wrapper">
+        <img src="assets/icons/search.svg" alt="Buscar">
+      </span>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="reseñas-table">
+      <thead>
+        <tr>
+          <th>ID Libro</th>
+          <th>Libro</th>
+          <th>Usuario</th>
+          <th>Reseña</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (r of resenasFiltradas(); track r.idLibro + r.idUsuario) {
+          <tr>
+            <td class="id-cell" [title]="r.idLibro">{{ r.idLibro }}</td>
+            <td class="libro-cell">{{ r.nombreLibro }}</td>
+            <td class="user-cell">&#64;{{ r.idUsuario }}</td>
+            <td class="text-cell">
+              <div class="resena-wrapper">
+                <span class="thumb-indicator" [class.dislike]="!r.calificacion">
+                  {{ r.calificacion ? '👍' : '👎' }}
+                </span>
+                <span class="comment-txt" [title]="r.textoResena">{{ r.textoResena }}</span>
+              </div>
+            </td>
+            <td>
+              <button class="btn-action-delete" (click)="eliminarResena(r.idLibro, r.idUsuario)" disabled>
+                <img src="assets/icons/delete.svg" alt="Eliminar" class="btn-icon">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5" class="empty-table-message">
+              💬 No hay reseñas registradas que coincidan con los criterios de búsqueda.
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

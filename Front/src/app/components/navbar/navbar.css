@@ -1,0 +1,197 @@
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 15px 40px;
+  border-bottom: 1px solid #f0f0f0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* LOGO */
+.navbar-logo {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #000000;
+  cursor: pointer;
+  letter-spacing: -1px;
+}
+
+/* BUSCADOR CENTRAL */
+.navbar-search-container {
+  position: relative;
+  width: 45%;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 20px;
+  padding-right: 45px;
+  border: none;
+  background-color: #f3eff6;
+  border-radius: 30px;
+  font-size: 0.95rem;
+  color: #555;
+  outline: none;
+}
+
+.search-icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+}
+
+/* Controlar tamaño del icono de búsqueda */
+.search-icon img {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+/* BLOQUE DE ACCIONES (DERECHA) */
+.navbar-actions {
+  display: flex;
+  flex-direction: row; /* CAMBIO: Todo se alinea ahora en una sola fila horizontal */
+  align-items: center;
+  gap: 25px;           /* Separación limpia entre login/perfil y el carrito */
+}
+
+.auth-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* BOTONES AUTENTICACIÓN */
+.btn-login, .btn-logout {
+  background-color: #e6e0fa;
+  color: #4a3b8c;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  
+  /* CAMBIO: Flexbox interno para centrar verticalmente el icono al lado del texto */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* CAMBIO: Selector corregido de 'svg' a 'img' para que escale correctamente su tamaño */
+.btn-login img, .btn-logout img {
+  width: 18px;         
+  height: 18px;
+  display: block;      
+}
+
+.btn-login:hover {
+  background-color: #dcd4f7;
+}
+
+.btn-register {
+  background: none;
+  border: none;
+  color: #555555;
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+}
+
+.btn-register:hover, .btn-logout:hover {
+  color: #000000;
+}
+
+/* COMPONENTE DE USUARIO LOGUEADO */
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.avatar-img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatar-fallback {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: #7c69a3;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.username-text {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #333;
+}
+
+/* SECCIÓN CARRITO */
+.cart-row {
+  display: flex;
+  align-items: center;
+}
+
+.btn-cart {
+  background: none;
+  border: none;
+  color: #69529e;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;            /* Espacio perfecto entre el icono del carrito y el texto */
+}
+
+/* CAMBIO: Selector corregido de 'svg' a 'img' para el icono del carrito */
+.btn-cart img {
+  width: 22px;         /* Un pelín más grande para que mantenga buena proporción visual */
+  height: 22px;
+  display: block;
+}
+
+.cart-text {
+  font-size: 0.85rem;  /* Ajustado para homogeneizar la tipografía con los botones de auth */
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.btn-cart:hover .cart-text {
+  text-decoration: underline;
+}
+/* BOTÓN PANEL ADMIN */
+.btn-admin {
+  background-color: #1a1a2e;
+  color: #ffcc00;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.5px;
+}
+
+.btn-admin:hover {
+  background-color: #2d2d4e;
+  transform: translateY(-1px);
+}
