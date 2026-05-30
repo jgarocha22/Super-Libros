@@ -13,7 +13,7 @@ public class Comprador {
     private String rol; // "COMPRADOR" o "ADMIN"
     
     // Listas requeridas por el negocio
-    private List<Object> carrito = new ArrayList<>();
+    private List<CarritoItem> carrito = new ArrayList<>();
     // 👈 Cambiamos Object por HistorialCompra para guardar la estructura normalizada
     private List<HistorialCompra> librosComprados = new ArrayList<>();
 
@@ -52,8 +52,8 @@ public class Comprador {
     public String getRol() { return rol; }
     public void setRol(String rol) { this.rol = rol; }
 
-    public List<Object> getCarrito() { return carrito; }
-    public void setCarrito(List<Object> carrito) { this.carrito = carrito; }
+    public List<CarritoItem> getCarrito() { return carrito; }
+    public void setCarrito(List<CarritoItem> carrito) { this.carrito = carrito; }
 
     // 👈 Getters y Setters actualizados con el nuevo tipo
     public List<HistorialCompra> getLibrosComprados() { return librosComprados; }
