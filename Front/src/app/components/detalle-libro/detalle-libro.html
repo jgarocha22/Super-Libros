@@ -1,65 +1,29 @@
-<div class="detalle-container">
-  @if (libro()) {
-  <div class="imagen-section">
-    <img [src]="libro().imagenUrl" [alt]="libro().nombre">
-  </div>
-  
-  <div class="info-container">
-    <h1></h1>
-    </div>
-  } @else {
-    <p>Cargando información del libro...</p>
-  }
-  <div class="info-section">
-    <h1>{{ libro().nombre }}</h1>
-    <p class="autor">{{ libro().autor }}</p>
-    
-    <p class="sinopsis">{{ libro().sinopsis }}</p>
-    
-    <p class="editorial"><strong>Editorial:</strong> {{ libro().editorial }}</p>
-    
-    <div class="tags-container">
-      @for (tag of libro().tags; track tag) {
-        <span class="tag">{{ tag }}</span>
-      }
+@if (libro()) {
+  <div class="detalle-container">
+    <div class="imagen-section">
+      <img [src]="libro().imagenurl" [alt]="libro().nombre"> <!-- imagenurl en minúscula, igual que el modelo -->
     </div>
 
-    <div class="compra-section">
-      <p class="precio">${{ libro().precio }}</p>
-      <p class="stock">{{ libro().stock > 0 ? libro().stock + ' en Stock' : 'Sin stock' }}</p>
-      
-      <button class="btn-carrito" [disabled]="libro().stock === 0">
-        Añadir al Carrito
-      </button>
-      <div class="detalle-container">
+    <div class="info-section">
+      <h1>{{ libro().nombre }}</h1>
+      <p class="autor">{{ libro().autor }}</p>
+      <p class="sinopsis">{{ libro().sinopsis }}</p>
+      <p class="editorial"><strong>Editorial:</strong> {{ libro().editorial }}</p>
+
+      <div class="tags-container">
+        @for (tag of libro().tags; track tag) {
+          <span class="tag">{{ tag }}</span>
+        }
       </div>
 
+      <div class="compra-section">
+        <p class="precio">${{ libro().precio }}</p>
+        <p class="stock">{{ libro().stock > 0 ? libro().stock + ' en Stock' : 'Sin stock' }}</p>
+        <button class="btn-carrito" [disabled]="libro().stock === 0">
+          Añadir al Carrito
+        </button>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="seccion-resenas">
-  <h3>RESEÑAS MÁS ÚTILES</h3>
-  
-  @for (resena of libro()?.resenas; track resena.idusuario) {
-    <div class="resena-card">
-      <div class="usuario-info">
-        <strong>{{ resena.idusuario }}</strong>
-      </div>
-      
-      <div class="contenido-resena">
-        <div class="calificacion-header">
 
-          <span class="badge">
-            {{ resena.calificacion ? '👍 Recomendado' : '👎 No Recomendado' }}
-          </span>
-          <small>Publicado: {{ resena.fecha | date:'d \'de\' MMMM' }}</small>
-        </div>
-        
-        <p class="texto-resena">{{ resena.resena }}</p>
-      </div>
-    </div>
-  } @empty {
-    <p>No hay reseñas para este libro aún.</p>
-  }
-</div>

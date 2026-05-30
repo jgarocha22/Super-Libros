@@ -33,7 +33,6 @@ export class DetalleLibroComponent implements OnInit {
       });
     }
   }
-    agregarResena(): void {
+   
 
-  }
 }
