@@ -27,11 +27,11 @@
         </button>
 
         @if (mensajeCarrito) {
-          <p class="mensaje-resena">{{ mensajeCarrito }}</p>
+          <div class="success-banner">{{ mensajeCarrito }}</div>
         }
 
         @if (errorCarrito) {
-          <p class="error-resena">{{ errorCarrito }}</p>
+          <div class="error-banner">{{ errorCarrito }}</div>
         }
       </div>
     </div>
@@ -87,9 +87,10 @@
   @for (resena of libro()?.resenas || []; track resena.idusuario + resena.fecha) {
     <div class="resena-card">
       <div class="usuario-info">
-        <strong>{{ resena.idusuario }}</strong>
+        <strong class="avatar-initial">{{ (resena.idusuario || '').charAt(0).toUpperCase() }}</strong>
+        <div class="username-label">{{ resena.idusuario }}</div>
       </div>
-      
+
       <div class="contenido-resena">
         <div class="calificacion-header">
           <span class="badge">

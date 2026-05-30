@@ -29,7 +29,6 @@ public class Resena {
         this.calificacion = calificacion;
     }
 
-    // Getters y Setters estándar para Jackson
     public String getidlibro() { return idlibro; }
     public void setIdLibro(String idLibro) { this.idlibro = idLibro; }
 

@@ -46,23 +46,20 @@ export class RegistrarLibro {
   }
   enviar() {
   if (this.form.valid) {
-    // 1. Clonamos el objeto del formulario
+
     const libroData = { ...this.form.value };
 
-    // 2. Convertimos el string de tags a un array de strings
     if (typeof libroData.tags === 'string') {
       libroData.tags = libroData.tags.split(',').map((tag: string) => tag.trim());
     }
 
-    // 3. Enviamos el objeto con el formato correcto
     this.libroService.crearLibro(libroData).subscribe({
       next: () => {
         alert("¡Libro registrado correctamente!");
-        this.form.reset(); // Limpia los campos sin cerrar el modal
+        this.form.reset();
         this.libroGuardadoExitoso.emit();
       },
       error: (err) => {
-        // Mostramos el mensaje claro que viene del backend
         alert("Error: " + (err.error || "No se pudo registrar"));
       }
     });
@@ -70,7 +67,7 @@ export class RegistrarLibro {
   else{
     this.form.markAllAsTouched();
     alert("Por favor, corrige los errores antes de guardar.");
-    return; // 3. Detenemos la ejecución aquí
+    return;
   }
   }
 }

@@ -76,6 +76,10 @@ export class CarritoComponent implements OnInit {
       return;
     }
 
+    // Confirmar antes de finalizar
+    const confirmar = window.confirm('¿Seguro que desea continuar con la compra?');
+    if (!confirmar) return;
+
     this.errorMensaje.set(null);
     this.exitoMensaje.set(null);
 
@@ -83,9 +87,11 @@ export class CarritoComponent implements OnInit {
       next: (mensaje) => {
         this.items.set([]);
         this.exitoMensaje.set(mensaje || 'Compra realizada con éxito.');
+        setTimeout(() => this.exitoMensaje.set(null), 5000);
       },
       error: () => {
         this.errorMensaje.set('No se pudo finalizar la compra.');
+        setTimeout(() => this.errorMensaje.set(null), 5000);
       }
     });
   }

@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { LoginService } from '../../services/login.service'; // Ajusta la ruta si es necesario
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-gestion-perfil',
@@ -13,11 +13,9 @@ import { LoginService } from '../../services/login.service'; // Ajusta la ruta s
 export class GestionPerfilComponent implements OnInit {
   private loginService = inject(LoginService);
 
-  // Signals para manejar el estado de manera reactiva y limpia
   usuarios = signal<any[]>([]);
   terminoBusqueda = signal<string>('');
 
-  // Signal computada: Se auto-actualiza cuando cambia 'usuarios' o 'terminoBusqueda'
   usuariosFiltrados = computed(() => {
     const termino = this.terminoBusqueda().toLowerCase().trim();
     if (!termino) {
@@ -47,7 +45,6 @@ export class GestionPerfilComponent implements OnInit {
   }
 
   eliminarPerfil(id: number, username: string): void {
-    // Por ahora no hace nada en el back, solo un log indicando la acción del evento
     console.log(`⚠️ Solicitud para eliminar el perfil ID: ${id} (${username}). Acción deshabilitada temporalmente.`);
   }
 }

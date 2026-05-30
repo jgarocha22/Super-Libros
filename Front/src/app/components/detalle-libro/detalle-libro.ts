@@ -60,12 +60,19 @@ export class DetalleLibroComponent implements OnInit {
     const libroActual = this.libro();
     if (!libroActual) return;
 
+    // Confirmar antes de agregar al carrito
+    const confirmar = window.confirm('¿Seguro que desea agregar el libro al carrito?');
+    if (!confirmar) return;
+
     this.carritoService.agregarItem(usuarioActual.username, libroActual.id, 1).subscribe({
       next: () => {
-        this.mensajeCarrito = 'Libro añadido al carrito.';
+        this.mensajeCarrito = 'Libro añadido al carrito con éxito.';
+        // ocultar mensaje automáticamente
+        setTimeout(() => { this.mensajeCarrito = null; }, 4000);
       },
       error: () => {
         this.errorCarrito = 'No se pudo añadir el libro al carrito.';
+        setTimeout(() => { this.errorCarrito = null; }, 4000);
       }
     });
   }

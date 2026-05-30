@@ -35,34 +35,6 @@ public class LibroRepository {
                 e.printStackTrace();
             }
         }
-    /*private void cargarLibrosDesdeJSON() {
-    try {
-        // 🚀 En lugar de usar paths largos, Spring busca directo en la raíz de resources
-        ClassPathResource resource = new ClassPathResource("Libros.json");
-        
-        System.out.println("🤖 Buscando JSON nativamente a través de Spring Boot...");
-        System.out.println("❓ ¿El archivo existe en resources?: " + resource.exists());
-
-        if (resource.exists()) {
-            File file = resource.getFile();
-            
-            if (file.length() == 0) {
-                Listalibros = new ArrayList<>();
-                return;
-            }
-            
-            Libro[] librosArray = objectMapper.readValue(file, Libro[].class);
-            Listalibros = new ArrayList<>(Arrays.asList(librosArray));
-            
-            System.out.println("📚 ¡Éxito! Libros cargados en memoria RAM: " + Listalibros.size());
-        } else {
-            System.out.println("❌ Error: Spring no encontró 'Libros.json' dentro de la carpeta resources.");
-        }
-    } catch (IOException e) {
-        System.err.println("❌ Ocurrió una excepción de lectura:");
-        e.printStackTrace();
-    }
-    }*/
 
         private void guardarLibroEnJSON(Libro libro){
             try {

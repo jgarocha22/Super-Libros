@@ -6,15 +6,18 @@
   "direccion" : "mi casa osi osi",
   "fotoPerfil" : null,
   "rol" : "COMPRADOR",
-  "carrito" : [ {
-    "idLibro" : "lib008",
-    "cantidad" : 1
-  } ],
+  "carrito" : [ ],
   "librosComprados" : [ {
     "idLibro" : "9e017b07-957c-4b4b-a647-750e1417600d",
     "fechaCompra" : "2026-05-30"
   }, {
     "idLibro" : "ebdb8bae-5158-4ac6-a4c0-25c29ee1a818",
+    "fechaCompra" : "2026-05-30"
+  }, {
+    "idLibro" : "lib008",
+    "fechaCompra" : "2026-05-30"
+  }, {
+    "idLibro" : "lib006",
     "fechaCompra" : "2026-05-30"
   } ]
 }, {

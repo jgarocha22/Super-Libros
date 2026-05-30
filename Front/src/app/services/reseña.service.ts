@@ -13,7 +13,7 @@ export class ResenaService {
   obtenerTodasLasResenas(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/admin`);
   }
-  // En tu servicio de Angular (ej. libro.service.ts)
+
   getResenasByLibro(idLibro: string): Observable<Resena[]> {
     return this.http.get<Resena[]>(`${this.apiUrl}/libro/${idLibro}`);
   }

@@ -16,7 +16,6 @@ export class LibroService {
     }
     
     crearLibro(libro: Libro): Observable<any> {
-  // Al poner 'text', evitas que Angular intente convertir un mensaje de error plano a JSON
     return this.http.post(this.apiUrl, libro, { responseType: 'text' });
     }
     getLibroById(id: string): Observable<Libro> {

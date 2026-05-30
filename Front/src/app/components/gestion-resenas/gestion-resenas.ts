@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ResenaService } from '../../services/reseña.service'; // Mantén tu ruta de importación intacta
+import { ResenaService } from '../../services/reseña.service';
 
 @Component({
   selector: 'app-gestion-reseñas',
@@ -14,10 +14,9 @@ import { ResenaService } from '../../services/reseña.service'; // Mantén tu ru
 export class GestionResenasComponent implements OnInit {
   private resenaService = inject(ResenaService);
 
-  resenas = signal<any[]>([]); // 👈 'resenas' en lugar de 'reseñas'
+  resenas = signal<any[]>([]);
   terminoBusqueda = signal<string>('');
 
-  // 👈 Cambiado a resenasFiltradas (sin ñ)
   resenasFiltradas = computed(() => {
     const termino = this.terminoBusqueda().toLowerCase().trim();
     if (!termino) return this.resenas();
@@ -44,7 +43,6 @@ export class GestionResenasComponent implements OnInit {
     });
   }
 
-  // 👈 Cambiado a eliminarResena (sin ñ)
   eliminarResena(idLibro: string, idUsuario: string): void {
     console.log(`🗑️ Quitando reseña del usuario [${idUsuario}] en el libro ID: [${idLibro}].`);
   }

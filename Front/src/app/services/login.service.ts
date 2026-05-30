@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class LoginService {
   private apiUrl = 'http://localhost:8080/api/compradores/login';
-  // Ruta base para las acciones generales de los perfiles
+
   private baseUsersUrl = 'http://localhost:8080/api/compradores';
 
   public currentUser = signal<any>(this.getUserFromStorage());
@@ -28,7 +28,7 @@ export class LoginService {
     this.currentUser.set(null); 
   }
 
-  // 🚀 NUEVO: Consumir la lista completa de compradores desde el Back para el Admin
+  // Consumir la lista completa de compradores desde el Back para el Admin
   obtenerTodosLosUsuarios(): Observable<any[]> {
     return this.http.get<any[]>(this.baseUsersUrl);
   }

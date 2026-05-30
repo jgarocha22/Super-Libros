@@ -15,7 +15,6 @@ public class LibroCompradoDTO {
         this.fechaCompra = fechaCompra;
     }
 
-    // Getters y Setters para que Jackson lo serialice a JSON hacia el Front
     public String getIdLibro() { return idLibro; }
     public void setIdLibro(String idLibro) { this.idLibro = idLibro; }
 
