@@ -43,4 +43,17 @@
   "rol" : "COMPRADOR",
   "carrito" : [ ],
   "librosComprados" : [ ]
+}, {
+  "id" : 5,
+  "username" : "Jupiter.513",
+  "email" : "jussn@gmal.com",
+  "password" : "f471b8f0375e8756db350035c3ebe8bbf5b3092e8ceeccc7c99fd6fe151e9926",
+  "direccion" : "osi osi",
+  "fotoPerfil" : null,
+  "rol" : "COMPRADOR",
+  "carrito" : [ ],
+  "librosComprados" : [ {
+    "idLibro" : "ebdb8bae-5158-4ac6-a4c0-25c29ee1a818",
+    "fechaCompra" : "2026-05-30"
+  } ]
 } ]
