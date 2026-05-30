@@ -3,7 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LibroService } from '../../services/libro.service';
 import { LoginService } from '../../services/login.service';
 import { ResenaService } from '../../services/reseña.service';
+import { CarritoService } from '../../services/carrito.service';
 import { CommonModule, DatePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-detalle-libro',
@@ -16,6 +18,9 @@ export class DetalleLibroComponent implements OnInit {
   libro = signal<any | null>(null);
   mensajeResena: string | null = null;
   errorResena: string | null = null;
+  mensajeCarrito: string | null = null;
+  errorCarrito: string | null = null;
+  libroComprado = signal<boolean>(false);
 
   nuevaResena = {
     resena: '',
@@ -27,7 +32,9 @@ export class DetalleLibroComponent implements OnInit {
     private router: Router,
     private libroService: LibroService,
     public loginService: LoginService,
-    private resenaService: ResenaService
+    private resenaService: ResenaService,
+    private carritoService: CarritoService,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -36,7 +43,31 @@ export class DetalleLibroComponent implements OnInit {
       this.libroService.getLibroById(id).subscribe(data => {
         this.libro.set(data);
       });
+      this.verificarLibroComprado(id);
     }
+  }
+
+  agregarAlCarrito(): void {
+    this.mensajeCarrito = null;
+    this.errorCarrito = null;
+
+    const usuarioActual = this.loginService.currentUser();
+    if (!usuarioActual || usuarioActual.rol !== 'COMPRADOR') {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    const libroActual = this.libro();
+    if (!libroActual) return;
+
+    this.carritoService.agregarItem(usuarioActual.username, libroActual.id, 1).subscribe({
+      next: () => {
+        this.mensajeCarrito = 'Libro añadido al carrito.';
+      },
+      error: () => {
+        this.errorCarrito = 'No se pudo añadir el libro al carrito.';
+      }
+    });
   }
 
   agregarResena(): void {
@@ -53,6 +84,10 @@ export class DetalleLibroComponent implements OnInit {
     const texto = this.nuevaResena.resena.trim();
     if (!libroActual || !texto) {
       this.errorResena = 'Escribe una reseña antes de publicarla.';
+      return;
+    }
+    if (!this.libroComprado()) {
+      this.errorResena = 'Solo puedes reseñar libros que ya compraste.';
       return;
     }
     const yaTieneResena = (libroActual.resenas || []).some((resena: any) =>
@@ -82,6 +117,23 @@ export class DetalleLibroComponent implements OnInit {
       },
       error: () => {
         this.errorResena = 'Ocurrió un error al publicar la reseña.';
+      }
+    });
+  }
+
+  private verificarLibroComprado(idLibro: string): void {
+    const usuarioActual = this.loginService.currentUser();
+    if (!usuarioActual || usuarioActual.rol !== 'COMPRADOR') {
+      this.libroComprado.set(false);
+      return;
+    }
+
+    this.http.get<any[]>(`http://localhost:8080/api/compradores/${usuarioActual.username}/compras`).subscribe({
+      next: (compras) => {
+        this.libroComprado.set((compras || []).some(compra => compra.idLibro === idLibro));
+      },
+      error: () => {
+        this.libroComprado.set(false);
       }
     });
   }

@@ -19,6 +19,7 @@ export class CarritoComponent implements OnInit {
   items = signal<CarritoDetalle[]>([]);
   cargando = signal<boolean>(true);
   errorMensaje = signal<string | null>(null);
+  exitoMensaje = signal<string | null>(null);
 
   total = computed(() =>
     this.items().reduce((acc, item) => acc + item.precio * item.cantidad, 0)
@@ -64,6 +65,27 @@ export class CarritoComponent implements OnInit {
       },
       error: () => {
         this.errorMensaje.set('No se pudo quitar el item.');
+      }
+    });
+  }
+
+  finalizarCompra(): void {
+    const usuario = this.loginService.currentUser();
+    if (!usuario) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    this.errorMensaje.set(null);
+    this.exitoMensaje.set(null);
+
+    this.carritoService.finalizarCompra(usuario.username).subscribe({
+      next: (mensaje) => {
+        this.items.set([]);
+        this.exitoMensaje.set(mensaje || 'Compra realizada con éxito.');
+      },
+      error: () => {
+        this.errorMensaje.set('No se pudo finalizar la compra.');
       }
     });
   }

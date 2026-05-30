@@ -17,9 +17,6 @@ export const routes: Routes = [
   { path: '', component: Catalogo },
   { path: 'catalogo', component: Catalogo },
   { path: 'carrito', component: CarritoComponent },
-  
-  // Ruta por defecto al abrir la pagina
-  { path: '', component: Catalogo},
 
   // Rutas específicas para cuando decidan iniciar sesión o registrarse
   { path: 'login', component: LoginComponent },

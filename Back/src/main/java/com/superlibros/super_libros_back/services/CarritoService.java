@@ -3,6 +3,7 @@ package com.superlibros.super_libros_back.services;
 import com.superlibros.super_libros_back.model.CarritoItem;
 import com.superlibros.super_libros_back.model.CarritoItemDTO;
 import com.superlibros.super_libros_back.model.Comprador;
+import com.superlibros.super_libros_back.model.HistorialCompra;
 import com.superlibros.super_libros_back.model.Libro;
 import com.superlibros.super_libros_back.repository.CompradorRepository;
 import com.superlibros.super_libros_back.repository.LibroRepository;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -79,6 +81,46 @@ public class CarritoService {
         return mapearDetalle(carrito);
     }
 
+    public void finalizarCompra(String username) {
+        List<Comprador> compradores = compradorRepository.findAll();
+        Comprador comprador = buscarComprador(username, compradores);
+        List<CarritoItem> carrito = comprador.getCarrito();
+
+        if (carrito == null || carrito.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El carrito está vacío");
+        }
+
+        if (comprador.getLibrosComprados() == null) {
+            comprador.setLibrosComprados(new ArrayList<>());
+        }
+
+        for (CarritoItem item : carrito) {
+            Libro libro = libroRepository.BuscarIDJSON(item.getIdLibro());
+            if (libro == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Libro no encontrado: " + item.getIdLibro());
+            }
+            if (libro.getstock() < item.getCantidad()) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Stock insuficiente para: " + libro.getnombre());
+            }
+        }
+
+        String fechaCompra = LocalDate.now().toString();
+        for (CarritoItem item : carrito) {
+            Libro libro = libroRepository.BuscarIDJSON(item.getIdLibro());
+            libro.setstock(libro.getstock() - item.getCantidad());
+
+            boolean yaComprado = comprador.getLibrosComprados().stream()
+                .anyMatch(compra -> compra.getIdLibro().equalsIgnoreCase(item.getIdLibro()));
+            if (!yaComprado) {
+                comprador.getLibrosComprados().add(new HistorialCompra(item.getIdLibro(), fechaCompra));
+            }
+        }
+
+        comprador.setCarrito(new ArrayList<>());
+        compradorRepository.saveAll(compradores);
+        libroRepository.ActualizarLibro();
+    }
+
     private Comprador buscarComprador(String username, List<Comprador> compradores) {
         if (username == null || username.trim().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "username es requerido");
@@ -104,11 +146,11 @@ public class CarritoService {
             }
 
             detalle.add(new CarritoItemDTO(
-                    libro.getId(),
-                    libro.getnom(),
+                    libro.getid(),
+                    libro.getnombre(),
                     libro.getautor(),
-                    libro.getimagen(),
-                    libro.getPrecio(),
+                    libro.getimagenUrl(),
+                    libro.getprecio(),
                     item.getCantidad()
             ));
         }

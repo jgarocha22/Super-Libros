@@ -28,6 +28,7 @@ public class Libro {
 
     @NotBlank(message = "La URL de la imagen es obligatoria")
     @JsonProperty("imagenurl")
+    @JsonAlias("imagenUrl")
     private String imagenurl;
 
     @NotEmpty(message = "Al menos un tag es obligatorio")
@@ -77,7 +78,9 @@ public class Libro {
     public String getautor() {return autor;}
     public void setautor(String autor) {this.autor = autor;}
 
+    @JsonProperty("imagenurl")
     public String getimagenUrl() {return imagenurl;}
+    @JsonProperty("imagenurl")
     public void setimagenUrl(String imagenUrl) {this.imagenurl = imagenUrl;}
 
     public List<String> gettags() {return tags;}

@@ -8,10 +8,14 @@
     <div class="total-box">
       <span class="total-label">Total estimado</span>
       <strong class="total-value">${{ total() | number:'1.2-2' }}</strong>
-      <button class="btn-cta" [disabled]="items().length === 0">Continuar compra</button>
+      <button class="btn-cta" [disabled]="items().length === 0" (click)="finalizarCompra()">Continuar compra</button>
       <a class="link-back" routerLink="/catalogo">Seguir explorando</a>
     </div>
   </header>
+
+  @if (exitoMensaje()) {
+    <div class="success-banner">{{ exitoMensaje() }}</div>
+  }
 
   @if (errorMensaje()) {
     <div class="error-banner">{{ errorMensaje() }}</div>
@@ -32,9 +36,9 @@
               <span class="cantidad">x{{ item.cantidad }}</span>
             </div>
           </div>
-          <div class="item-actions">
+          <!-- <div class="item-actions">
             <button class="btn-remove" (click)="eliminarItem(item)">Quitar</button>
-          </div>
+          </div> -->
         </article>
       } @empty {
         <div class="empty-state">

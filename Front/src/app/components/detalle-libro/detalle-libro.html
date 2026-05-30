@@ -1,7 +1,7 @@
 <div class="detalle-container">
   @if (libro()) {
     <div class="imagen-section">
-      <img [src]="libro().imagenUrl" [alt]="libro().nombre">
+      <img [src]="libro().imagenurl" [alt]="libro().nombre">
     </div>
 
     <div class="info-section">
@@ -22,9 +22,17 @@
         <p class="precio">${{ libro().precio }}</p>
         <p class="stock">{{ libro().stock > 0 ? libro().stock + ' en Stock' : 'Sin stock' }}</p>
         
-        <button class="btn-carrito" [disabled]="libro().stock === 0">
+        <button class="btn-carrito" [disabled]="libro().stock === 0" (click)="agregarAlCarrito()">
           Añadir al Carrito
         </button>
+
+        @if (mensajeCarrito) {
+          <p class="mensaje-resena">{{ mensajeCarrito }}</p>
+        }
+
+        @if (errorCarrito) {
+          <p class="error-resena">{{ errorCarrito }}</p>
+        }
       </div>
     </div>
   } @else {
@@ -36,7 +44,7 @@
   <h3>RESEÑAS MÁS ÚTILES</h3>
 
   <div class="form-resena">
-    @if (loginService.currentUser()?.rol === 'COMPRADOR') {
+    @if (loginService.currentUser()?.rol === 'COMPRADOR' && libroComprado()) {
       <h4>Publicar reseña</h4>
       <form (ngSubmit)="agregarResena()">
         <textarea
@@ -64,6 +72,10 @@
       @if (errorResena) {
         <p class="error-resena">{{ errorResena }}</p>
       }
+    } @else if (loginService.currentUser()?.rol === 'COMPRADOR') {
+      <p class="login-resena">
+        Solo puedes publicar una reseña después de comprar este libro.
+      </p>
     } @else {
       <p class="login-resena">
         Debes iniciar sesión como comprador para publicar una reseña.

@@ -51,4 +51,10 @@ public class CarritoController {
     ) {
         return new ResponseEntity<>(carritoService.eliminarItem(username, idLibro), HttpStatus.OK);
     }
+
+    @PostMapping("/{username}/comprar")
+    public ResponseEntity<String> finalizarCompra(@PathVariable String username) {
+        carritoService.finalizarCompra(username);
+        return new ResponseEntity<>("Compra realizada con éxito", HttpStatus.OK);
+    }
 }

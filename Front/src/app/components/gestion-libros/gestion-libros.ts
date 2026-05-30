@@ -25,7 +25,7 @@ export class GestionLibrosComponent implements OnInit {
     if (!termino) return this.libros();
     
     return this.libros().filter(libro => 
-      libro.nom?.toLowerCase().includes(termino) || 
+      libro.nombre?.toLowerCase().includes(termino) || 
       libro.autor?.toLowerCase().includes(termino)
     );
   });

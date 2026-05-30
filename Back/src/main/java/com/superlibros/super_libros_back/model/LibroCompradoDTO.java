@@ -1,12 +1,14 @@
 package com.superlibros.super_libros_back.model;
 
 public class LibroCompradoDTO {
+    private String idLibro;
     private String titulo;
     private String autor;
     private String imagen;
     private String fechaCompra;
 
-    public LibroCompradoDTO(String titulo, String autor, String imagen, String fechaCompra) {
+    public LibroCompradoDTO(String idLibro, String titulo, String autor, String imagen, String fechaCompra) {
+        this.idLibro = idLibro;
         this.titulo = titulo;
         this.autor = autor;
         this.imagen = imagen;
@@ -14,6 +16,9 @@ public class LibroCompradoDTO {
     }
 
     // Getters y Setters para que Jackson lo serialice a JSON hacia el Front
+    public String getIdLibro() { return idLibro; }
+    public void setIdLibro(String idLibro) { this.idLibro = idLibro; }
+
     public String getTitulo() { return titulo; }
     public void setTitulo(String titulo) { this.titulo = titulo; }
 

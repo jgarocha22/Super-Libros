@@ -1,11 +1,10 @@
 [ {
-  "imagenUrl" : "https://example.com/images/vientos_desierto.jpg",
   "id" : "lib006",
   "nombre" : "Vientos del desierto",
   "editorial" : "Horizonte Editorial",
   "sinopsis" : "Saga familiar ambientada entre oasis y dunas, donde los secretos del pasado resurgen.",
   "autor" : "Isabel Martín",
-  "imagenurl" : "https://example.com/images/vientos_desierto.jpg",
+  "imagenurl" : "https://www.dykinson.com/media/img/portadas/979-13-7006-069-5.jpg",
   "tags" : [ "ficción", "drama", "historia" ],
   "stock" : 14,
   "precio" : 16.95,
@@ -17,7 +16,6 @@
     "calificacion" : true
   } ]
 }, {
-  "imagenUrl" : "https://example.com/images/microhabitos.jpg",
   "id" : "lib007",
   "nombre" : "Microhábitos: Cambios pequeños, resultados grandes",
   "editorial" : "Bienestar Práctico",
@@ -29,7 +27,6 @@
   "precio" : 12.0,
   "resenas" : [ ]
 }, {
-  "imagenUrl" : "https://example.com/images/ecos_futuro.jpg",
   "id" : "lib008",
   "nombre" : "Ecos del futuro",
   "editorial" : "Nova Ciencia",
@@ -37,7 +34,7 @@
   "autor" : "Varios Autores",
   "imagenurl" : "https://example.com/images/ecos_futuro.jpg",
   "tags" : [ "ciencia ficción", "relatos", "tecnología" ],
-  "stock" : 9,
+  "stock" : 8,
   "precio" : 18.5,
   "resenas" : [ {
     "idusuario" : "scifi_fan",
@@ -51,5 +48,39 @@
     "resena" : "me gusta osiosi que bueno",
     "fecha" : "2026-05-29T23:50:00.314941578",
     "calificacion" : true
-  }]
+  }, {
+    "idusuario" : "prueba2",
+    "idlibro" : "lib008",
+    "resena" : "Tremendo libro lo recomiendo bastante, la lectura fue muy profunda y enriquecedora",
+    "fecha" : "2026-05-30T00:13:27.422173939",
+    "calificacion" : true
+  } ]
+}, {
+  "id" : "9e017b07-957c-4b4b-a647-750e1417600d",
+  "nombre" : "La Divina Comedia",
+  "editorial" : "CreateSpace Independent Publishing Platform",
+  "sinopsis" : "La Divina Comedia es un poema donde se mezcla la vida real con la sobrenatural, muestra la lucha entre la nada y la inmortalidad, una lucha donde se superponen tres reinos, tres mundos, logrando una suma de múltiples visuales que nunca se contradicen o se anulan. Los tres mundos infierno, purgatorio y paraíso reflejan tres modos de ser de la humanidad, en ellos se reflejan el vicio, el pasaje del vicio a la virtud y la condición de los hombres perfectos. Es entonces a través de los viciosos, penitentes y buenos que se revela la vida en todas sus formas, sus miserias y hazañas, pero también se muestra la vida que no es, la muerte, que tiene su propia vida, todo como una mezcla agraciada planteada por Dante, que se vuelve arquitecto de lo universal y de lo sublime.",
+  "autor" : " Dante Alighieri",
+  "imagenurl" : "https://m.media-amazon.com/images/I/71WJbXGxPdL._AC_UF1000,1000_QL80_.jpg",
+  "tags" : [ "Poesía", "Religión" ],
+  "stock" : 7,
+  "precio" : 14.0,
+  "resenas" : [ ]
+}, {
+  "id" : "ebdb8bae-5158-4ac6-a4c0-25c29ee1a818",
+  "nombre" : "Dune",
+  "editorial" : "DEBOLSILLO",
+  "sinopsis" : "es una novela épica de ciencia ficción escrita por Frank Herbert, publicada originalmente en 1965.  La obra, ambientada en el lejano futuro en el planeta desértico Arrakis, narra la historia de Paul Atreides y su lucha por el control de la melange (especia), un recurso vital para la navegación espacial y la extensión de la vida. ",
+  "autor" : "Frank Herbert",
+  "imagenurl" : "https://imgs.search.brave.com/r7kzzmhN5Kc4LSthJPFd745NRxnTLNLW9EvVuqMKfSk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9odHRw/Mi5tbHN0YXRpYy5j/b20vRF9RX05QXzJY/Xzc3OTI1My1NTEE5/OTM3MjU3MDgzNl8x/MTIwMjUtRS53ZWJw",
+  "tags" : [ "Ciencia Ficción", "Aventura", "Novela" ],
+  "stock" : 4,
+  "precio" : 15.0,
+  "resenas" : [ {
+    "idusuario" : "pepe123",
+    "idlibro" : "ebdb8bae-5158-4ac6-a4c0-25c29ee1a818",
+    "resena" : "Muy buen libro me gusta mucho, me lo compré por la película 100% recomendado",
+    "fecha" : "2026-05-30T00:37:20.899847684",
+    "calificacion" : true
+  } ]
 } ]

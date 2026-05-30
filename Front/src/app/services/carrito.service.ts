@@ -36,4 +36,8 @@ export class CarritoService {
   eliminarItem(username: string, idLibro: string): Observable<CarritoDetalle[]> {
     return this.http.delete<CarritoDetalle[]>(`${this.apiUrl}/${username}/${idLibro}`);
   }
+
+  finalizarCompra(username: string): Observable<string> {
+    return this.http.post(`${this.apiUrl}/${username}/comprar`, null, { responseType: 'text' });
+  }
 }

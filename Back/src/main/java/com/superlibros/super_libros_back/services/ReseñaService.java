@@ -2,9 +2,13 @@ package com.superlibros.super_libros_back.services;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.superlibros.super_libros_back.model.Comprador;
 import com.superlibros.super_libros_back.model.Libro;
 import com.superlibros.super_libros_back.model.Resena;
 import com.superlibros.super_libros_back.repository.CompradorRepository;
@@ -29,10 +33,19 @@ public class ReseñaService {
             return false;
         }
         resena.setResena(resena.getresena().trim());
-        boolean compradorExiste = compradorRepository.findAll().stream()
-            .anyMatch(c -> c.getUsername().equalsIgnoreCase(resena.getidusuario())
-                && "COMPRADOR".equalsIgnoreCase(c.getRol()));
-        if (!compradorExiste) {
+        Optional<Comprador> compradorEncontrado = compradorRepository.findAll().stream()
+            .filter(c -> c.getUsername().equalsIgnoreCase(resena.getidusuario())
+                && "COMPRADOR".equalsIgnoreCase(c.getRol()))
+            .findFirst();
+        if (compradorEncontrado.isEmpty()) {
+            return false;
+        }
+
+        Comprador comprador = compradorEncontrado.get();
+        boolean libroComprado = comprador.getLibrosComprados() != null
+            && comprador.getLibrosComprados().stream()
+                .anyMatch(compra -> compra.getIdLibro().equalsIgnoreCase(idLibro));
+        if (!libroComprado) {
             return false;
         }
 
@@ -65,20 +78,21 @@ public class ReseñaService {
             .collect(Collectors.toList());
     }
 
-    public List<Resena> obtenerTodasLasReseñasParaAdmin() {
+    public List<Map<String, Object>> obtenerTodasLasReseñasParaAdmin() {
     List<Libro> todosLosLibros = librorepository.ObtenerLibros();
-    List<Resena> listaAplanada = new ArrayList<>();
+    List<Map<String, Object>> listaAplanada = new ArrayList<>();
 
     for (Libro libro : todosLosLibros) {
         if (libro.getresenas() != null) {
             for (Resena res : libro.getresenas()) {
-                listaAplanada.add(new Resena(
-                    libro.getid(),       // Usamos tu getter getnombre() del modelo Libro      // Usamos tu getter getnom() del modelo Libro
-                    res.getidusuario(), // Usamos tu getter getIDUsuario() del modelo Reseña
-                    res.getresena(),    // Usamos tu getter getReseña() del modelo Reseña
-                    res.getfecha(),     // Usamos tu getter getFecha() del modelo Reseña
-                    res.getcalificacion() // Usamos tu getter getCalificacion()
-                ));
+                Map<String, Object> item = new HashMap<>();
+                item.put("idLibro", libro.getid());
+                item.put("nombreLibro", libro.getnombre());
+                item.put("idUsuario", res.getidusuario());
+                item.put("textoResena", res.getresena());
+                item.put("calificacion", res.getcalificacion());
+                item.put("fecha", res.getfecha());
+                listaAplanada.add(item);
             }
         }
     }

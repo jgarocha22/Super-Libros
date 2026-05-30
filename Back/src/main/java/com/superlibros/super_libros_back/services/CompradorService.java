@@ -62,6 +62,7 @@ public class CompradorService {
                     if (libroDetalle != null) {
                         // 4. Agregamos el DTO combinado a la lista final
                         resultadoFront.add(new LibroCompradoDTO(
+                            libroDetalle.getid(),
                             libroDetalle.getnombre(),    
                             libroDetalle.getautor(),  // 👈 Modificado: 'a' minúscula
                             libroDetalle.getimagenUrl(), // 👈 Modificado: 'i' minúscula

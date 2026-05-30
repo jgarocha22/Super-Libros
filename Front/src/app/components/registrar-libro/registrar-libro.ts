@@ -23,7 +23,7 @@ export class RegistrarLibro {
       autor: ['', Validators.required],
       editorial: ['', Validators.required],
       sinopsis: ['', Validators.required],
-      imagenUrl: ['', Validators.required],
+      imagenurl: ['', Validators.required],
       precio: [0, [Validators.required, Validators.min(0)]],
       tags: ['', Validators.required],
       stock: [1, [Validators.required, Validators.min(1)]],
@@ -38,7 +38,7 @@ export class RegistrarLibro {
       autor: '',
       editorial: '',
       sinopsis: '',
-      imagenUrl: '',
+      imagenurl: '',
       tags: '',
       precio: 0,
       stock: 0
@@ -74,5 +74,4 @@ export class RegistrarLibro {
   }
   }
 }
-
 
