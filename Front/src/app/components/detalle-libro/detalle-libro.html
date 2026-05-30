@@ -1,47 +1,78 @@
 <div class="detalle-container">
   @if (libro()) {
-  <div class="imagen-section">
-    <img [src]="libro().imagenUrl" [alt]="libro().nombre">
-  </div>
-  
-  <div class="info-container">
-    <h1></h1>
+    <div class="imagen-section">
+      <img [src]="libro().imagenUrl" [alt]="libro().nombre">
+    </div>
+
+    <div class="info-section">
+      <h1>{{ libro().nombre }}</h1>
+      <p class="autor">{{ libro().autor }}</p>
+      
+      <p class="sinopsis">{{ libro().sinopsis }}</p>
+      
+      <p class="editorial"><strong>Editorial:</strong> {{ libro().editorial }}</p>
+      
+      <div class="tags-container">
+        @for (tag of libro().tags; track tag) {
+          <span class="tag">{{ tag }}</span>
+        }
+      </div>
+
+      <div class="compra-section">
+        <p class="precio">${{ libro().precio }}</p>
+        <p class="stock">{{ libro().stock > 0 ? libro().stock + ' en Stock' : 'Sin stock' }}</p>
+        
+        <button class="btn-carrito" [disabled]="libro().stock === 0">
+          Añadir al Carrito
+        </button>
+      </div>
     </div>
   } @else {
     <p>Cargando información del libro...</p>
   }
-  <div class="info-section">
-    <h1>{{ libro().nombre }}</h1>
-    <p class="autor">{{ libro().autor }}</p>
-    
-    <p class="sinopsis">{{ libro().sinopsis }}</p>
-    
-    <p class="editorial"><strong>Editorial:</strong> {{ libro().editorial }}</p>
-    
-    <div class="tags-container">
-      @for (tag of libro().tags; track tag) {
-        <span class="tag">{{ tag }}</span>
-      }
-    </div>
-
-    <div class="compra-section">
-      <p class="precio">${{ libro().precio }}</p>
-      <p class="stock">{{ libro().stock > 0 ? libro().stock + ' en Stock' : 'Sin stock' }}</p>
-      
-      <button class="btn-carrito" [disabled]="libro().stock === 0">
-        Añadir al Carrito
-      </button>
-      <div class="detalle-container">
-      </div>
-
-    </div>
-  </div>
 </div>
 
 <div class="seccion-resenas">
   <h3>RESEÑAS MÁS ÚTILES</h3>
+
+  <div class="form-resena">
+    @if (loginService.currentUser()?.rol === 'COMPRADOR') {
+      <h4>Publicar reseña</h4>
+      <form (ngSubmit)="agregarResena()">
+        <textarea
+          name="resena"
+          [(ngModel)]="nuevaResena.resena"
+          rows="4"
+          maxlength="500"
+          placeholder="Escribe tu reseña..."
+          required></textarea>
+
+        <div class="acciones-resena">
+          <label>
+            <input type="checkbox" name="calificacion" [(ngModel)]="nuevaResena.calificacion">
+            Recomiendo este libro
+          </label>
+
+          <button type="submit">Publicar</button>
+        </div>
+      </form>
+
+      @if (mensajeResena) {
+        <p class="mensaje-resena">{{ mensajeResena }}</p>
+      }
+
+      @if (errorResena) {
+        <p class="error-resena">{{ errorResena }}</p>
+      }
+    } @else {
+      <p class="login-resena">
+        Debes iniciar sesión como comprador para publicar una reseña.
+        <button type="button" (click)="agregarResena()">Iniciar sesión</button>
+      </p>
+    }
+  </div>
   
-  @for (resena of libro()?.resenas; track resena.idusuario) {
+  @for (resena of libro()?.resenas || []; track resena.idusuario + resena.fecha) {
     <div class="resena-card">
       <div class="usuario-info">
         <strong>{{ resena.idusuario }}</strong>
@@ -49,7 +80,6 @@
       
       <div class="contenido-resena">
         <div class="calificacion-header">
-
           <span class="badge">
             {{ resena.calificacion ? '👍 Recomendado' : '👎 No Recomendado' }}
           </span>

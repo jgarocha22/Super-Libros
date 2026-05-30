@@ -15,10 +15,10 @@ export class ResenaService {
   }
   // En tu servicio de Angular (ej. libro.service.ts)
   getResenasByLibro(idLibro: string): Observable<Resena[]> {
-    return this.http.get<Resena[]>(`${this.apiUrl}/reseñas/libro/${idLibro}`);
+    return this.http.get<Resena[]>(`${this.apiUrl}/libro/${idLibro}`);
   }
 
   agregarResena(idLibro: string, resena: Resena): Observable<boolean> {
-    return this.http.post<boolean>(`${this.apiUrl}/reseñas/${idLibro}`, resena);
+    return this.http.post<boolean>(`${this.apiUrl}/${idLibro}`, resena);
   }
 }

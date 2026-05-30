@@ -2,6 +2,7 @@ package com.superlibros.super_libros_back.model;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -41,7 +42,8 @@ public class Libro {
     @JsonProperty("precio")
     private double precio;
 
-    @JsonProperty("reseñas")
+    @JsonProperty("resenas")
+    @JsonAlias("reseñas")
     private List<Resena> resenas = new ArrayList<>();
 
     public Libro(){

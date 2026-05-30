@@ -1,11 +1,13 @@
 package com.superlibros.super_libros_back.model;
 import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Resena {
-    @JsonProperty("idLibro")
+    @JsonProperty("idlibro")
+    @JsonAlias("idLibro")
     private String idlibro;
     @JsonProperty("idusuario")
     private String idUsuario;

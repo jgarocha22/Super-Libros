@@ -1,1 +1,55 @@
-[ { "id": "lib006", "nombre": "Vientos del desierto", "editorial": "Horizonte Editorial", "sinopsis": "Saga familiar ambientada entre oasis y dunas, donde los secretos del pasado resurgen.", "autor": "Isabel Martín", "imagenurl": "https://example.com/images/vientos_desierto.jpg", "tags": ["ficción", "drama", "historia"], "stock": 14, "precio": 16.95, "resenas": [ { "idlibro": "lib006", "idusuario": "lector23", "resena": "Atmosférico y envolvente; personajes memorables.", "fecha": "2024-08-10T14:30:00", "calificacion": true } ] }, { "id": "lib007", "nombre": "Microhábitos: Cambios pequeños, resultados grandes", "editorial": "Bienestar Práctico", "sinopsis": "Guía práctica para incorporar hábitos diarios que transforman productividad y salud.", "autor": "Pedro Salazar", "imagenurl": "https://example.com/images/microhabitos.jpg", "tags": ["autoayuda", "productividad", "salud"], "stock": 25, "precio": 12.0, "resenas": [] }, { "id": "lib008", "nombre": "Ecos del futuro", "editorial": "Nova Ciencia", "sinopsis": "Antología de relatos cortos sobre futuros plausibles y dilemas éticos tecnológicos.", "autor": "Varios Autores", "imagenurl": "https://example.com/images/ecos_futuro.jpg", "tags": ["ciencia ficción", "relatos", "tecnología"], "stock": 9, "precio": 18.5, "resenas": [ { "idlibro": "lib008", "idusuario": "scifi_fan", "resena": "Ideas originales y finales sorprendentes.", "fecha": "2025-09-02T19:20:00", "calificacion": true } ] } ]
+[ {
+  "imagenUrl" : "https://example.com/images/vientos_desierto.jpg",
+  "id" : "lib006",
+  "nombre" : "Vientos del desierto",
+  "editorial" : "Horizonte Editorial",
+  "sinopsis" : "Saga familiar ambientada entre oasis y dunas, donde los secretos del pasado resurgen.",
+  "autor" : "Isabel Martín",
+  "imagenurl" : "https://example.com/images/vientos_desierto.jpg",
+  "tags" : [ "ficción", "drama", "historia" ],
+  "stock" : 14,
+  "precio" : 16.95,
+  "resenas" : [ {
+    "idusuario" : "lector23",
+    "idlibro" : "lib006",
+    "resena" : "Atmosférico y envolvente; personajes memorables.",
+    "fecha" : "2024-08-10T14:30:00",
+    "calificacion" : true
+  } ]
+}, {
+  "imagenUrl" : "https://example.com/images/microhabitos.jpg",
+  "id" : "lib007",
+  "nombre" : "Microhábitos: Cambios pequeños, resultados grandes",
+  "editorial" : "Bienestar Práctico",
+  "sinopsis" : "Guía práctica para incorporar hábitos diarios que transforman productividad y salud.",
+  "autor" : "Pedro Salazar",
+  "imagenurl" : "https://example.com/images/microhabitos.jpg",
+  "tags" : [ "autoayuda", "productividad", "salud" ],
+  "stock" : 25,
+  "precio" : 12.0,
+  "resenas" : [ ]
+}, {
+  "imagenUrl" : "https://example.com/images/ecos_futuro.jpg",
+  "id" : "lib008",
+  "nombre" : "Ecos del futuro",
+  "editorial" : "Nova Ciencia",
+  "sinopsis" : "Antología de relatos cortos sobre futuros plausibles y dilemas éticos tecnológicos.",
+  "autor" : "Varios Autores",
+  "imagenurl" : "https://example.com/images/ecos_futuro.jpg",
+  "tags" : [ "ciencia ficción", "relatos", "tecnología" ],
+  "stock" : 9,
+  "precio" : 18.5,
+  "resenas" : [ {
+    "idusuario" : "scifi_fan",
+    "idlibro" : "lib008",
+    "resena" : "Ideas originales y finales sorprendentes.",
+    "fecha" : "2025-09-02T19:20:00",
+    "calificacion" : true
+  }, {
+    "idusuario" : "pepe123",
+    "idlibro" : "lib008",
+    "resena" : "me gusta osiosi que bueno",
+    "fecha" : "2026-05-29T23:50:00.314941578",
+    "calificacion" : true
+  }]
+} ]

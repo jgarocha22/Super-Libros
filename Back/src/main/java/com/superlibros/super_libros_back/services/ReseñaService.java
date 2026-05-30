@@ -7,13 +7,16 @@ import java.util.stream.Collectors;
 
 import com.superlibros.super_libros_back.model.Libro;
 import com.superlibros.super_libros_back.model.Resena;
+import com.superlibros.super_libros_back.repository.CompradorRepository;
 import com.superlibros.super_libros_back.repository.LibroRepository;
 @Service
 public class ReseñaService {
     private final LibroRepository librorepository;
+    private final CompradorRepository compradorRepository;
 
-    public ReseñaService(LibroRepository librorepository) {
+    public ReseñaService(LibroRepository librorepository, CompradorRepository compradorRepository) {
         this.librorepository = librorepository;
+        this.compradorRepository = compradorRepository;
     }
 
     public boolean agregarResena(String idLibro, Resena resena) {
@@ -22,17 +25,29 @@ public class ReseñaService {
         Libro libro = librorepository.BuscarIDJSON(idLibro);
         if (libro == null) return false;
 
-        if (resena.getidusuario() == null || resena.getresena() == null) {
+        if (resena.getidusuario() == null || resena.getresena() == null || resena.getresena().trim().isEmpty()) {
             return false;
         }
-        resena.setFecha(LocalDateTime.now());
-    
-        resena.setIdLibro(idLibro); 
-
+        resena.setResena(resena.getresena().trim());
+        boolean compradorExiste = compradorRepository.findAll().stream()
+            .anyMatch(c -> c.getUsername().equalsIgnoreCase(resena.getidusuario())
+                && "COMPRADOR".equalsIgnoreCase(c.getRol()));
+        if (!compradorExiste) {
+            return false;
+        }
 
         if (libro.getresenas() == null) {
             libro.setResenas(new ArrayList<>());
         }
+        boolean yaTieneResena = libro.getresenas().stream()
+            .anyMatch(r -> r.getidusuario() != null
+                && r.getidusuario().equalsIgnoreCase(resena.getidusuario()));
+        if (yaTieneResena) {
+            return false;
+        }
+
+        resena.setFecha(LocalDateTime.now());
+        resena.setIdLibro(idLibro);
     
         libro.getresenas().add(resena);
     
