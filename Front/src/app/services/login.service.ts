@@ -10,7 +10,12 @@ export class LoginService {
 
   private baseUsersUrl = 'http://localhost:8080/api/compradores';
 
+  // Mantenemos el uso de Signals (más moderno y eficiente para Angular)
   public currentUser = signal<any>(this.getUserFromStorage());
+  
+  // Helper para saber si hay alguien logueado sin tener que preguntar al signal
+  public isLoggedIn = () => !!this.currentUser();
+  public isAdmin = () => this.currentUser()?.rol === 'ADMIN';
 
   constructor(private http: HttpClient) { }
 
@@ -19,7 +24,8 @@ export class LoginService {
   }
 
   setCurrentUser(user: any) {
-    localStorage.setItem('usuarioLogueado', JSON.stringify(user));
+    const key = 'usuarioLogueado';
+    localStorage.setItem(key, JSON.stringify(user));
     this.currentUser.set(user); 
   }
 
