@@ -1,0 +1,52 @@
+<section class="carrito-page">
+  <header class="carrito-hero">
+    <div class="hero-copy">
+      <p class="eyebrow">TU SELECCION</p>
+      <h1>Carrito de lectura</h1>
+      <p class="subtitle">Revisa tus libros antes de finalizar la compra.</p>
+    </div>
+    <div class="total-box">
+      <span class="total-label">Total estimado</span>
+      <strong class="total-value">${{ total() | number:'1.2-2' }}</strong>
+      <button class="btn-cta" [disabled]="items().length === 0" (click)="finalizarCompra()">Continuar compra</button>
+      <a class="link-back" routerLink="/catalogo">Seguir explorando</a>
+    </div>
+  </header>
+
+  @if (exitoMensaje()) {
+    <div class="success-banner">{{ exitoMensaje() }}</div>
+  }
+
+  @if (errorMensaje()) {
+    <div class="error-banner">{{ errorMensaje() }}</div>
+  }
+
+  @if (cargando()) {
+    <div class="loading">Cargando carrito...</div>
+  } @else {
+    <div class="carrito-list">
+      @for (item of items(); track item.id) {
+        <article class="carrito-item">
+          <img [src]="item.imagen" [alt]="'Portada de ' + item.nom" />
+          <div class="item-info">
+            <h3>{{ item.nom }}</h3>
+            <p class="autor">{{ item.autor }}</p>
+            <div class="meta-row">
+              <span class="precio">${{ item.precio | number:'1.2-2' }}</span>
+              <span class="cantidad">x{{ item.cantidad }}</span>
+            </div>
+          </div>
+          <!-- <div class="item-actions">
+            <button class="btn-remove" (click)="eliminarItem(item)">Quitar</button>
+          </div> -->
+        </article>
+      } @empty {
+        <div class="empty-state">
+          <h3>Tu carrito esta vacio</h3>
+          <p>Agrega libros desde el catalogo para verlos aqui.</p>
+          <a class="btn-outline" routerLink="/catalogo">Ir al catalogo</a>
+        </div>
+      }
+    </div>
+  }
+</section>

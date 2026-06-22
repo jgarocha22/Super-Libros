@@ -1,1 +1,61 @@
-<p>navbar works!</p>
+<nav class="navbar-container">
+  
+  <div class="navbar-logo" routerLink="/">SuperLibros</div>
+
+  <div class="navbar-search-container">
+    <input type="text" placeholder="Busca por Título, Autor, o Categoría..." class="search-input">
+    <span class="search-icon">
+      <img src="assets/icons/search.svg" alt="Icono de Busqueda">
+    </span>
+  </div>
+
+  <div class="navbar-actions">
+    <div class="auth-row">
+      
+      @if (!loginService.currentUser()) {
+        <button class="btn-login" routerLink="/login">
+          <img src="assets/icons/login.svg" alt="Login icon"> INICIAR SESIÓN
+        </button>
+        <button class="btn-register" routerLink="/registro">REGISTRARSE</button>
+      }
+      @else {
+        <!-- Botón Admin: solo visible si el rol es ADMIN -->
+        @if (loginService.currentUser().rol === 'ADMIN') {
+          <button class="btn-admin" routerLink="/admin-panel">
+            ⚙ PANEL ADMIN
+          </button>
+        }
+
+        <div class="user-profile" [routerLink]="loginService.currentUser().rol === 'ADMIN' ? '/home' : '/perfil'">
+          <img *ngIf="loginService.currentUser().fotoPerfil; else soloInicial" 
+               [src]="loginService.currentUser().fotoPerfil" alt="Perfil" class="avatar-img">
+          
+          <ng-template #soloInicial>
+            <div class="avatar-fallback">{{ inicialUsuario }}</div>
+          </ng-template>
+          
+          <span class="username-text">
+            {{ loginService.currentUser().username | uppercase }}
+            @if (loginService.currentUser().rol === 'ADMIN') {
+              <small style="color: #ffcc00; font-size: 0.6em; block: inline-block; margin-left: 4px;">[ADMIN]</small>
+            }
+          </span>
+        </div>
+        
+        <button class="btn-logout" (click)="cerrarSesion()">
+          <img src="assets/icons/logOut.svg" alt="logout icon"> CERRAR SESIÓN
+        </button>
+      }
+
+    </div>
+
+    @if (!loginService.currentUser() || loginService.currentUser().rol === 'COMPRADOR') {
+      <div class="cart-row">
+        <button class="btn-cart" (click)="manejarClickCarrito()">
+          <img src="assets/icons/shopping_cart.svg" alt="carrito icon"> <span class="cart-text">CARRITO</span>
+        </button>
+      </div>
+    }
+    
+  </div>
+</nav>
