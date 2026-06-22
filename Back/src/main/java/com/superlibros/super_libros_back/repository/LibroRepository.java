@@ -13,7 +13,8 @@ public class LibroRepository {
         private final String filePath = "src/main/resources/Libros.json";
         private final ObjectMapper objectMapper = new ObjectMapper()
             .findAndRegisterModules()
-            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+            .enable(SerializationFeature.INDENT_OUTPUT);
         private List<Libro> Listalibros = new ArrayList<>();
 
         public LibroRepository(){
