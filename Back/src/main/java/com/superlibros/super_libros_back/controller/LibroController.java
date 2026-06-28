@@ -50,6 +50,29 @@ public class LibroController {
         }
     }
     
-  
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> eliminarLibro(@PathVariable String id) {
+    try {
+        boolean eliminado = libroservicio.eliminarLibroPorId(id);
+        if (eliminado) {
+            return new ResponseEntity<>("libro eliminado on exito",HttpStatus.OK); 
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    } catch (IllegalArgumentException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+    }
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<?> editarLibro(@PathVariable String id, @Valid @RequestBody Libro libro) {
+    try {
+        Libro actualizado = libroservicio.actualizarLibro(id, libro);
+        return new ResponseEntity<>(actualizado, HttpStatus.OK);
+    } catch (IllegalArgumentException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+    }
+
 
 }

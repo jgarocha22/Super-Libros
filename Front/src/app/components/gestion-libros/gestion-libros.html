@@ -23,10 +23,11 @@
   </div>
   @if (mostrarRegistrar) {
     <app-registrar-libro 
-      (cerrar)="mostrarRegistrar = false" 
-      (libroGuardadoExitoso)="cargarLibros()">
+        [libroAEditar]="libroSeleccionado"
+        (cerrar)="mostrarRegistrar = false; libroSeleccionado = null"
+        (libroGuardadoExitoso)="cargarLibros()">
     </app-registrar-libro>
-  }
+}
   <div class="table-responsive">
     <table class="libros-table">
       <thead>
@@ -62,12 +63,12 @@
             <td class="precio-cell">${{ libro.precio | number:'1.2-2' }}</td>
             <td>
               <div class="acciones-wrapper">
-                <button class="btn-action-edit" (click)="editarLibro(libro.id)" disabled>
+                <button class="btn-action-edit" (click)="editarLibro(libro.id)" >
                   Editar
                 </button>
-                <button class="btn-action-delete" (click)="eliminarLibro(libro.id)" disabled>
-                  <img src="assets/icons/delete.svg" alt="Eliminar" class="btn-icon">
-                  Eliminar
+                <button class="btn-action-delete" (click)="eliminarLibro(libro.id)">
+                <img src="assets/icons/delete.svg" alt="Eliminar" class="btn-icon">
+                Eliminar
                 </button>
               </div>
             </td>

@@ -71,5 +71,24 @@ public class LibroRepository {
             }
         }
 
+        public boolean EliminarLibro(String id){
+            Libro libro = BuscarIDJSON(id);
+            if (libro != null) {
+                Listalibros.remove(libro);
+                ActualizarLibro();
+                return true;
+            }
+            return false;
+        }
+        public boolean ModificarLibro(Libro libroModificado) {
+        for (int i = 0; i < Listalibros.size(); i++) {
+            if (Listalibros.get(i).getid().equals(libroModificado.getid())) {
+                Listalibros.set(i, libroModificado); // Reemplazamos el viejo por el nuevo
+                ActualizarLibro(); // Persistimos en el JSON
+                return true;
+            }
+            }   
+            return false;
+        }
 
 }

@@ -18,6 +18,7 @@ export class GestionLibrosComponent implements OnInit {
   // Estados Reactivos con Signals
   libros = signal<any[]>([]);
   terminoBusqueda = signal<string>('');
+  libroSeleccionado: any = null;
 
   // Computamos el filtrado reactivo por Nombre o Autor
   librosFiltrados = computed(() => {
@@ -40,7 +41,7 @@ export class GestionLibrosComponent implements OnInit {
         this.libros.set(data);
       },
       error: (err) => {
-        console.error('❌ Error al obtener los libros del catálogo:', err);
+        console.error('Error al obtener los libros del catálogo:', err);
       }
     });
   }
@@ -55,12 +56,27 @@ export class GestionLibrosComponent implements OnInit {
     this.mostrarRegistrar = false;
   }
 
-  // Botones deshabilitados por ahora
   editarLibro(id: string): void {
-    console.log(`📝 Intento de editar libro con ID: ${id}. Acción deshabilitada.`);
+  const libro = this.libros().find((l: any) => l.id === id);
+  if (libro) {
+    this.libroSeleccionado = { ...libro }; // Copia del libro para no editar el original por error
+    this.mostrarRegistrar = true; // Abrimos el modal
+    }
   }
 
   eliminarLibro(id: string): void {
-    console.log(`🗑️ Intento de eliminar libro con ID: ${id}. Acción deshabilitada.`);
+  // Una pequeña confirmación nativa nunca viene mal para evitar borrados accidentales
+  if (confirm('¿Estás seguro de que deseas eliminar este libro?')) {
+    this.libroService.eliminarLibro(id).subscribe({
+      next: () => {
+        console.log(` Libro con ID ${id} eliminado correctamente.`);
+        this.cargarLibros(); // Vuelve a consultar el JSON y actualiza el Signal de inmediato
+      },
+      error: (err) => {
+        console.error('Error al intentar eliminar el libro:', err);
+      }
+    });
   }
+}
+
 }

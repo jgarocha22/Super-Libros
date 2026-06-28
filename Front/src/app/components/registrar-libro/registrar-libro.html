@@ -1,7 +1,7 @@
 <div class="modal-overlay" (click)="cerrar.emit()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
-      <h2>Registrar Nuevo Libro</h2>
+      <h2>{{ libroAEditar ? 'Modificar Libro' : 'Agregar Libro' }}</h2>
       <button class="btn-close" (click)="cerrar.emit()">&times;</button>
     </div>
 
