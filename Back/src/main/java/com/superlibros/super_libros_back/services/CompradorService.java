@@ -23,7 +23,7 @@ import java.util.Optional;
 public class CompradorService {
 
     private final CompradorRepository repository;
-    private final LibroRepository libroRepository; // 👈 Inyectamos el repositorio de libros
+    private final LibroRepository libroRepository; // Inyectamos el repositorio de libros
 
     @Value("${admin.identifier}")
     private String adminIdentifier;
@@ -31,7 +31,7 @@ public class CompradorService {
     @Value("${admin.password}")
     private String adminPassword;
 
-    // 👈 Actualizamos el constructor para recibir ambos repositorios
+    // Actualizamos el constructor para recibir ambos repositorios
     public CompradorService(CompradorRepository repository, LibroRepository libroRepository) {
         this.repository = repository;
         this.libroRepository = libroRepository;
@@ -43,7 +43,6 @@ public class CompradorService {
     public List<LibroCompradoDTO> obtenerHistorialCompras(String username) {
         List<LibroCompradoDTO> resultadoFront = new ArrayList<>();
 
-        // 1. Buscamos al comprador usando streams igual que en tu método verificarLogin
         Optional<Comprador> usuarioEncontrado = repository.findAll().stream()
                 .filter(c -> c.getUsername().equalsIgnoreCase(username))
                 .findFirst();
@@ -51,20 +50,17 @@ public class CompradorService {
         if (usuarioEncontrado.isPresent()) {
             Comprador comprador = usuarioEncontrado.get();
 
-            // 2. Si tiene libros comprados, empezamos el mapeo de IDs a objetos reales
             if (comprador.getLibrosComprados() != null) {
                 for (HistorialCompra hc : comprador.getLibrosComprados()) {
                     
-                    // 3. Buscamos los detalles del libro por su ID en el archivo JSON de libros
-                    // NOTA: Si tu LibroRepository no tiene 'BuscarIDJSON', puedes usar .findAll().stream() igual que arriba
                     Libro libroDetalle = libroRepository.BuscarIDJSON(hc.getIdLibro());
 
                     if (libroDetalle != null) {
-                        // 4. Agregamos el DTO combinado a la lista final
                         resultadoFront.add(new LibroCompradoDTO(
-                            libroDetalle.getnom(),    
-                            libroDetalle.getautor(),  // 👈 Modificado: 'a' minúscula
-                            libroDetalle.getimagen(), // 👈 Modificado: 'i' minúscula
+                            libroDetalle.getid(),
+                            libroDetalle.getnombre(),    
+                            libroDetalle.getautor(),
+                            libroDetalle.getimagenUrl(),
                             hc.getFechaCompra()
                         ));
                     }

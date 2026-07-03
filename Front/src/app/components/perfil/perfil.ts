@@ -1,8 +1,8 @@
-import { Component, inject, signal, ChangeDetectorRef, OnInit } from '@angular/core'; // 👈 Importamos OnInit
+import { Component, inject, signal, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http'; // 👈 Importamos HttpClient
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-perfil',
@@ -11,13 +11,12 @@ import { HttpClient } from '@angular/common/http'; // 👈 Importamos HttpClient
   templateUrl: './perfil.html',
   styleUrl: './perfil.css'
 })
-export class PerfilComponent implements OnInit { // 👈 Implementamos OnInit
+export class PerfilComponent implements OnInit {
   public loginService = inject(LoginService);
   private router = inject(Router);
   private cdr = inject(ChangeDetectorRef);
-  private http = inject(HttpClient); // 👈 Inyectamos el cliente HTTP
+  private http = inject(HttpClient);
 
-  // 👈 Inicializamos el signal vacío (ya no está hardcodeado)
   public librosComprados = signal<any[]>([]);
 
   constructor() {
@@ -27,7 +26,7 @@ export class PerfilComponent implements OnInit { // 👈 Implementamos OnInit
     }
   }
 
-  // 🚀 NUEVO: Se ejecuta al cargar el componente y trae la data real del Back
+  // Se ejecuta al cargar el componente y trae la data real del Back
   ngOnInit(): void {
     const usuarioActual = this.loginService.currentUser();
     

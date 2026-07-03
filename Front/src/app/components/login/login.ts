@@ -34,7 +34,6 @@ export class LoginComponent {
 
       this.loginService.login(this.formLogin.value).subscribe({
         next: (response: any) => {
-          // 1. Este log es vital. Abre la consola (F12) y mira qué sale aquí.
           console.log('✅ [Back Response]: ¡Usuario encontrado con éxito!', response);
           
           this.successMessage = '🎉 ¡Inicio de sesión exitoso! Redirigiendo...';
@@ -42,7 +41,6 @@ export class LoginComponent {
           this.loginService.setCurrentUser(response);
 
           setTimeout(() => {
-            // 2. Evaluamos el rol de forma estricta
             if (response && response.rol === 'ADMIN') {
               console.log('👑 Detectado como ADMIN. Redirigiendo a admin-panel...');
               this.router.navigate(['/admin-panel/perfiles']);

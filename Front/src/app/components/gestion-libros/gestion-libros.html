@@ -21,7 +21,13 @@
       </span>
     </div>
   </div>
-
+  @if (mostrarRegistrar) {
+    <app-registrar-libro 
+        [libroAEditar]="libroSeleccionado"
+        (cerrar)="mostrarRegistrar = false; libroSeleccionado = null"
+        (libroGuardadoExitoso)="cargarLibros()">
+    </app-registrar-libro>
+}
   <div class="table-responsive">
     <table class="libros-table">
       <thead>
@@ -43,7 +49,8 @@
                   <img [src]="libro.imagen" alt="Portada" class="mini-portada">
                 }
                 <div>
-                  <span class="titulo-txt">{{ libro.nom }}</span>
+                  <a class="titulo-txt" [routerLink]="['/detalle-libro', libro.id]">
+                  {{ libro.nombre }}</a>
                   <small class="autor-txt">por {{ libro.autor }}</small>
                 </div>
               </div>
@@ -56,12 +63,12 @@
             <td class="precio-cell">${{ libro.precio | number:'1.2-2' }}</td>
             <td>
               <div class="acciones-wrapper">
-                <button class="btn-action-edit" (click)="editarLibro(libro.id)" disabled>
+                <button class="btn-action-edit" (click)="editarLibro(libro.id)" >
                   Editar
                 </button>
-                <button class="btn-action-delete" (click)="eliminarLibro(libro.id)" disabled>
-                  <img src="assets/icons/delete.svg" alt="Eliminar" class="btn-icon">
-                  Eliminar
+                <button class="btn-action-delete" (click)="eliminarLibro(libro.id)">
+                <img src="assets/icons/delete.svg" alt="Eliminar" class="btn-icon">
+                Eliminar
                 </button>
               </div>
             </td>

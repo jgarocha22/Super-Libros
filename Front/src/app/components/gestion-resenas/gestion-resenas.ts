@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ResenaService } from '../../services/reseña.service'; // Mantén tu ruta de importación intacta
+import { ResenaService } from '../../services/reseña.service';
 
 @Component({
   selector: 'app-gestion-reseñas',
@@ -14,16 +14,15 @@ import { ResenaService } from '../../services/reseña.service'; // Mantén tu ru
 export class GestionResenasComponent implements OnInit {
   private resenaService = inject(ResenaService);
 
-  resenas = signal<any[]>([]); // 👈 'resenas' en lugar de 'reseñas'
+  resenas = signal<any[]>([]);
   terminoBusqueda = signal<string>('');
 
-  // 👈 Cambiado a resenasFiltradas (sin ñ)
   resenasFiltradas = computed(() => {
     const termino = this.terminoBusqueda().toLowerCase().trim();
     if (!termino) return this.resenas();
 
     return this.resenas().filter(r => 
-      r.idUsuario?.toLowerCase().includes(termino) || 
+      r.idUsuario?.toString().toLowerCase().includes(termino) || 
       r.nombreLibro?.toLowerCase().includes(termino)
     );
   });
@@ -34,16 +33,9 @@ export class GestionResenasComponent implements OnInit {
 
   cargarResenas(): void {
     this.resenaService.obtenerTodasLasResenas().subscribe({
-      next: (data) => {
-        // Mapeamos los datos del backend para asegurar que la propiedad de texto no use 'ñ' en el Front
-        const datosLimpios = data.map(r => ({
-          idLibro: r.idLibro,
-          nombreLibro: r.nombreLibro,
-          idUsuario: r.idUsuario,
-          textoResena: r.textoReseña, // 👈 Pasamos el 'textoReseña' del back a 'textoResena' para el Front
-          calificacion: r.calificacion
-        }));
-        this.resenas.set(datosLimpios);
+      next: (response) => {
+        console.log('📦 [Reseñas] Respuesta del servidor:', response);
+        this.resenas.set(Array.isArray(response) ? response : []);
       },
       error: (err) => {
         console.error('❌ Error al cargar reseñas en el sistema:', err);
@@ -51,7 +43,6 @@ export class GestionResenasComponent implements OnInit {
     });
   }
 
-  // 👈 Cambiado a eliminarResena (sin ñ)
   eliminarResena(idLibro: string, idUsuario: string): void {
     console.log(`🗑️ Quitando reseña del usuario [${idUsuario}] en el libro ID: [${idLibro}].`);
   }

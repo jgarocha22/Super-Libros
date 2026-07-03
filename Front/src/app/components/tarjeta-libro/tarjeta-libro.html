@@ -1,1 +1,30 @@
-<p>tarjeta-libro works!</p>
+<div class="tarjeta-container" [routerLink]="['/detalle-libro', libro.id]">
+  <div class="imagen-zona">
+    @if (libro.imagenurl) {
+      <img [src]="libro.imagenurl" [alt]="libro.nombre" class="libro-img" />
+    } @else {
+      <div class="placeholder-figuras">
+        <div class="figura triangulo"></div>
+        <div class="figura circulo"></div>
+        <div class="figura cuadrado"></div>
+      </div>
+    }
+  </div>
+  
+  <div class="detalles-zona">
+    <h3 class="libro-titulo">{{ libro.nombre }}</h3>
+    <h4 class="libro-autor">{{ libro.autor }}</h4>
+    <p class="libro-sinopsis">{{ libro.sinopsis }}</p>
+
+    <!-- Tags: solo se renderizan si el libro tiene al menos una -->
+    @if (libro.tags && libro.tags.length > 0) {
+      <div class="tags-zona">
+        @for (tag of libro.tags; track tag) {
+          <span class="tag-chip">{{ tag }}</span>
+        }
+      </div>
+    }
+
+    <span class="libro-precio">${{ libro.precio }}</span>
+  </div>
+</div>

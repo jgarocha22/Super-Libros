@@ -1,0 +1,100 @@
+.tarjeta-container {
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  text-decoration: none;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden; /* Keeps the top image corners rounded */
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensures all cards in a row match heights */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+/* Image / Placeholder Area */
+.imagen-zona {
+  background-color: #eae8f0; /* Soft light-purple/gray background from mockup */
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.libro-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Mockup geometric icons placeholder styling */
+.placeholder-figuras {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.figura {
+  background-color: #b2b2b2;
+  width: 24px;
+  height: 24px;
+}
+.circulo { border-radius: 50%; }
+.cuadrado { border-radius: 4px; }
+
+/* Text Details Area */
+.detalles-zona {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.libro-titulo {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0;
+}
+
+.libro-autor {
+  font-size: 0.9rem;
+  color: #718096;
+  margin: 0;
+}
+
+.libro-sinopsis {
+  font-size: 0.85rem;
+  color: #4a5568;
+  margin: 8px 0 0 0;
+  line-height: 1.4;
+  
+  /* Truncate text with ellipsis if it goes over 3 lines */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+/* TAGS */
+.tags-zona {
+  display: flex;
+  flex-wrap: wrap;  /* Si hay muchas tags, saltan a la siguiente línea */
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.tag-chip {
+  background-color: #ede9f8;
+  color: #5a3e9b;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.tarjeta-container:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}

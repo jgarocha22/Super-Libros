@@ -43,7 +43,7 @@ public class CompradorController {
         }
     }
 
-    // 🚀 NUEVO: Endpoint para el Perfil del Usuario (GET /api/compradores/{username}/compras)
+    // Endpoint para el Perfil del Usuario (GET /api/compradores/{username}/compras)
     @GetMapping("/{username}/compras")
     public ResponseEntity<List<LibroCompradoDTO>> obtenerHistorialCompras(@PathVariable String username) {
         List<LibroCompradoDTO> historial = service.obtenerHistorialCompras(username);

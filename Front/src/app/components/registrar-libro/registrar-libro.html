@@ -1,0 +1,93 @@
+<div class="modal-overlay" (click)="cerrar.emit()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>{{ libroAEditar ? 'Modificar Libro' : 'Agregar Libro' }}</h2>
+      <button class="btn-close" (click)="cerrar.emit()">&times;</button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="enviar()">
+      <div class="form-group">
+        <label>Título del Libro </label>
+        <input type="text" formControlName="nombre" placeholder="Ej. El Principito" [class.is-invalid]="form.get('nombre')?.invalid && form.get('nombre')?.touched">
+        @if (form.get('nombre')?.invalid && form.get('nombre')?.touched) {
+        <small class="error-text">El nombre es obligatorio.</small>}
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Autor </label>
+          <input type="text" formControlName="autor" placeholder="Antoine de Saint-Exupéry" [class.is-invalid]="form.get('autor')?.invalid && form.get('autor')?.touched">
+          @if (form.get('autor')?.invalid && form.get('autor')?.touched) {
+            <small class="error-text">El autor es obligatorio.</small>
+          }
+        </div>
+        <div class="form-group">
+          <label>Editorial </label>
+          <input type="text" formControlName="editorial" placeholder="Ej. Salamandra" [class.is-invalid]="form.get('editorial')?.invalid && form.get('editorial')?.touched">
+          @if (form.get('editorial')?.invalid && form.get('editorial')?.touched) {
+            <small class="error-text">La editorial es obligatoria.</small>
+          }
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Sinopsis </label>
+        <textarea formControlName="sinopsis" rows="3" placeholder="Descripción breve..." [class.is-invalid]="form.get('sinopsis')?.invalid && form.get('sinopsis')?.touched"></textarea>
+        @if (form.get('sinopsis')?.invalid && form.get('sinopsis')?.touched) {
+          <small class="error-text">La sinopsis es obligatoria.</small>
+        }
+      </div>
+
+      <div class="form-group">
+        <label>URL de la Imagen </label>
+        <input type="text" formControlName="imagenurl" placeholder="https://link-a-tu-imagen.jpg" [class.is-invalid]="form.get('imagenurl')?.invalid && form.get('imagenurl')?.touched">
+        @if (form.get('imagenurl')?.invalid && form.get('imagenurl')?.touched) {
+          <small class="error-text">La URL de la imagen es obligatoria.</small>
+        }
+      </div>
+
+      <div class="form-group">
+        <label>Precio</label>
+        <input type="number" formControlName="precio" 
+         [class.is-invalid]="form.get('precio')?.invalid && form.get('precio')?.touched">
+  
+        @if (form.get('precio')?.hasError('required') && form.get('precio')?.touched) {
+        <small class="error-text">El precio es obligatorio.</small>
+        }
+        @if (form.get('precio')?.hasError('min') && form.get('precio')?.touched) {
+        <small class="error-text">El precio no puede ser negativo.</small>
+        }
+      </div>
+
+      <div class="form-group">
+        <label>Stock</label>
+        <input type="number" formControlName="stock" 
+         [class.is-invalid]="form.get('stock')?.invalid && form.get('stock')?.touched">
+  
+      @if (form.get('stock')?.hasError('required') && form.get('stock')?.touched) {
+        <small class="error-text">El stock es obligatorio.</small>
+      }
+      @if (form.get('stock')?.hasError('min') && form.get('stock')?.touched) {
+        <small class="error-text">El stock no puede ser negativo.</small>
+      }
+      </div>
+
+      <div class="form-group">
+          <label>Tags</label>
+          <input type="text" formControlName="tags" placeholder="Ficción, Aventura, Clásico" [class.is-invalid]="form.get('tags')?.invalid && form.get('tags')?.touched">
+          @if (form.get('tags')?.invalid && form.get('tags')?.touched) {
+            <small class="error-text">Los tags son obligatorios.</small>
+          }
+        </div>
+        @if (mensaje) {
+        <div [class]="esError ? 'msg-error' : 'msg-success'">
+        {{ mensaje }}
+        </div>
+        }
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" (click)="cerrar.emit()">Cancelar</button>
+        <button type="button" class="btn-guardar" (click)="enviar()">Guardar Libro</button>
+      </div>
+    </form>
+  </div>
+</div>

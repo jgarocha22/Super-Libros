@@ -7,10 +7,15 @@ import { Observable } from 'rxjs';
 })
 export class LoginService {
   private apiUrl = 'http://localhost:8080/api/compradores/login';
-  // Ruta base para las acciones generales de los perfiles
+
   private baseUsersUrl = 'http://localhost:8080/api/compradores';
 
+  // Mantenemos el uso de Signals (más moderno y eficiente para Angular)
   public currentUser = signal<any>(this.getUserFromStorage());
+  
+  // Helper para saber si hay alguien logueado sin tener que preguntar al signal
+  public isLoggedIn = () => !!this.currentUser();
+  public isAdmin = () => this.currentUser()?.rol === 'ADMIN';
 
   constructor(private http: HttpClient) { }
 
@@ -19,7 +24,8 @@ export class LoginService {
   }
 
   setCurrentUser(user: any) {
-    localStorage.setItem('usuarioLogueado', JSON.stringify(user));
+    const key = 'usuarioLogueado';
+    localStorage.setItem(key, JSON.stringify(user));
     this.currentUser.set(user); 
   }
 
@@ -28,7 +34,7 @@ export class LoginService {
     this.currentUser.set(null); 
   }
 
-  // 🚀 NUEVO: Consumir la lista completa de compradores desde el Back para el Admin
+  // Consumir la lista completa de compradores desde el Back para el Admin
   obtenerTodosLosUsuarios(): Observable<any[]> {
     return this.http.get<any[]>(this.baseUsersUrl);
   }
