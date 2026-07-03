@@ -21,5 +21,11 @@ export class LibroService {
     getLibroById(id: string): Observable<Libro> {
         return this.http.get<Libro>(`${this.apiUrl}/${id}`);
     }
+    eliminarLibro(id: string): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    }
 
+    actualizarLibro(id: string, libro: any): Observable<any> {
+        return this.http.put<any>(`${this.apiUrl}/${id}`, libro);
+    }
 }

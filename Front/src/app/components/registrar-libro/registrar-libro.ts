@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Output, EventEmitter } from '@angular/core';
@@ -12,9 +12,10 @@ import { LibroService } from '../../services/libro.service';
   templateUrl: './registrar-libro.html',
   styleUrl: './registrar-libro.css',
 })
-export class RegistrarLibro {
+export class RegistrarLibro implements OnInit {
   @Output() libroGuardadoExitoso = new EventEmitter<void>();
   @Output() cerrar = new EventEmitter<void>();
+  @Input() libroAEditar: any = null;
   form: FormGroup;
 
   constructor(private fb: FormBuilder, private libroService: LibroService) {
@@ -28,6 +29,19 @@ export class RegistrarLibro {
       tags: ['', Validators.required],
       stock: [1, [Validators.required, Validators.min(1)]],
     });
+  }
+
+  ngOnInit(): void {
+  if (this.libroAEditar) {
+    // Si los tags vienen como Array del backend, los unimos con coma para el input de texto
+    const datosFormulario = { ...this.libroAEditar };
+    if (Array.isArray(datosFormulario.tags)) {
+      datosFormulario.tags = datosFormulario.tags.join(', ');
+    }
+    
+    // Rellena automáticamente todos los campos mapeados del formulario
+    this.form.patchValue(datosFormulario);
+  }
   }
 
   mensaje: string = '';
@@ -44,31 +58,48 @@ export class RegistrarLibro {
       stock: 0
     });
   }
-  enviar() {
+enviar() {
   if (this.form.valid) {
-
     const libroData = { ...this.form.value };
 
     if (typeof libroData.tags === 'string') {
       libroData.tags = libroData.tags.split(',').map((tag: string) => tag.trim());
     }
 
-    this.libroService.crearLibro(libroData).subscribe({
-      next: () => {
-        alert("¡Libro registrado correctamente!");
-        this.form.reset();
-        this.libroGuardadoExitoso.emit();
-      },
-      error: (err) => {
-        alert("Error: " + (err.error || "No se pudo registrar"));
-      }
-    });
-  }
-  else{
+    if (this.libroAEditar) {
+      // MODO EDICIÓN
+      this.libroService.actualizarLibro(this.libroAEditar.id, libroData).subscribe({
+        next: () => {
+          alert("¡Libro modificado correctamente!");
+          this.form.reset();
+          this.libroGuardadoExitoso.emit();
+          this.cerrar.emit();
+        },
+        error: (err) => {
+          alert("Error: " + (err.error || "No se pudo modificar"));
+        }
+      });
+    } else {
+      // MODO CREACIÓN
+      this.libroService.crearLibro(libroData).subscribe({
+        next: () => {
+          alert("¡Libro registrado correctamente!");
+          this.form.reset();
+          this.libroGuardadoExitoso.emit();
+        },
+        error: (err) => {
+          alert("Error: " + (err.error || "No se pudo registrar"));
+        }
+      });
+    }
+
+  } else {
     this.form.markAllAsTouched();
     alert("Por favor, corrige los errores antes de guardar.");
     return;
   }
-  }
+}
+
+  
 }
 

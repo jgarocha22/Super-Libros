@@ -49,4 +49,26 @@ public class LibroService {
         return librosRepository.BuscarIDJSON(id);
     }
 
+    public boolean eliminarLibroPorId(String id) {
+    if (id == null || id.trim().isEmpty()) {
+        throw new IllegalArgumentException("El ID proporcionado no es válido");
+    }
+    return librosRepository.EliminarLibro(id);
+    }
+
+    public Libro actualizarLibro(String id, Libro libro) {
+        Libro existente = BuscarLibroPorID(id);
+        if (existente == null) {
+        throw new IllegalArgumentException("No se puede editar: el libro no existe.");
+        }
+    
+        // Mantenemos el ID original por seguridad
+        libro.setid(id); 
+    
+        if (librosRepository.ModificarLibro(libro)) {
+        return libro;
+        }
+        return null;
+    }
+
 }
