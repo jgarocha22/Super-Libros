@@ -17,4 +17,8 @@ export class CompradorService {
   login(credenciales: { identifier: string; password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credenciales);
   }
+
+  eliminarComprador(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 }

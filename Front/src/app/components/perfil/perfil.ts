@@ -1,6 +1,7 @@
 import { Component, inject, signal, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginService } from '../../services/login.service';
+import { CompradorService } from '../../services/comprador.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
@@ -11,11 +12,16 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './perfil.html',
   styleUrl: './perfil.css'
 })
+
 export class PerfilComponent implements OnInit {
   public loginService = inject(LoginService);
   private router = inject(Router);
   private cdr = inject(ChangeDetectorRef);
   private http = inject(HttpClient);
+  private compradorService = inject(CompradorService);
+  public usuarioActual = this.loginService.currentUser();
+  public confirmacionAbierta = signal<boolean>(false);
+  public palabraClave = signal<string>('');
 
   public librosComprados = signal<any[]>([]);
 
@@ -26,12 +32,25 @@ export class PerfilComponent implements OnInit {
     }
   }
 
+  abrirConfirmacion(): void {
+    this.confirmacionAbierta.set(true);
+  }
+
+  cancelarEliminacion(): void {
+    this.confirmacionAbierta.set(false);
+    this.palabraClave.set('');
+  }
+
+  onTextoConfirmacionChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.palabraClave.set(input.value);
+  }
+
   // Se ejecuta al cargar el componente y trae la data real del Back
   ngOnInit(): void {
-    const usuarioActual = this.loginService.currentUser();
     
-    if (usuarioActual && usuarioActual.username) {
-      this.http.get<any[]>(`http://localhost:8080/api/compradores/${usuarioActual.username}/compras`)
+    if (this.usuarioActual && this.usuarioActual.username) {
+      this.http.get<any[]>(`http://localhost:8080/api/compradores/${this.usuarioActual.username}/compras`)
         .subscribe({
           next: (comprasRealizadas) => {
             this.librosComprados.set(comprasRealizadas); // Guardamos la respuesta en el signal
@@ -49,22 +68,18 @@ export class PerfilComponent implements OnInit {
     return user && user.username ? user.username.charAt(0).toUpperCase() : '?';
   }
 
-  onFotoSelected(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const base64String = reader.result as string;
-        const usuarioActual = this.loginService.currentUser();
-        
-        if (usuarioActual) {
-          const usuarioActualizado = { ...usuarioActual, fotoPerfil: base64String };
-          this.loginService.setCurrentUser(usuarioActualizado);
-          this.cdr.detectChanges();
-          console.log('📷 Nueva foto de perfil cargada localmente en Base64');
+  eliminarPerfil(id: number): void {
+    if(this.palabraClave() === 'CONFIRMAR') {
+      this.compradorService.eliminarComprador(id).subscribe({
+        next: () => {
+          console.log(`⚠️ Solicitud para eliminar el perfil ID: ${id}.`);
+          this.cancelarEliminacion(); // Cierra el panel al terminar
+        },
+        error: (err) => {
+          console.error('Error al intentar eliminar el comprador', err);
         }
-      };
-      reader.readAsDataURL(file);
+      })
     }
+    
   }
 }

@@ -9,6 +9,7 @@
 }
 
 .perfil-container {
+  width: 1100px;
   max-width: 1100px;
   margin: 50px auto;
   padding: 40px;               /* Espaciado interno para que respiren los datos */
@@ -224,4 +225,109 @@
   color: #999;
   font-style: italic;
   padding: 20px 0;
+}
+
+/* Botón Eliminar Perfil */
+.btn-action-delete {
+  background-color: #b71c1c;
+  color: #ffffff;
+  border: 1px solid #e2dbec;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-icon {
+  filter: invert(1); /* Cambia el icono de basurero SVG a blanco si es oscuro */
+}
+
+.alerta-eliminar-box {
+  border: 1px solid #ff4d4d;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 15px;
+  background-color: #fff5f5;
+  animation: fadeIn 0.3s ease;
+}
+
+.alerta-eliminar-box h4 {
+  color: #d32f2f;
+  margin: 0 0 10px 0;
+  font-size: 1rem;
+}
+
+.alerta-eliminar-box p {
+  color: #555;
+  font-size: 0.85rem;
+  margin-bottom: 15px;
+}
+
+.alerta-eliminar-box label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #555;
+  font-size: 0.8rem;
+}
+
+.alerta-eliminar-box label span {
+  color: #d32f2f;
+}
+
+.alerta-eliminar-box input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box; /* Asegura que el padding no rompa el ancho */
+}
+
+.acciones-confirmar {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-cancelar {
+  flex: 1;
+  padding: 10px;
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn-cancelar:hover {
+  background: #5a6268;
+}
+
+.btn-confirmar-final {
+  flex: 1;
+  padding: 10px;
+  background: #d32f2f;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Estado deshabilitado del botón */
+.btn-confirmar-final:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #a0a0a0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

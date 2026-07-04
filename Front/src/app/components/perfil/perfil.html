@@ -1,5 +1,5 @@
 <div class="background-perfil">
-  <div class="perfil-container" *ngIf="loginService.currentUser()">
+  <div class="perfil-container" *ngIf="usuarioActual">
 
     <div class="perfil-header">
       <div class="linea-decorativa"></div>
@@ -13,14 +13,14 @@
 
         <div class="avatar-seccion">
           <div class="avatar-wrapper">
-            <img *ngIf="loginService.currentUser().fotoPerfil; else soloInicial" 
-                 [src]="loginService.currentUser().fotoPerfil" alt="Foto de perfil" class="perfil-img">
+            <img *ngIf="usuarioActual.fotoPerfil; else soloInicial" 
+                 [src]="usuarioActual.fotoPerfil" alt="Foto de perfil" class="perfil-img">
             <ng-template #soloInicial>
               <div class="perfil-avatar-fallback">{{ inicialUsuario }}</div>
             </ng-template>
           </div>
 
-          <h2 class="perfil-username">{{ loginService.currentUser().username }}</h2>
+          <h2 class="perfil-username">{{ usuarioActual.username }}</h2>
         </div>
 
         <div class="info-card">
@@ -28,7 +28,7 @@
 
           <div class="info-group">
             <label>Correo Electrónico</label>
-            <div class="info-value-box">{{ loginService.currentUser().email }}</div>
+            <div class="info-value-box">{{ usuarioActual.email }}</div>
           </div>
 
           <div class="info-group">
@@ -39,11 +39,51 @@
           <div class="info-group">
             <label>Dirección de Registro</label>
             <div class="info-value-box">
-              {{ loginService.currentUser().direccion || 'No se especificó dirección en el registro' }}
+              {{ usuarioActual.direccion || 'No se especificó dirección en el registro' }}
             </div>
           </div>
         </div>
 
+        <div class="delete-modify-group">
+          
+          <button *ngIf="!confirmacionAbierta()" class="btn-action-delete" (click)="abrirConfirmacion()">
+            <img src="assets/icons/delete.svg" alt="Eliminar" class="btn-icon">
+            Eliminar Perfil
+          </button>
+
+          <!-- Bloque de confirmación inline -->
+          @if (confirmacionAbierta()) {
+            <div class="alerta-eliminar-box">
+              <h4>⚠️ ¿SEGURO QUE DESEA ELIMINAR SU PERFIL?</h4>
+              <p>Esta acción es irreversible y perderás tu historial de libros.</p>
+              
+              <label>
+                Escriba <span>CONFIRMAR</span> para proceder:
+              </label>
+              
+              <input 
+                type="text" 
+                [value]="palabraClave()" 
+                (input)="onTextoConfirmacionChange($event)"
+                placeholder="Escriba aquí..." 
+              >
+
+              <div class="acciones-confirmar">
+                <button class="btn-cancelar" (click)="cancelarEliminacion()">
+                  Cancelar
+                </button>
+                
+                <button 
+                  class="btn-confirmar-final"
+                  [disabled]="palabraClave() !== 'CONFIRMAR'" 
+                  (click)="eliminarPerfil(usuarioActual.id)" 
+                >
+                  Confirmar Eliminación
+                </button>
+              </div>
+            </div>
+          }
+        </div>
       </div>
 
       <div class="columna-derecha">
