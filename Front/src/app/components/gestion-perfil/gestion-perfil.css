@@ -89,31 +89,27 @@
 
 /* Botón Eliminar Perfil */
 .btn-action-delete {
-  /*background-color: #b71c1c;*/
-  background: #fdfbfe;
-  /*color: #ffffff;*/
+  background-color: #b71c1c;
+  color: #ffffff;
   border: 1px solid #e2dbec;
-  /*border: none;*/
+  border: none;
   border-radius: 4px;
   padding: 8px 14px;
   font-size: 0.85rem;
   font-weight: 500;
-  cursor: not-allowed;
-  /*cursor: pointer;*/
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 6px;
   transition: background-color 0.2s ease;
 }
 
-/*.btn-action-delete:hover {
+.btn-action-delete:hover {
   background-color: #d32f2f;
-}*/
+}
 
-.btn-icon-white { /* LUEGO QUITAR EL WHITE */
-  width: 14px;
-  height: 14px;
-  filter: invert(1); /* Cambia el icono de basurero SVG a blanco si es oscuro */
+.btn-icon-white {
+  filter: invert(1);
 }
 
 .empty-table-message {

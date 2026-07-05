@@ -2,6 +2,7 @@ import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
+import { CompradorService } from '../../services/comprador.service';
 
 @Component({
   selector: 'app-gestion-perfil',
@@ -10,8 +11,10 @@ import { LoginService } from '../../services/login.service';
   templateUrl: './gestion-perfil.html',
   styleUrl: './gestion-perfil.css'
 })
+
 export class GestionPerfilComponent implements OnInit {
   private loginService = inject(LoginService);
+  private compradorService = inject(CompradorService);
 
   usuarios = signal<any[]>([]);
   terminoBusqueda = signal<string>('');
@@ -45,6 +48,18 @@ export class GestionPerfilComponent implements OnInit {
   }
 
   eliminarPerfil(id: number, username: string): void {
-    console.log(`⚠️ Solicitud para eliminar el perfil ID: ${id} (${username}). Acción deshabilitada temporalmente.`);
+    if (confirm(`¿Está seguro de que desea eliminar permanentemente el perfil de "${username}"? Esta acción borrará todo su historial y es irreversible.`)) {
+      this.compradorService.eliminarComprador(id).subscribe({
+        next: (mensajeBack) => {
+          console.log('Backend dice:', mensajeBack);
+          alert(`El usuario "${username}" ha sido eliminado del sistema con éxito.`);
+          this.cargarUsuarios(); 
+        },
+        error: (err) => {
+          console.error('Error al intentar eliminar el comprador desde el panel admin:', err);
+          alert('Hubo un problema de red al intentar eliminar la cuenta. Inténtelo de nuevo.');
+        }
+      });
+    }
   }
 }
