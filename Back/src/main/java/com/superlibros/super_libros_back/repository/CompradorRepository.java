@@ -46,4 +46,14 @@ public class CompradorRepository {
             System.err.println("⚠️ Error escribiendo en el archivo JSON: " + e.getMessage());
         }
     }
+
+    public boolean EliminarComprador(long id) {
+        List<Comprador> compradores = findAll();
+        boolean eliminado = compradores.removeIf(comprador -> comprador.getId() == id);
+        if(eliminado) {
+            saveAll(compradores);
+            return true;
+        }
+        return false;
+    }
 }

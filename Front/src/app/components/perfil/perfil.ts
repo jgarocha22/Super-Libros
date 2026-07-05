@@ -69,17 +69,20 @@ export class PerfilComponent implements OnInit {
   }
 
   eliminarPerfil(id: number): void {
-    if(this.palabraClave() === 'CONFIRMAR') {
+    if (this.palabraClave() === 'CONFIRMAR') {
       this.compradorService.eliminarComprador(id).subscribe({
-        next: () => {
-          console.log(`⚠️ Solicitud para eliminar el perfil ID: ${id}.`);
-          this.cancelarEliminacion(); // Cierra el panel al terminar
+        next: (mensajeBack) => {
+          console.log('Backend dice:', mensajeBack);
+          alert("¡Tu cuenta ha sido eliminada con éxito de SuperLibros!");
+          this.loginService.setCurrentUser(null);
+          this.cancelarEliminacion();
+          this.router.navigate(['/catalogo']);
         },
         error: (err) => {
           console.error('Error al intentar eliminar el comprador', err);
+          alert("Hubo un problema de red al intentar eliminar tu cuenta. Inténtalo de nuevo.");
         }
-      })
+      });
     }
-    
   }
 }

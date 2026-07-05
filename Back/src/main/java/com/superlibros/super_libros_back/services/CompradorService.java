@@ -156,6 +156,10 @@ public class CompradorService {
         return compradores;
     }
 
+    public boolean eliminarComprador(long id) {
+        return repository.EliminarComprador(id);
+    }
+
     private String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");

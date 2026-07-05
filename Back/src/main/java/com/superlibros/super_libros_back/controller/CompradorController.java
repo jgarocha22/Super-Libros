@@ -59,7 +59,17 @@ public class CompradorController {
 
     // Endpoint para eliminación física (DELETE /api/compradores/{id})
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminarComprador(@PathVariable Long id) {
-        return new ResponseEntity<>("Acción de eliminación recibida en backend para ID: " + id, HttpStatus.OK);
+    public ResponseEntity<?> eliminarComprador(@PathVariable Long id) {
+        try {
+            boolean eliminado = service.eliminarComprador(id);
+            if(eliminado) {
+                return new ResponseEntity<>("Comprador eliminado con exito", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        //return new ResponseEntity<>("Acción de eliminación recibida en backend para ID: " + id, HttpStatus.OK);
     }
 }
