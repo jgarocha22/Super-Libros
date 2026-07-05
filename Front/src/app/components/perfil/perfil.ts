@@ -25,6 +25,17 @@ export class PerfilComponent implements OnInit {
 
   public librosComprados = signal<any[]>([]);
 
+  public editandoEmail = signal<boolean>(false);
+  public editandoDireccion = signal<boolean>(false);
+  public editandoPassword = signal<boolean>(false);
+  public editandoUsername = signal<boolean>(false);
+
+  public nuevoEmail = signal<string>('');
+  public nuevaDireccion = signal<string>('');
+  public nuevoPassword = signal<string>('');
+  public confirmarPassword = signal<string>('');
+  public nuevoUsername = signal<string>('');
+
   constructor() {
     // Protección de ruta manual
     if (!this.loginService.currentUser()) {
@@ -50,6 +61,10 @@ export class PerfilComponent implements OnInit {
   ngOnInit(): void {
     
     if (this.usuarioActual && this.usuarioActual.username) {
+      this.nuevoEmail.set(this.usuarioActual.email);
+      this.nuevaDireccion.set(this.usuarioActual.direccion || '');
+      this.nuevoUsername.set(this.usuarioActual.username);
+
       this.http.get<any[]>(`http://localhost:8080/api/compradores/${this.usuarioActual.username}/compras`)
         .subscribe({
           next: (comprasRealizadas) => {
@@ -85,4 +100,100 @@ export class PerfilComponent implements OnInit {
       });
     }
   }
+
+  activarEdicionEmail() {
+    this.nuevoEmail.set(this.usuarioActual.email);
+    this.editandoEmail.set(true);
+  }
+
+  activarEdicionDireccion() {
+    this.nuevaDireccion.set(this.usuarioActual.direccion || '');
+    this.editandoDireccion.set(true);
+  }
+
+  activarEdicionUsername() {
+    this.nuevoUsername.set(this.usuarioActual.username);
+    this.editandoUsername.set(true);
+  }
+
+  guardarEmail() {
+    if (confirm("¿Seguro que desea modificar su correo electrónico?")) {
+      const payload = { ...this.usuarioActual, email: this.nuevoEmail(), password: "" };
+      
+      this.compradorService.actualizarComprador(this.usuarioActual.id, payload).subscribe({
+        next: (usuarioModificado) => {
+          this.loginService.setCurrentUser(usuarioModificado);
+          this.usuarioActual = usuarioModificado;
+          this.editandoEmail.set(false);
+          alert("Correo electrónico actualizado con éxito.");
+        },
+        error: (err) => alert("Error al actualizar correo: " + err.error)
+      });
+    }
+  }
+
+  guardarDireccion() {
+    if (confirm("¿Seguro que desea modificar su dirección de registro?")) {
+      const payload = { ...this.usuarioActual, direccion: this.nuevaDireccion(), password: "" };
+      
+      this.compradorService.actualizarComprador(this.usuarioActual.id, payload).subscribe({
+        next: (usuarioModificado) => {
+          this.loginService.setCurrentUser(usuarioModificado);
+          this.usuarioActual = usuarioModificado;
+          this.editandoDireccion.set(false);
+          alert("Dirección actualizada con éxito.");
+        },
+        error: (err) => alert("Error al actualizar dirección: " + err.error)
+      });
+    }
+  }
+
+  guardarPassword() {
+    if (this.nuevoPassword() !== this.confirmarPassword()) {
+      alert("Las contraseñas no coinciden. Inténtelo de nuevo.");
+      return;
+    }
+
+    if (this.nuevoPassword().trim() === "") {
+      alert("La contraseña no puede estar vacía.");
+      return;
+    }
+    
+    const payload = { ...this.usuarioActual, password: this.nuevoPassword() };
+
+    this.compradorService.actualizarComprador(this.usuarioActual.id, payload).subscribe({
+      next: (usuarioModificado) => {
+        this.loginService.setCurrentUser(usuarioModificado);
+        this.usuarioActual = usuarioModificado;
+        this.editandoPassword.set(false);
+        this.nuevoPassword.set('');
+        this.confirmarPassword.set('');
+        alert("Contraseña modificada con éxito.");
+      },
+      error: (err) => alert("Error al actualizar la contraseña: " + err.error)
+    });
+  }
+
+  guardarUsername() {
+    if (this.nuevoUsername().trim() === "") {
+      alert("❌ El nombre de usuario no puede estar vacío.");
+      return;
+    }
+
+    if (confirm("¿Seguro que desea modificar su nombre de usuario?")) {
+      // Mandamos la estructura con la contraseña vacía tal como pide el servicio[cite: 11]
+      const payload = { ...this.usuarioActual, username: this.nuevoUsername(), password: "" };
+      
+      this.compradorService.actualizarComprador(this.usuarioActual.id, payload).subscribe({
+        next: (usuarioModificado) => {
+          this.loginService.setCurrentUser(usuarioModificado);
+          this.usuarioActual = usuarioModificado;
+          this.editandoUsername.set(false);
+          alert("Nombre de usuario actualizado con éxito.");
+        },
+        error: (err) => alert("Error al actualizar el nombre de usuario: " + err.error)
+      });
+    }
+  }
+
 }

@@ -72,4 +72,14 @@ public class CompradorController {
         }
         //return new ResponseEntity<>("Acción de eliminación recibida en backend para ID: " + id, HttpStatus.OK);
     }
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<?> actualizarComprador(@PathVariable Long id, @RequestBody Comprador datosActualizados) {
+        try {
+            Comprador compradorModificado = service.actualizarComprador(id, datosActualizados);
+            return new ResponseEntity<>(compradorModificado, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }

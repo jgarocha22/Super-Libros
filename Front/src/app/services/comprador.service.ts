@@ -18,7 +18,11 @@ export class CompradorService {
     return this.http.post(`${this.apiUrl}/login`, credenciales);
   }
 
- eliminarComprador(id: number): Observable<string> {
+  eliminarComprador(id: number): Observable<string> {
     return this.http.delete(`${this.apiUrl}/${id}`, { responseType: 'text' });
+  }
+
+  actualizarComprador(id: number, comprador: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, comprador);
   }
 }

@@ -69,4 +69,17 @@
   "rol" : "COMPRADOR",
   "carrito" : [ ],
   "librosComprados" : [ ]
+}, {
+  "id" : 7,
+  "username" : "testNuevo2",
+  "email" : "nuevo2@test.es",
+  "password" : "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+  "direccion" : "aa",
+  "fotoPerfil" : null,
+  "rol" : "COMPRADOR",
+  "carrito" : [ ],
+  "librosComprados" : [ {
+    "idLibro" : "9e017b07-957c-4b4b-a647-750e1417600d",
+    "fechaCompra" : "2026-06-04"
+  } ]
 } ]

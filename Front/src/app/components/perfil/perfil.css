@@ -254,6 +254,8 @@
   margin-top: 15px;
   background-color: #fff5f5;
   animation: fadeIn 0.3s ease;
+  width: 100%;
+  box-sizing: border-box; /* Asegura que no se desborde con el padding */
 }
 
 .alerta-eliminar-box h4 {
@@ -330,4 +332,24 @@
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+.delete-modify-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 25px;
+  width: 100%;
+}
+
+.btn-edit-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.icon-blanco {
+  filter: invert(1);
 }

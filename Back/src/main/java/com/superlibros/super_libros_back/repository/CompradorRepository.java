@@ -56,4 +56,27 @@ public class CompradorRepository {
         }
         return false;
     }
+
+    public Comprador actualizarComprador(long id, Comprador datosNuevos) {
+        List<Comprador> compradores = findAll();
+
+        for (Comprador comprador : compradores) {
+            if (comprador.getId() == id) {
+                // Modificamos los datos reales dentro de la lista
+                comprador.setUsername(datosNuevos.getUsername());
+                comprador.setEmail(datosNuevos.getEmail());
+                comprador.setDireccion(datosNuevos.getDireccion());
+
+                // Si viene una contraseña (ya hasheada por el servicio), se actualiza
+                if (datosNuevos.getPassword() != null && !datosNuevos.getPassword().isEmpty()) {
+                    comprador.setPassword(datosNuevos.getPassword());
+                }
+
+                // Guardamos los cambios de la lista en el JSON
+                saveAll(compradores);
+                return comprador; // Retorna el usuario modificado
+            }
+        }
+        return null; // Si no lo encuentra
+    }
 }

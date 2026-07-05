@@ -160,6 +160,45 @@ public class CompradorService {
         return repository.EliminarComprador(id);
     }
 
+    public Comprador actualizarComprador(long id, Comprador datos) {
+        List<Comprador> compradores = repository.findAll();
+        // 1. Regala de Negocio: Validar que el nuevo email no le pertenezca a OTRO usuario
+
+        if (adminIdentifier.equalsIgnoreCase(datos.getUsername())) {
+            throw new RuntimeException("No se puede utilizar el nombre de usuario reservado del administrador.");
+        }
+
+        boolean usernameExiste = compradores.stream()
+                .anyMatch(c -> c.getUsername().equalsIgnoreCase(datos.getUsername()) && c.getId() != id);
+        
+        if (usernameExiste) {
+            throw new RuntimeException("El nombre de usuario ya se encuentra registrado por otra persona.");
+        }
+
+        boolean emailExiste = compradores.stream()
+                .anyMatch(c -> c.getEmail().equalsIgnoreCase(datos.getEmail()) && c.getId() != id);
+        
+        if (emailExiste) {
+            throw new RuntimeException("El nuevo correo electrónico ya se encuentra registrado por otro usuario.");
+        }
+
+        // 2. Regla de Negocio: Cifrar la contraseña si el usuario introdujo una nueva
+        if (datos.getPassword() != null && !datos.getPassword().isEmpty()) {
+            datos.setPassword(hashPassword(datos.getPassword()));
+        }
+
+        // 3. COMUNICACIÓN CON EL REPOSITORIO: Delegamos la mutación y guardado de datos
+        Comprador compradorModificado = repository.actualizarComprador(id, datos);
+        
+        if (compradorModificado == null) {
+            throw new RuntimeException("El usuario con ID " + id + " no existe en el sistema.");
+        }
+
+        // Limpieza de seguridad antes de retornar al controlador
+        compradorModificado.setPassword("");
+        return compradorModificado;
+    }
+
     private String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");

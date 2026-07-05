@@ -25,21 +25,110 @@
 
         <div class="info-card">
           <h3>Información de Perfil</h3>
-
+        
+          <!-- GRUPO: NOMBRE DE USUARIO -->
           <div class="info-group">
-            <label>Correo Electrónico</label>
-            <div class="info-value-box">{{ usuarioActual.email }}</div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <label>Nombre de Usuario</label>
+
+              <button *ngIf="!editandoUsername()" (click)="activarEdicionUsername()" style="background: none; border: none; cursor: pointer;">
+                <img src="assets/icons/edit.svg" alt="Editar" class="btn-edit-icon">
+              </button>
+            </div>
+            
+            <div *ngIf="!editandoUsername()" class="info-value-box">{{ usuarioActual.username }}</div>
+            
+            <div *ngIf="editandoUsername()" style="display: flex; gap: 5px; margin-top: 5px;">
+              <input type="text" [value]="nuevoUsername()" (input)="nuevoUsername.set($any($event.target).value)" style="flex: 1; padding: 6px; border-radius: 4px; border: 1px solid #ccc;">
+
+              <button (click)="guardarUsername()" style="background: #28a745; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; display: flex; align-items: center;">
+                <img src="assets/icons/save.svg" alt="Guardar" class="btn-edit-icon icon-blanco">
+              </button>
+
+              <button (click)="editandoUsername.set(false)" style="background: #dc3545; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; display: flex; align-items: center;">
+                <img src="assets/icons/cancel.svg" alt="Cancelar" class="btn-edit-icon icon-blanco">
+              </button>
+            </div>
           </div>
 
-          <div class="info-group">
-            <label>Contraseña</label>
-            <div class="info-value-box">************************</div>
-          </div>
 
+          <!-- GRUPO: EMAIL -->
           <div class="info-group">
-            <label>Dirección de Registro</label>
-            <div class="info-value-box">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <label>Correo Electrónico</label>
+
+              <button *ngIf="!editandoEmail()" (click)="activarEdicionEmail()" style="background: none; border: none; cursor: pointer;">
+                <img src="assets/icons/edit.svg" alt="Editar" class="btn-edit-icon">
+              </button>
+            </div>
+            
+            <div *ngIf="!editandoEmail()" class="info-value-box">{{ usuarioActual.email }}</div>
+            
+            <div *ngIf="editandoEmail()" style="display: flex; gap: 5px; margin-top: 5px;">
+              <input type="email" [value]="nuevoEmail()" (input)="nuevoEmail.set($any($event.target).value)" style="flex: 1; padding: 6px; border-radius: 4px; border: 1px solid #ccc;">
+
+              <button (click)="guardarEmail()" style="background: #28a745; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; display: flex; align-items: center;">
+                <img src="assets/icons/save.svg" alt="Guardar" class="btn-edit-icon icon-blanco">
+              </button>
+
+              <button (click)="editandoEmail.set(false)" style="background: #dc3545; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; display: flex; align-items: center;">
+                <img src="assets/icons/cancel.svg" alt="Cancelar" class="btn-edit-icon icon-blanco">
+              </button>
+            </div>
+          </div>
+        
+          <!-- GRUPO: CONTRASEÑA -->
+          <div class="info-group">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <label>Contraseña</label>
+
+              <button *ngIf="!editandoPassword()" (click)="editandoPassword.set(true)" style="background: none; border: none; cursor: pointer;">
+                <img src="assets/icons/edit.svg" alt="Modificar" class="btn-edit-icon">
+              </button>
+            </div>
+            
+            <div *ngIf="!editandoPassword()" class="info-value-box">************************</div>
+            
+            <div *ngIf="editandoPassword()" style="display: flex; flex-direction: column; gap: 5px; margin-top: 5px; background: #f8f9fa; padding: 10px; border-radius: 6px; border: 1px solid #e3e6f0;">
+              <input type="password" placeholder="Nueva Contraseña" [value]="nuevoPassword()" (input)="nuevoPassword.set($any($event.target).value)" style="padding: 6px; border-radius: 4px; border: 1px solid #ccc;">
+              <input type="password" placeholder="Repita la Contraseña" [value]="confirmarPassword()" (input)="confirmarPassword.set($any($event.target).value)" style="padding: 6px; border-radius: 4px; border: 1px solid #ccc;">
+              <div style="display: flex; gap: 5px; justify-content: flex-end; margin-top: 5px;">
+
+                <button (click)="guardarPassword()" style="background: #28a745; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+                  <img src="assets/icons/save.svg" alt="Guardar" class="btn-edit-icon icon-blanco">
+                </button>
+
+                <button (click)="editandoPassword.set(false)" style="background: #6c757d; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+                  <img src="assets/icons/cancel.svg" alt="Cancelar" class="btn-edit-icon icon-blanco">
+                </button>
+              </div>
+            </div>
+          </div>
+        
+          <!-- GRUPO: DIRECCIÓN -->
+          <div class="info-group">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <label>Dirección de Registro</label>
+
+              <button *ngIf="!editandoDireccion()" (click)="activarEdicionDireccion()" style="background: none; border: none; cursor: pointer;">
+                <img src="assets/icons/edit.svg" alt="Editar" class="btn-edit-icon">
+              </button>
+            </div>
+            
+            <div *ngIf="!editandoDireccion()" class="info-value-box">
               {{ usuarioActual.direccion || 'No se especificó dirección en el registro' }}
+            </div>
+          
+            <div *ngIf="editandoDireccion()" style="display: flex; gap: 5px; margin-top: 5px;">
+              <input type="text" [value]="nuevaDireccion()" (input)="nuevaDireccion.set($any($event.target).value)" style="flex: 1; padding: 6px; border-radius: 4px; border: 1px solid #ccc;">
+
+              <button (click)="guardarDireccion()" style="background: #28a745; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; display: flex; align-items: center;">
+                <img src="assets/icons/save.svg" alt="Guardar" class="btn-edit-icon icon-blanco">
+              </button>
+
+              <button (click)="editandoDireccion.set(false)" style="background: #dc3545; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; display: flex; align-items: center;">
+                <img src="assets/icons/cancel.svg" alt="Cancelar" class="btn-edit-icon icon-blanco">
+              </button>
             </div>
           </div>
         </div>
