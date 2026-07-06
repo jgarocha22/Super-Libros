@@ -33,7 +33,7 @@
 .stock { color: #888; margin-bottom: 1rem; }
 
 .btn-carrito {
-  background-color: #e0d0f5; /* Color similar al de tu imagen */
+  background-color: #e0d0f5;
   color: #333;
   padding: 1rem 3rem;
   border: none;
@@ -60,9 +60,9 @@
   padding: 20px;
 }
 
-/* Ajuste específico para que coincida con tu diseño */
+/* Ajuste específico para que coincida con el diseño */
 h1, h2, p {
-  color: #333; /* O el color exacto de tu diseño */
+  color: #333; /* O el color exacto de el diseño */
 }
 
 .resena-card {
@@ -167,6 +167,21 @@ h1, h2, p {
   color: #333;
   background: #fff;
   box-sizing: border-box;
+}
+
+/* Contador de caracteres */
+.char-counter {
+  text-align: right;
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 4px;
+  transition: color 0.2s;
+}
+
+/* Se activa con [class.limite-alcanzado] cuando llega a 300 */
+.char-counter.limite-alcanzado {
+  color: #b42318;
+  font-weight: 700;
 }
 
 .acciones-resena {

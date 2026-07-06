@@ -51,9 +51,14 @@
           name="resena"
           [(ngModel)]="nuevaResena.resena"
           rows="4"
-          maxlength="500"
+          maxlength="300"
           placeholder="Escribe tu reseña..."
           required></textarea>
+
+        <!-- Contador de caracteres: se vuelve rojo al llegar al límite -->
+        <div class="char-counter" [class.limite-alcanzado]="nuevaResena.resena.length >= 300">
+          {{ nuevaResena.resena.length }} / 300
+        </div>
 
         <div class="acciones-resena">
           <label>
@@ -61,7 +66,10 @@
             Recomiendo este libro
           </label>
 
-          <button type="submit">Publicar</button>
+          <!-- Deshabilitado si supera los 300 caracteres o si el campo está vacío -->
+          <button type="submit" [disabled]="nuevaResena.resena.length > 300 || nuevaResena.resena.trim().length === 0">
+            Publicar
+          </button>
         </div>
       </form>
 
